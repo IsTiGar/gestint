@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "976140979569",
+    "project_id": "gestint-2ecac",
+    "storage_bucket": "gestint-2ecac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976140979569:android:cb16c77b6a8fda52bf3ad0",
+        "android_client_info": {
+          "package_name": "com.istigar.gestint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976140979569-8t4shr7l1ciho95ipebmprnt2vveojph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg3HwemcnsVjY9Is9oa7l0l-aLfmU1kz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976140979569-8t4shr7l1ciho95ipebmprnt2vveojph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
