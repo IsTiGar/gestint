@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'main_menu.dart';
+import 'main_menu_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -99,7 +99,7 @@ class _LoginViewState extends State<LoginView> {
                           // Check credentials on FireStore ************ //TODO
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => MainMenu()),
+                            MaterialPageRoute(builder: (context) => MainMenuView()),
                           );
                         }
                       },
