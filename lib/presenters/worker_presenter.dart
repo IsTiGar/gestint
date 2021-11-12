@@ -1,21 +1,23 @@
 
-import 'package:gestint/views/worker_view.dart';
+import 'package:gestint/contracts/worker_view_contract.dart';
+import 'package:gestint/helpers/injector.dart';
+import 'package:gestint/repositories/data_repository.dart';
 
-class WorkerPresenter{
+class WorkerPresenter {
+  WorkerViewContract _view;
+  late DataRepository _repository;
 
-  /*WorkerView _workerView;
-  DataRepository _dataRepository;*/
+  WorkerPresenter(this._view){
+    _repository = new Injector().dataRepository;
+  }
 
-  /*WorkerPresenter() {
-    this._dataRepository = new Injector().dataRepository;
-  }*/
-
-  void fetchWorkerInfo() {
-    /*this._dataRepository
-        .fetchWorker("X46959966")
-        .then((result) => this._workerView.onLoadWorkerComplete(result))
-        .catchError((onError) => this._workerView.onLoadWorkerError());*/
-
+  void getWorkerProfile(){
+    _repository.getWorker("X46959966")
+        .first
+        .then((stream) => _view.onLoadWorkerComplete(stream.first))
+        .catchError((onError) {
+          _view.onLoadWorkerError();
+      });
   }
 
 }

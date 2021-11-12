@@ -1,39 +1,42 @@
 
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gestint/contracts/worker_view_contract.dart';
 import 'package:gestint/models/worker_model.dart';
+import 'package:gestint/presenters/worker_presenter.dart';
+import 'package:gestint/widgets/scale_widget.dart';
+import 'package:gestint/widgets/profile_widget.dart';
+import 'package:gestint/widgets/welcome_widget.dart';
 
-class MainMenuView extends StatefulWidget {
-  //final WorkerPresenter workerPresenter;
+class MainMenuView extends StatefulWidget{
 
-  MainMenuView({Key? key/*, required this.workerPresenter*/}) : super(key: key);
+  MainMenuView({Key? key}) : super(key: key);
 
   @override
   State<MainMenuView> createState() => _MainMenuState();
+
 }
 
-class _MainMenuState extends State<MainMenuView> /*implements WorkerView*/ {
+class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
+
+  late WorkerPresenter _workerPresenter;
+  late Worker _worker;
+  bool _isLoading = true;
+  Widget bodyWidget = WelcomeWidget();
+
+  @override
+  void initState() {
+    super.initState();
+    _isLoading = true;
+    _workerPresenter = WorkerPresenter(this);
+    _workerPresenter.getWorkerProfile();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: Text('Portal del personal')),
+      appBar: AppBar(title: Text('Portal del personal')), //TODO poner titulo y sustituir
       body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(30),
-            child: Expanded(
-              child: Text(
-                'Bienvenido al portal del personal de la Consejeria de Educación y Formación Profesional de las Islas Baleares',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-          )
+          child: bodyWidget,
       ),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
@@ -47,23 +50,7 @@ class _MainMenuState extends State<MainMenuView> /*implements WorkerView*/ {
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 204, 7, 60),
               ),
-              child: FutureBuilder<QuerySnapshot>(
-                  future: FirebaseFirestore.instance.collection("Worker")
-                  .where("id", isEqualTo: "X46959966")
-                  .get(),
-                  builder: (BuildContext context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text("Something went wrong");
-                    }
-
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      var list = snapshot.data!.docs.toList();
-                      return Text("Name: ${list.first["lastName1"]}");
-                    }
-
-                    return CircularProgressIndicator();
-                  }
-              )
+              child: _isLoading ? CircularProgressIndicator() : ProfileWidget(worker: _worker),
             ),
             ListTile(
               title: const Text('Expediente personal'),
@@ -94,6 +81,22 @@ class _MainMenuState extends State<MainMenuView> /*implements WorkerView*/ {
               },
             ),
             ListTile(
+              title: const Text('Baremación'),
+              leading: Icon(
+                Icons.swap_vert,
+                color: Color.fromARGB(255, 204, 7, 60),
+                size: 30.0,
+              ),
+              onTap: () {
+                // replace body widget
+                setState(() {
+                  bodyWidget = ScaleWidget();
+                });
+                // Close drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
               title: const Text('Mapa de centros'),
               leading: Icon(
                 Icons.place,
@@ -113,13 +116,16 @@ class _MainMenuState extends State<MainMenuView> /*implements WorkerView*/ {
     );
   }
 
-  /*@override
+  @override
   void onLoadWorkerComplete(Worker worker) {
-    // TODO: implement onLoadWorkerComplete
+    setState(() {
+      _worker = worker;
+      _isLoading = false;
+    });
   }
 
   @override
   void onLoadWorkerError() {
-    // TODO: implement onLoadWorkerError
-  }*/
+    // TODO: implement onLoadWorkerError, show message or something
+  }
 }

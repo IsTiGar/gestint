@@ -18,7 +18,7 @@ class Worker {
     pictureURL = "";
   }*/
 
-  Worker.fromJson(Map<String, dynamic> json)
+  Worker.fromSnapshot(Map<String, dynamic> json)
       : id = json['id'],
         firstName = json['firstName'],
         lastName1 = json['lastName1'],
