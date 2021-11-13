@@ -12,17 +12,12 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //bool _active = false;
-
-  /*void _handleTap() {
-    setState(() {
-      _active = !_active;
-    });
-  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // this avoids overflow when keyboard is visible
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
         padding: EdgeInsets.all(30),
@@ -59,6 +54,8 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   TextFormField(
+                    //this moves the cursor to the next field
+                    textInputAction: TextInputAction.next,
                     decoration: const InputDecoration(
                       hintText: 'Ejemplo: X12345678',
                     ),
@@ -78,6 +75,8 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   TextFormField(
+                    // this hides the keyboard
+                    textInputAction: TextInputAction.done,
                     decoration: const InputDecoration(
 
                     ),

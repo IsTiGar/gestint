@@ -14,22 +14,3 @@ class DataRepository implements WorkerContract {
         .snapshots().map((snapshot) => snapshot.docs.map((doc) => Worker.fromSnapshot(doc.data())).toList());
   }
 }
-
-
-/*FutureBuilder<QuerySnapshot>(
-future: FirebaseFirestore.instance.collection("Worker")
-.where("id", isEqualTo: "X46959966")
-.get(),
-builder: (BuildContext context, snapshot) {
-if (snapshot.hasError) {
-return Text("Something went wrong");
-}
-
-if (snapshot.connectionState == ConnectionState.done) {
-var list = snapshot.data!.docs.toList();
-return Text("Name: ${list.first["lastName1"]}");
-}
-
-return CircularProgressIndicator();
-}
-)*/

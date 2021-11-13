@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:gestint/contracts/worker_view_contract.dart';
 import 'package:gestint/models/worker_model.dart';
 import 'package:gestint/presenters/worker_presenter.dart';
+import 'package:gestint/widgets/available_workers_widget.dart';
+import 'package:gestint/widgets/contact_widget.dart';
+import 'package:gestint/widgets/documents_widget.dart';
+import 'package:gestint/widgets/maps_widget.dart';
+import 'package:gestint/widgets/procedures_widget.dart';
 import 'package:gestint/widgets/scale_widget.dart';
 import 'package:gestint/widgets/profile_widget.dart';
 import 'package:gestint/widgets/welcome_widget.dart';
@@ -22,6 +27,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   late Worker _worker;
   bool _isLoading = true;
   Widget bodyWidget = WelcomeWidget();
+  String appBarTitle = 'Portal del personal';
 
   @override
   void initState() {
@@ -34,7 +40,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Portal del personal')), //TODO poner titulo y sustituir
+      appBar: AppBar(title: Text(appBarTitle)),
       body: Center(
           child: bodyWidget,
       ),
@@ -60,10 +66,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 size: 30.0,
               ),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
+
               },
             ),
             ListTile(
@@ -74,10 +77,34 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 size: 30.0,
               ),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
+                // replace body widget
+                setState(() {
+                  bodyWidget = DocumentsWidget();
+                });
+                // Close drawer
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Datos económicos'),
+              leading: Icon(
+                Icons.euro,
+                color: Color.fromARGB(255, 204, 7, 60),
+                size: 30.0,
+              ),
+              onTap: () {
+
+              },
+            ),
+            ListTile(
+              title: const Text('Formación'),
+              leading: Icon(
+                Icons.school,
+                color: Color.fromARGB(255, 204, 7, 60),
+                size: 30.0,
+              ),
+              onTap: () {
+
               },
             ),
             ListTile(
@@ -97,9 +124,77 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
+              title: const Text('Interinos disponibles'),
+              leading: Icon(
+                Icons.people,
+                color: Color.fromARGB(255, 204, 7, 60),
+                size: 30.0,
+              ),
+              onTap: () {
+                // replace body widget
+                setState(() {
+                  appBarTitle = 'Interinos disponibles';
+                  bodyWidget = AvailableWorkersWidget();
+                });
+                // Close drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Trámites'),
+              leading: Icon(
+                Icons.schedule,
+                color: Color.fromARGB(255, 204, 7, 60),
+                size: 30.0,
+              ),
+              onTap: () {
+                // replace body widget
+                setState(() {
+                  appBarTitle = 'Trámites';
+                  bodyWidget = ProceduresWidget();
+                });
+                // Close drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
               title: const Text('Mapa de centros'),
               leading: Icon(
                 Icons.place,
+                color: Color.fromARGB(255, 204, 7, 60),
+                size: 30.0,
+              ),
+              onTap: () {
+                // replace body widget
+                setState(() {
+                  appBarTitle = 'Mapa de centros';
+                  bodyWidget = MapsWidget();
+                });
+                // Close drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Contacto'),
+              leading: Icon(
+                Icons.contact_support,
+                color: Color.fromARGB(255, 204, 7, 60),
+                size: 30.0,
+              ),
+              onTap: () {
+                // replace body widget
+                setState(() {
+                  appBarTitle = 'Contacto';
+                  bodyWidget = ContactWidget();
+                });
+                // Close drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Salir'),
+              leading: Icon(
+                Icons.logout,
                 color: Color.fromARGB(255, 204, 7, 60),
                 size: 30.0,
               ),
