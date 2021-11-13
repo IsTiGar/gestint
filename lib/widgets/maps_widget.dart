@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gestint/contracts/school_view_contract.dart';
+import 'package:gestint/models/school_model.dart';
+import 'package:gestint/presenters/schools_presenter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -11,15 +14,21 @@ class MapsWidget extends StatefulWidget {
   State<MapsWidget> createState() => MapsWidgetState();
 }
 
-class MapsWidgetState extends State<MapsWidget> {
+class MapsWidgetState extends State<MapsWidget> implements SchoolViewContract {
+
+  late SchoolsPresenter _schoolsPresenter;
+  final Map<String, Marker> _markers = {};
+
   Completer<GoogleMapController> _controller = Completer();
 
   @override
   void initState() {
     super.initState();
+    _schoolsPresenter = SchoolsPresenter(this);
     _checkLocationPermission().then((value){
       print('Async done');
     });
+    _getSchoolsInfo();
   }
 
   Future _checkLocationPermission() async {
@@ -32,6 +41,11 @@ class MapsWidgetState extends State<MapsWidget> {
       // Permiso concedido
       _goToMyPosition();
     }
+
+  }
+
+  Future _getSchoolsInfo() async {
+    _schoolsPresenter.getSchools();
   }
 
   // Initial position, these are central Mallorca coordinates
@@ -52,6 +66,7 @@ class MapsWidgetState extends State<MapsWidget> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
+        markers: _markers.values.toSet(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _goToMyPosition,
@@ -77,5 +92,30 @@ class MapsWidgetState extends State<MapsWidget> {
       ));
     }
 
+  }
+
+  @override
+  void onLoadSchoolsError() {
+    // TODO: implement onLoadSchoolsError Arreglar, se llama también
+    print('La lista tiene errores');
+  }
+
+  @override
+  void onSchoolsPetitionComplete(List<School> schoolList) {
+    print('La lista tiene: ' + schoolList.length.toString());
+    setState(() {
+      //_schoolList = schoolList;
+      for (final school in schoolList) {
+        final marker = Marker(
+          markerId: MarkerId(school.phoneNumber),
+          position: LatLng(school.locationLat, school.locationLong),
+          infoWindow: InfoWindow(title: school.name, snippet: 'Hola'),
+          onTap: () {
+            //TODO
+          },
+        );
+        _markers[school.phoneNumber] = marker;
+      }
+    });
   }
 }

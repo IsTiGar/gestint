@@ -12,12 +12,12 @@ class WorkerPresenter {
   }
 
   void getWorkerProfile(){
-    _repository.getWorker("X46959966")
-        .first
-        .then((stream) => _view.onLoadWorkerComplete(stream.first))
+    _repository.getWorker('X46959966')
+        .then((worker) => _view.onLoadWorkerComplete(worker))
         .catchError((onError) {
+          print(onError.toString());
           _view.onLoadWorkerError();
-      });
+    });
   }
 
 }

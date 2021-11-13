@@ -9,15 +9,6 @@ class Worker {
 
   Worker(this.id, this.lastName1, this.lastName2, this.emailAddress, this.pictureURL, this.firstName);
 
-  /*Worker.empty() {
-    id = "";
-    firstName = "";
-    lastName1 = "";
-    lastName2 = "";
-    emailAddress = "";
-    pictureURL = "";
-  }*/
-
   Worker.fromSnapshot(Map<String, dynamic> json)
       : id = json['id'],
         firstName = json['firstName'],
