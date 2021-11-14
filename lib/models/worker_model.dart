@@ -7,7 +7,13 @@ class Worker {
   final String emailAddress;
   final String pictureURL;
 
-  Worker(this.id, this.lastName1, this.lastName2, this.emailAddress, this.pictureURL, this.firstName);
+  Worker(
+      this.id,
+      this.lastName1,
+      this.lastName2,
+      this.emailAddress,
+      this.pictureURL,
+      this.firstName);
 
   Worker.fromSnapshot(Map<String, dynamic> json)
       : id = json['id'],

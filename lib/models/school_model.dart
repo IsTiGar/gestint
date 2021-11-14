@@ -7,7 +7,13 @@ class School {
   final String body;
   final String phoneNumber;
 
-  School(this.name, this.address, this.locationLat, this.locationLong, this.body, this.phoneNumber);
+  School(
+      this.name,
+      this.address,
+      this.locationLat,
+      this.locationLong,
+      this.body,
+      this.phoneNumber);
 
   School.fromSnapshot(Map<String, dynamic> json)
       : name = json['name'],

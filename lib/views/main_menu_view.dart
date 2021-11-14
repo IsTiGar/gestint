@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gestint/contracts/worker_view_contract.dart';
 import 'package:gestint/models/worker_model.dart';
 import 'package:gestint/presenters/worker_presenter.dart';
+import 'package:gestint/widgets/custom_progress_indicator.dart';
+import 'package:gestint/widgets/personal_file_widget.dart';
 import 'package:gestint/widgets/available_workers_widget.dart';
 import 'package:gestint/widgets/contact_widget.dart';
 import 'package:gestint/widgets/documents_widget.dart';
@@ -56,7 +58,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 204, 7, 60),
               ),
-              child: _isLoading ? CircularProgressIndicator() : ProfileWidget(worker: _worker),
+              child: _isLoading ? CustomProgressIndicatorWidget() : ProfileWidget(worker: _worker),
             ),
             ListTile(
               title: const Text('Expediente personal'),
@@ -66,7 +68,13 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 size: 30.0,
               ),
               onTap: () {
-
+                // replace body widget
+                setState(() {
+                  appBarTitle = 'Expediente personal';
+                  bodyWidget = PersonalFileWidget();
+                });
+                // Close drawer
+                Navigator.pop(context);
               },
             ),
             ListTile(

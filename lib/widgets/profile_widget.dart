@@ -11,13 +11,17 @@ class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
           backgroundImage: NetworkImage(worker.pictureURL),
           backgroundColor: Colors.cyanAccent,
+          radius: 40,
         ),
-        Text('${worker.firstName} ${worker.lastName1} ${worker.lastName2}'),
-        Text(worker.emailAddress)
+        SizedBox(height: 10,),
+        Text('${worker.firstName} ${worker.lastName1} ${worker.lastName2}',
+        style: TextStyle(color: Colors.white),),
+        Text(worker.emailAddress, style: TextStyle(color: Colors.white),)
       ],
     );
   }

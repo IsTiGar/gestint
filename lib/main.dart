@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'theme/custom_theme.dart';
 import 'views/login_view.dart';
+import 'views/main_menu_view.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: CustomTheme.lightTheme,
-      home: LoginView(),
+      home: MainMenuView(), //TODO cambiar a LoginView
     );
   }
 }
