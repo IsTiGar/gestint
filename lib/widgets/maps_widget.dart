@@ -109,7 +109,7 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
         final marker = Marker(
           markerId: MarkerId(school.phoneNumber),
           position: LatLng(school.locationLat, school.locationLong),
-          infoWindow: InfoWindow(title: school.name, snippet: 'Hola'),
+          infoWindow: InfoWindow(title: school.name, snippet: school.phoneNumber),
           onTap: () {
             //TODO
           },
