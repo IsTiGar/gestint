@@ -4,6 +4,7 @@ import 'package:gestint/contracts/worker_view_contract.dart';
 import 'package:gestint/models/worker_model.dart';
 import 'package:gestint/presenters/worker_presenter.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
+import 'package:gestint/widgets/payroll_widget.dart';
 import 'package:gestint/widgets/personal_file_widget.dart';
 import 'package:gestint/widgets/available_workers_widget.dart';
 import 'package:gestint/widgets/contact_widget.dart';
@@ -87,6 +88,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
+                  appBarTitle = 'Documentos';
                   bodyWidget = DocumentsWidget();
                 });
                 // Close drawer
@@ -101,7 +103,13 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 size: 30.0,
               ),
               onTap: () {
-
+                // replace body widget
+                setState(() {
+                  appBarTitle = 'Datos económicos';
+                  bodyWidget = PayrollWidget();
+                });
+                // Close drawer
+                Navigator.pop(context);
               },
             ),
             ListTile(
@@ -112,7 +120,13 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 size: 30.0,
               ),
               onTap: () {
-
+                // replace body widget
+                setState(() {
+                  appBarTitle = 'Formación';
+                  //bodyWidget = ScaleWidget();
+                });
+                // Close drawer
+                Navigator.pop(context);
               },
             ),
             ListTile(
@@ -125,6 +139,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
+                  appBarTitle = 'Baremación';
                   bodyWidget = ScaleWidget();
                 });
                 // Close drawer

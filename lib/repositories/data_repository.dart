@@ -1,17 +1,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gestint/contracts/certifications_contract.dart';
+import 'package:gestint/contracts/charges_contract.dart';
+import 'package:gestint/contracts/courses_contract.dart';
+import 'package:gestint/contracts/courses_finished_contract.dart';
+import 'package:gestint/contracts/destinations_contract.dart';
+import 'package:gestint/contracts/documents_contract.dart';
+import 'package:gestint/contracts/payroll_contract.dart';
 import 'package:gestint/contracts/personal_data_contract.dart';
-import 'package:gestint/contracts/school_contract.dart';
+import 'package:gestint/contracts/scale_contract.dart';
+import 'package:gestint/contracts/schools_contract.dart';
 import 'package:gestint/contracts/worker_contract.dart';
+import 'package:gestint/models/certification_model.dart';
+import 'package:gestint/models/charge_model.dart';
+import 'package:gestint/models/course_finished_model.dart';
+import 'package:gestint/models/course_model.dart';
+import 'package:gestint/models/destination_model.dart';
+import 'package:gestint/models/document_model.dart';
+import 'package:gestint/models/payroll_model.dart';
 import 'package:gestint/models/personal_data_model.dart';
+import 'package:gestint/models/scale_model.dart';
 import 'package:gestint/models/school_model.dart';
 import 'package:gestint/models/worker_model.dart';
 
 class DataRepository implements WorkerContract,
-    SchoolContract, PersonalDataContract {
+    SchoolsContract, PersonalDataContract, CertificationsContract,
+    ChargesContract, CoursesContract, CoursesFinishedContract, 
+    DestinationsContract, DocumentsContract, PayrollContract,
+    ScaleContract{
 
+  /* Firestore collections */
   final workerCollection = FirebaseFirestore.instance.collection("Worker");
   final personalDataCollection = FirebaseFirestore.instance.collection("PersonalData");
   final schoolCollection = FirebaseFirestore.instance.collection("School");
+  final certificationCollection = FirebaseFirestore.instance.collection("Certification");
+  final chargeCollection = FirebaseFirestore.instance.collection("Charge");
+  final destinationCollection = FirebaseFirestore.instance.collection("Destination");
+  final documentCollection = FirebaseFirestore.instance.collection("Document");
+  final payrollCollection = FirebaseFirestore.instance.collection("Payroll");
+  final scaleCollection = FirebaseFirestore.instance.collection("Scale");
+  final courseFinishedCollection = FirebaseFirestore.instance.collection("CourseFinished");
+  final courseCollection = FirebaseFirestore.instance.collection("Course");
 
   @override
   Future<Worker> getWorker(String id) async {
@@ -46,7 +74,6 @@ class DataRepository implements WorkerContract,
 
   @override
   Future<PersonalData> getPersonalData(String id) async {
-    print('Buscando en repository');
     var personalDataArray = <PersonalData>[];
     await personalDataCollection.limit(1)
         .where('id', isEqualTo: id)
@@ -59,6 +86,135 @@ class DataRepository implements WorkerContract,
           ),
     );
     return personalDataArray.first;
+  }
+
+  @override
+  Future<List<Certification>> getCertifications(String id) async {
+    var certifications = <Certification>[];
+    await certificationCollection
+        .where('id', isEqualTo: id)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (certification) {
+                  certifications.add(Certification.fromSnapshot(certification.data()));
+            },
+          ),
+    );
+    return certifications;
+  }
+
+  @override
+  Future<List<Charge>> getCharges(String id) async{
+    var charges = <Charge>[];
+    await chargeCollection
+        .where('id', isEqualTo: id)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (charge) {
+              charges.add(Charge.fromSnapshot(charge.data()));
+            },
+          ),
+    );
+    return charges;
+  }
+
+  @override
+  Future<List<Destination>> getDestinations(String id) async{
+    var destinations = <Destination>[];
+    await destinationCollection
+        .where('id', isEqualTo: id)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (destination) {
+              destinations.add(Destination.fromSnapshot(destination.data()));
+            },
+          ),
+    );
+    return destinations;
+  }
+
+  @override
+  Future<List<Document>> getDocuments(String id) async{
+    var documents = <Document>[];
+    await documentCollection
+        .where('id', isEqualTo: id)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (document) {
+              documents.add(Document.fromSnapshot(document.data()));
+            },
+          ),
+    );
+    return documents;
+  }
+
+  @override
+  Future<Payroll> getPayroll(String id, int month, int year) async{
+    var payrolls = <Payroll>[];
+    await payrollCollection
+        .where('id', isEqualTo: id)
+        .where('month', isEqualTo: month)
+        .where('year', isEqualTo: year)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (payroll) {
+              payrolls.add(Payroll.fromSnapshot(payroll.data()));
+            },
+          ),
+    );
+    print('Longitud del vector: ' + payrolls.length.toString());
+    return payrolls.first;
+  }
+
+  @override
+  Future<Scale> getScale(String id) async{
+    var scales = <Scale>[];
+    await scaleCollection.limit(1)
+        .where('id', isEqualTo: id)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (scale) {
+              scales.add(Scale.fromSnapshot(scale.data()));
+            },
+          ),
+    );
+    return scales.first;
+  }
+
+  @override
+  Future<List<CourseFinished>> getCoursesFinished(String id) async {
+    var coursesFinished = <CourseFinished>[];
+    await courseFinishedCollection
+        .where('id', isEqualTo: id)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (courseFinished) {
+              coursesFinished.add(CourseFinished.fromSnapshot(courseFinished.data()));
+            },
+          ),
+    );
+    return coursesFinished;
+  }
+
+  @override
+  Future<List<Course>> getCourses() async{
+    var courses = <Course>[];
+    await courseCollection.get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (course) {
+              courses.add(Course.fromSnapshot(course.data()));
+            },
+          ),
+    );
+    return courses;
   }
 
 }

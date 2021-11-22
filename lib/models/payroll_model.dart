@@ -1,16 +1,15 @@
-import 'dart:ffi';
 
 class Payroll {
 
   final int month;
   final int year;
-  final Float base;
-  final Float destinationComplement;
-  final Float residenceComplement;
-  final Float generalComplement;
-  final Float communityComplement;
-  final Float irpf;
-  final Float contribution;
+  final double base;
+  final double destinationComplement;
+  final double residenceComplement;
+  final double generalComplement;
+  final double communityComplement;
+  final double irpf;
+  final double contribution;
 
   Payroll(
       this.month,
@@ -31,7 +30,26 @@ class Payroll {
         residenceComplement = json['residenceComplement'],
         generalComplement = json['generalComplement'],
         communityComplement = json['communityComplement'],
-        irpf = json['irpf'],
+        irpf = json['irpf'] == null ? 0.0 : json['irpf'].toDouble(), // forcefully convert int to double
         contribution = json['contribution'];
+
+  double calculateAccrual() {
+    double accrual = this.base + this.destinationComplement + this.residenceComplement + this.generalComplement + this.communityComplement;
+    return accrual;
+  }
+
+  double calculateIrpf() {
+    return calculateAccrual() * this.irpf/100;
+  }
+
+  double calculateTaxes() {
+    double taxes = calculateIrpf() + this.contribution;
+    return taxes;
+  }
+
+  double calculateSalary() {
+    double salary = calculateAccrual() - calculateTaxes();
+    return salary;
+  }
 
 }

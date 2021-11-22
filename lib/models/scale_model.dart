@@ -2,20 +2,18 @@ import 'dart:ffi';
 
 class Scale {
 
-  final Float qualification;
-  final Float publicExp;
-  final Float privateExp;
-  final Float universityExp;
-  final Float academicQual;
-  final Float phd;
-  final Float other;
-  final Float special;
-  final Float catalan;
-  final Float courses;
-  final Float coursesHours;
+  final double publicExp;
+  final double privateExp;
+  final double universityExp;
+  final double academicQual;
+  final double phd;
+  final double other;
+  final double special;
+  final double catalan;
+  final double courses;
+  final double coursesHours;
 
   Scale(
-      this.qualification,
       this.publicExp,
       this.privateExp,
       this.universityExp,
@@ -28,16 +26,20 @@ class Scale {
       this.coursesHours);
 
   Scale.fromSnapshot(Map<String, dynamic> json)
-      : qualification = json['qualification'],
-        publicExp = json['publicExp'],
-        privateExp = json['privateExp'],
-        universityExp = json['universityExp'],
-        academicQual = json['academicQual'],
-        phd = json['phd'],
-        other = json['other'],
-        special = json['special'],
-        catalan = json['catalan'],
-        courses = json['courses'],
-        coursesHours = json['coursesHours'];
+      : publicExp = json['publicExp'] == null ? 0.0 : json['publicExp'].toDouble(), // forcefully convert int to double
+        privateExp = json['privateExp'] == null ? 0.0 : json['privateExp'].toDouble(),
+        universityExp = json['universityExp'] == null ? 0.0 : json['universityExp'].toDouble(),
+        academicQual = json['academicQual'] == null ? 0.0 : json['academicQual'].toDouble(),
+        phd = json['phd'] == null ? 0.0 : json['phd'].toDouble(),
+        other = json['other'] == null ? 0.0 : json['other'].toDouble(),
+        special = json['special'] == null ? 0.0 : json['special'].toDouble(),
+        catalan = json['catalan'] == null ? 0.0 : json['catalan'].toDouble(),
+        courses = json['courses'] == null ? 0.0 : json['courses'].toDouble(),
+        coursesHours = json['coursesHours'] == null ? 0.0 : json['coursesHours'].toDouble();
+
+  String calculateTotalScale() {
+    var _scaleDouble = publicExp + privateExp + universityExp + academicQual + phd + other + special + catalan + courses;
+    return _scaleDouble.toStringAsFixed(3);
+  }
 
 }

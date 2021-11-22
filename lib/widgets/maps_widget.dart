@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gestint/contracts/school_view_contract.dart';
+import 'package:gestint/contracts/schools_view_contract.dart';
 import 'package:gestint/models/school_model.dart';
 import 'package:gestint/presenters/schools_presenter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,7 +14,7 @@ class MapsWidget extends StatefulWidget {
   State<MapsWidget> createState() => MapsWidgetState();
 }
 
-class MapsWidgetState extends State<MapsWidget> implements SchoolViewContract {
+class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
 
   late SchoolsPresenter _schoolsPresenter;
   final Map<String, Marker> _markers = {};
@@ -101,7 +101,7 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolViewContract {
   }
 
   @override
-  void onSchoolsPetitionComplete(List<School> schoolList) {
+  void onLoadSchoolsComplete(List<School> schoolList) {
     print('La lista tiene: ' + schoolList.length.toString());
     setState(() {
       //_schoolList = schoolList;
