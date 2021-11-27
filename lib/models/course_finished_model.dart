@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class CourseFinished {
 
@@ -7,7 +6,7 @@ class CourseFinished {
   final String endDate;
   final String agency;
   final String strategicLine;
-  final Float hours;
+  final double hours;
   final String type;
 
   CourseFinished(
@@ -25,7 +24,7 @@ class CourseFinished {
         endDate = json['endDate'],
         agency = json['agency'],
         strategicLine = json['strategicLine'],
-        hours = json['hours'],
+        hours = json['hours'] == null ? 0.0 : json['hours'].toDouble(),
         type = json['type'];
 
 }

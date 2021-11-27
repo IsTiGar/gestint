@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gestint/widgets/current_job_widget.dart';
 import 'package:gestint/widgets/destinations_widget.dart';
 import 'package:gestint/widgets/personal_data_widget.dart';
 
@@ -60,7 +61,7 @@ class _PersonalFileWidgetState extends State<PersonalFileWidget> with SingleTick
         body: TabBarView(
           children: [
             PersonalDataWidget(),
-            Icon(Icons.directions_transit),
+            CurrentJobWidget(),
             DestinationsWidget(),
             Icon(Icons.directions_car),
             Icon(Icons.directions_transit),

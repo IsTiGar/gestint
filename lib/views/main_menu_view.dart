@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gestint/contracts/worker_view_contract.dart';
 import 'package:gestint/models/worker_model.dart';
 import 'package:gestint/presenters/worker_presenter.dart';
+import 'package:gestint/widgets/courses_finished_widget.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:gestint/widgets/payroll_widget.dart';
 import 'package:gestint/widgets/personal_file_widget.dart';
@@ -29,13 +30,21 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   late WorkerPresenter _workerPresenter;
   late Worker _worker;
   bool _isLoading = true;
+  bool _showBottomBar = false;
   Widget bodyWidget = WelcomeWidget();
   String appBarTitle = 'Portal del personal';
+  String bottomBarCourseHours = '';
+
+  // callback function
+  void _onHoursCallback(double hours) {
+    setState(() {
+      bottomBarCourseHours = hours.toString();
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _isLoading = true;
     _workerPresenter = WorkerPresenter(this);
     _workerPresenter.getWorkerProfile();
   }
@@ -72,6 +81,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Expediente personal';
+                  _showBottomBar = false;
                   bodyWidget = PersonalFileWidget();
                 });
                 // Close drawer
@@ -89,6 +99,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Documentos';
+                  _showBottomBar = false;
                   bodyWidget = DocumentsWidget();
                 });
                 // Close drawer
@@ -106,6 +117,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Datos económicos';
+                  _showBottomBar = false;
                   bodyWidget = PayrollWidget();
                 });
                 // Close drawer
@@ -123,7 +135,8 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Formación';
-                  //bodyWidget = ScaleWidget();
+                  _showBottomBar = true;
+                  bodyWidget = CoursesFinishedWidget(onHoursCallback: _onHoursCallback);
                 });
                 // Close drawer
                 Navigator.pop(context);
@@ -140,6 +153,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Baremación';
+                  _showBottomBar = false;
                   bodyWidget = ScaleWidget();
                 });
                 // Close drawer
@@ -157,6 +171,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Interinos disponibles';
+                  _showBottomBar = false;
                   bodyWidget = AvailableWorkersWidget();
                 });
                 // Close drawer
@@ -174,6 +189,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Trámites';
+                  _showBottomBar = false;
                   bodyWidget = ProceduresWidget();
                 });
                 // Close drawer
@@ -191,6 +207,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Mapa de centros';
+                  _showBottomBar = false;
                   bodyWidget = MapsWidget();
                 });
                 // Close drawer
@@ -208,6 +225,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 // replace body widget
                 setState(() {
                   appBarTitle = 'Contacto';
+                  _showBottomBar = false;
                   bodyWidget = ContactWidget();
                 });
                 // Close drawer
@@ -231,6 +249,39 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
           ],
         ),
       ),
+      bottomNavigationBar: Visibility(
+        visible: _showBottomBar,
+        child: BottomAppBar(
+          color: Theme.of(context).primaryColor,
+          child: new Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Total de horas: ${bottomBarCourseHours.toString()}', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+                Text('Solicita más cursos pulsando el botón +', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+              ],
+            )
+          )
+        )
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: Visibility(
+        visible: _showBottomBar,
+        child: FloatingActionButton(
+          backgroundColor: Colors.green,
+          elevation: 4.0,
+          child: const Icon(
+            Icons.add,
+            size: 24.0,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            //TODO ir a la pantalla de cursos
+          },
+        ),
+      )
     );
   }
 
@@ -246,4 +297,5 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   void onLoadWorkerError() {
     // TODO: implement onLoadWorkerError, show message or something
   }
+
 }

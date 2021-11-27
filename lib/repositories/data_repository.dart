@@ -4,6 +4,7 @@ import 'package:gestint/contracts/certifications_contract.dart';
 import 'package:gestint/contracts/charges_contract.dart';
 import 'package:gestint/contracts/courses_contract.dart';
 import 'package:gestint/contracts/courses_finished_contract.dart';
+import 'package:gestint/contracts/current_job_contract.dart';
 import 'package:gestint/contracts/destinations_contract.dart';
 import 'package:gestint/contracts/documents_contract.dart';
 import 'package:gestint/contracts/payroll_contract.dart';
@@ -15,6 +16,7 @@ import 'package:gestint/models/certification_model.dart';
 import 'package:gestint/models/charge_model.dart';
 import 'package:gestint/models/course_finished_model.dart';
 import 'package:gestint/models/course_model.dart';
+import 'package:gestint/models/current_job_model.dart';
 import 'package:gestint/models/destination_model.dart';
 import 'package:gestint/models/document_model.dart';
 import 'package:gestint/models/payroll_model.dart';
@@ -28,7 +30,7 @@ class DataRepository implements WorkerContract,
     SchoolsContract, PersonalDataContract, CertificationsContract,
     ChargesContract, CoursesContract, CoursesFinishedContract, 
     DestinationsContract, DocumentsContract, PayrollContract,
-    ScaleContract, AvailableWorkersContract{
+    ScaleContract, AvailableWorkersContract, CurrentJobContract{
 
   /* Firestore collections */
   final workerCollection = FirebaseFirestore.instance.collection("Worker");
@@ -42,6 +44,7 @@ class DataRepository implements WorkerContract,
   final scaleCollection = FirebaseFirestore.instance.collection("Scale");
   final courseFinishedCollection = FirebaseFirestore.instance.collection("CourseFinished");
   final courseCollection = FirebaseFirestore.instance.collection("Course");
+  final jobCollection = FirebaseFirestore.instance.collection("Job");
 
   @override
   Future<Worker> getWorker(String id) async {
@@ -235,6 +238,22 @@ class DataRepository implements WorkerContract,
           ),
     );
     return courses;
+  }
+
+  @override
+  Future<CurrentJob> getCurrentJob(String id) async {
+    var currentJobs = <CurrentJob>[];
+    await jobCollection.limit(1)
+        .where('owner', isEqualTo: id)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (job) {
+              currentJobs.add(CurrentJob.fromSnapshot(job.data()));
+            },
+          ),
+    );
+    return currentJobs.first;
   }
 
 }
