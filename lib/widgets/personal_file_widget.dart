@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gestint/widgets/destinations_widget.dart';
 import 'package:gestint/widgets/personal_data_widget.dart';
 
 class PersonalFileWidget extends StatefulWidget {
@@ -60,7 +61,7 @@ class _PersonalFileWidgetState extends State<PersonalFileWidget> with SingleTick
           children: [
             PersonalDataWidget(),
             Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
+            DestinationsWidget(),
             Icon(Icons.directions_car),
             Icon(Icons.directions_transit),
           ],

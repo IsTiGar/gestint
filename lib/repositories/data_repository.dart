@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gestint/contracts/available_workers_contract.dart';
 import 'package:gestint/contracts/certifications_contract.dart';
 import 'package:gestint/contracts/charges_contract.dart';
 import 'package:gestint/contracts/courses_contract.dart';
@@ -20,13 +21,14 @@ import 'package:gestint/models/payroll_model.dart';
 import 'package:gestint/models/personal_data_model.dart';
 import 'package:gestint/models/scale_model.dart';
 import 'package:gestint/models/school_model.dart';
+import 'package:gestint/models/worker_full_model.dart';
 import 'package:gestint/models/worker_model.dart';
 
 class DataRepository implements WorkerContract,
     SchoolsContract, PersonalDataContract, CertificationsContract,
     ChargesContract, CoursesContract, CoursesFinishedContract, 
     DestinationsContract, DocumentsContract, PayrollContract,
-    ScaleContract{
+    ScaleContract, AvailableWorkersContract{
 
   /* Firestore collections */
   final workerCollection = FirebaseFirestore.instance.collection("Worker");
@@ -55,6 +57,24 @@ class DataRepository implements WorkerContract,
           ),
     );
     return workers.first;
+  }
+
+  @override
+  Future<List<WorkerFull>> getAvailableWorkers(String body, String function) async{
+    var availableWorkers = <WorkerFull>[];
+    await documentCollection
+        .where('body', isEqualTo: body)
+        .where('function', isEqualTo: function)
+        .where('available', isEqualTo: true)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (availableWorker) {
+                  availableWorkers.add(WorkerFull.fromSnapshot(availableWorker.data()));
+            },
+          ),
+    );
+    return availableWorkers;
   }
 
   // This function gets all schools location and other info to show on the map

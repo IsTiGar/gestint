@@ -9,11 +9,11 @@ class Worker {
 
   Worker(
       this.id,
+      this.firstName,
       this.lastName1,
       this.lastName2,
       this.emailAddress,
-      this.pictureURL,
-      this.firstName);
+      this.pictureURL);
 
   Worker.fromSnapshot(Map<String, dynamic> json)
       : id = json['id'],
