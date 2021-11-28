@@ -1,6 +1,7 @@
 
 class CurrentJob {
 
+  final String id;
   final String body;
   final String function;
   final String type;
@@ -11,6 +12,7 @@ class CurrentJob {
   final String endDate;
 
   CurrentJob(
+      this.id,
       this.body,
       this.function,
       this.type,
@@ -21,7 +23,8 @@ class CurrentJob {
       this.endDate);
 
   CurrentJob.fromSnapshot(Map<String, dynamic> json)
-      : body = json['body'],
+      : id = json['id'],
+        body = json['body'],
         function = json['function'],
         type = json['type'],
         partTime = json['partTime'],

@@ -12,6 +12,7 @@ import 'package:gestint/contracts/personal_data_contract.dart';
 import 'package:gestint/contracts/procedures_contract.dart';
 import 'package:gestint/contracts/scale_contract.dart';
 import 'package:gestint/contracts/schools_contract.dart';
+import 'package:gestint/contracts/single_procedure_contract.dart';
 import 'package:gestint/contracts/worker_contract.dart';
 import 'package:gestint/models/certification_model.dart';
 import 'package:gestint/models/charge_model.dart';
@@ -33,7 +34,7 @@ class DataRepository implements WorkerContract,
     ChargesContract, CoursesContract, CoursesFinishedContract, 
     DestinationsContract, DocumentsContract, PayrollContract,
     ScaleContract, AvailableWorkersContract, CurrentJobContract,
-    ProceduresContract{
+    ProceduresContract, SingleProcedureContract{
 
   /* Firestore collections */
   final workerCollection = FirebaseFirestore.instance.collection("Worker");
@@ -272,6 +273,22 @@ class DataRepository implements WorkerContract,
           ),
     );
     return procedures;
+  }
+
+  @override
+  Future<List<CurrentJob>> getAvailableJobs() async{
+    var availableJobs = <CurrentJob>[];
+    await jobCollection
+        .where('available', isEqualTo: true)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (job) {
+                  availableJobs.add(CurrentJob.fromSnapshot(job.data()));
+            },
+          ),
+    );
+    return availableJobs;
   }
 
 }

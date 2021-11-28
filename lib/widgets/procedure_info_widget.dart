@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/models/course_finished_model.dart';
 import 'package:gestint/models/procedure_model.dart';
+import 'package:gestint/views/single_procedure_view.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
 
 class ProcedureInfoWidget extends StatelessWidget {
@@ -89,7 +90,7 @@ class ProcedureInfoWidget extends StatelessWidget {
           ),
           procedure.isActive ? ElevatedButton(
             onPressed: (){
-
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SingleProcedureView(procedureId: procedure.id,)));
             },
             style: ElevatedButton.styleFrom(primary: Color.fromARGB(255, 50, 129, 75)),
             child: Container(
