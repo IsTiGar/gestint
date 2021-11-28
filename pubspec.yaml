@@ -54,6 +54,9 @@ flutter:
   assets:
     - assets/images/splashLogo.png
     - assets/images/flag.png
+    - assets/icons/start_data_icon.png
+    - assets/icons/end_data_icon.png
+    - assets/icons/results_data_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

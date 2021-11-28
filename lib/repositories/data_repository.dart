@@ -9,6 +9,7 @@ import 'package:gestint/contracts/destinations_contract.dart';
 import 'package:gestint/contracts/documents_contract.dart';
 import 'package:gestint/contracts/payroll_contract.dart';
 import 'package:gestint/contracts/personal_data_contract.dart';
+import 'package:gestint/contracts/procedures_contract.dart';
 import 'package:gestint/contracts/scale_contract.dart';
 import 'package:gestint/contracts/schools_contract.dart';
 import 'package:gestint/contracts/worker_contract.dart';
@@ -21,6 +22,7 @@ import 'package:gestint/models/destination_model.dart';
 import 'package:gestint/models/document_model.dart';
 import 'package:gestint/models/payroll_model.dart';
 import 'package:gestint/models/personal_data_model.dart';
+import 'package:gestint/models/procedure_model.dart';
 import 'package:gestint/models/scale_model.dart';
 import 'package:gestint/models/school_model.dart';
 import 'package:gestint/models/worker_full_model.dart';
@@ -30,7 +32,8 @@ class DataRepository implements WorkerContract,
     SchoolsContract, PersonalDataContract, CertificationsContract,
     ChargesContract, CoursesContract, CoursesFinishedContract, 
     DestinationsContract, DocumentsContract, PayrollContract,
-    ScaleContract, AvailableWorkersContract, CurrentJobContract{
+    ScaleContract, AvailableWorkersContract, CurrentJobContract,
+    ProceduresContract{
 
   /* Firestore collections */
   final workerCollection = FirebaseFirestore.instance.collection("Worker");
@@ -45,6 +48,7 @@ class DataRepository implements WorkerContract,
   final courseFinishedCollection = FirebaseFirestore.instance.collection("CourseFinished");
   final courseCollection = FirebaseFirestore.instance.collection("Course");
   final jobCollection = FirebaseFirestore.instance.collection("Job");
+  final procedureCollection = FirebaseFirestore.instance.collection("Procedure");
 
   @override
   Future<Worker> getWorker(String id) async {
@@ -254,6 +258,20 @@ class DataRepository implements WorkerContract,
           ),
     );
     return currentJobs.first;
+  }
+
+  @override
+  Future<List<Procedure>> getProcedures() async {
+    var procedures = <Procedure>[];
+    await procedureCollection.get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (procedure) {
+              procedures.add(Procedure.fromSnapshot(procedure.data()));
+            },
+          ),
+    );
+    return procedures;
   }
 
 }

@@ -39,56 +39,60 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(25, 20, 25, 0),
-      child: _isLoading ? CustomProgressIndicatorWidget() : Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Datos del centro',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+      child: _isLoading ? CustomProgressIndicatorWidget() : _chargesNotFound ? SizedBox.shrink() : ListView.separated(
+        padding: const EdgeInsets.all(8),
+        itemCount: _chargesList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            contentPadding: EdgeInsets.zero,
+            isThreeLine: true,
+            trailing: IconButton(
+              icon: Icon(
+                Icons.download,
+                color: Color.fromARGB(255, 204, 7, 60),
+                size: 30.0,
+              ),
+              onPressed: () {
+                //TODO download something
+              },
             ),
-          ),
-          Divider(
-            color: Color.fromARGB(255, 204, 7, 60),
-            thickness: 2,
-          ),
-          Text('Centro en servicio: ${_currentJob.school}'),
-          Text('Localidad: ${_currentJob.city}'),
-          SizedBox(height: 20,),
-          Text(
-            'Datos de la plaza',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+            title: Text(
+              _documentsList[index].title,
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+              ),
+              //textAlign:TextAlign.end,
             ),
-          ),
-          Divider(
-            color: Color.fromARGB(255, 204, 7, 60),
-            thickness: 2,
-          ),
-          Text('Tipo: ${_currentJob.type}'),
-          _currentJob.partTime ? Text('Media jornada: Sí') : Text('Media jornada: No'),
-          Text('Cuerpo: ${_currentJob.body}'),
-          Text('Función: ${_currentJob.function}'),
-        ],
+            subtitle: Text(
+              'Fecha de efecto: ${_documentsList[index].date}',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+              ),
+              //textAlign:TextAlign.end,
+            ),
+            dense: false,
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),
     );
   }
 
   @override
-  void onLoadCurrentJobComplete(CurrentJob currentJob) {
+  void onLoadChargesComplete(List<Charge> chargeList) {
     setState(() {
-      _currentJob = currentJob;
+      _chargesList = chargeList;
       _isLoading = false;
     });
   }
 
   @override
-  void onLoadCurrentJobError() {
+  void onLoadChargesError() {
     setState(() {
       _isLoading = false;
-      _currentJobNotFound = true;
+      _chargesNotFound = true;
       _showErrorDialog();
     });
   }
@@ -103,7 +107,7 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: const <Widget>[
-              Text('Se ha producido un error al recuperar su situación actual'),
+              Text('Se ha producido un error al recuperar su lista de cargos, disculpe las molestias y vuelva a intentarlo más tarde'),
             ],
           ),
           actions: <Widget>[
