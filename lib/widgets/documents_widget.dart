@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/contracts/documents_view_contract.dart';
 import 'package:gestint/models/document_model.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/documents_presenter.dart';
+import 'package:provider/provider.dart';
 
 import 'custom_progress_indicator.dart';
 
@@ -24,7 +26,7 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
   void initState() {
     super.initState();
     _documentsPresenter = DocumentsPresenter(this);
-    _documentsPresenter.getDocuments('X46959966');
+    _documentsPresenter.getDocuments(Provider.of<User>(context, listen: false).getUserId());
   }
 
   @override

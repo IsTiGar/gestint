@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gestint/contracts/user_view_contract.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/user_presenter.dart';
+import 'package:provider/provider.dart';
 
 import 'main_menu_view.dart';
 
@@ -170,8 +172,9 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
   }
 
   @override
-  void onCheckUserCredentialsComplete(bool match) {
+  void onCheckUserCredentialsComplete(String userId, bool match) {
     if (match) {
+      Provider.of<User>(context, listen: false).setUserId(userId);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MainMenuView()),

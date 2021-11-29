@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/contracts/scale_view_contract.dart';
 import 'package:gestint/models/scale_model.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/scale_presenter.dart';
+import 'package:provider/provider.dart';
 
 import 'custom_progress_indicator.dart';
 import 'underlinedTextWidget.dart';
@@ -28,7 +30,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
     super.initState();
 
     _scalePresenter = ScalePresenter(this);
-    _scalePresenter.getScale('X46959966');
+    _scalePresenter.getScale(Provider.of<User>(context, listen: false).getUserId());
   }
 
   @override

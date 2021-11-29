@@ -1,5 +1,5 @@
 
 abstract class UserViewContract{
-  void onCheckUserCredentialsComplete(bool match);
+  void onCheckUserCredentialsComplete(String id, bool match);
   void onCheckUserCredentialError();
 }

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gestint/contracts/worker_view_contract.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/models/worker_model.dart';
 import 'package:gestint/presenters/worker_presenter.dart';
 import 'package:gestint/widgets/courses_finished_widget.dart';
@@ -15,6 +16,7 @@ import 'package:gestint/widgets/procedures_widget.dart';
 import 'package:gestint/widgets/scale_widget.dart';
 import 'package:gestint/widgets/profile_widget.dart';
 import 'package:gestint/widgets/welcome_widget.dart';
+import 'package:provider/provider.dart';
 
 class MainMenuView extends StatefulWidget{
 
@@ -46,7 +48,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   void initState() {
     super.initState();
     _workerPresenter = WorkerPresenter(this);
-    _workerPresenter.getWorkerProfile();
+    _workerPresenter.getWorkerProfile(Provider.of<User>(context, listen: false).getUserId());
   }
 
   @override

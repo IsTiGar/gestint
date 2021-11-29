@@ -4,8 +4,10 @@ import 'package:gestint/contracts/destinations_view_contract.dart';
 import 'package:gestint/contracts/documents_view_contract.dart';
 import 'package:gestint/models/destination_model.dart';
 import 'package:gestint/models/document_model.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/destinations_presenter.dart';
 import 'package:gestint/presenters/documents_presenter.dart';
+import 'package:provider/provider.dart';
 
 import 'custom_progress_indicator.dart';
 
@@ -27,7 +29,7 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
   void initState() {
     super.initState();
     _destinationsPresenter = DestinationsPresenter(this);
-    _destinationsPresenter.getDestinations('X46959966');
+    _destinationsPresenter.getDestinations(Provider.of<User>(context, listen: false).getUserId());
   }
 
   @override

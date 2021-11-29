@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:gestint/contracts/personal_data_contract.dart';
 import 'package:gestint/contracts/personal_data_view_contract.dart';
 import 'package:gestint/models/personal_data_model.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/personal_file_presenter.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
+import 'package:provider/provider.dart';
 
 class PersonalDataWidget extends StatefulWidget{
 
@@ -25,7 +27,7 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> implements Pers
   void initState() {
     super.initState();
     _personalDataPresenter = PersonalDataPresenter(this);
-    _personalDataPresenter.getPersonalData('X46959966');
+    _personalDataPresenter.getPersonalData(Provider.of<User>(context, listen: false).getUserId());
   }
   
   @override

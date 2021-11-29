@@ -7,10 +7,12 @@ import 'package:gestint/contracts/personal_data_view_contract.dart';
 import 'package:gestint/models/charge_model.dart';
 import 'package:gestint/models/current_job_model.dart';
 import 'package:gestint/models/personal_data_model.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/charges_presenter.dart';
 import 'package:gestint/presenters/current_job_presenter.dart';
 import 'package:gestint/presenters/personal_file_presenter.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
+import 'package:provider/provider.dart';
 
 class ChargesWidget extends StatefulWidget{
 
@@ -32,7 +34,7 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
   void initState() {
     super.initState();
     _chargesPresenter = ChargesPresenter(this);
-    _chargesPresenter.getCharges('X46959966');
+    _chargesPresenter.getCharges(Provider.of<User>(context, listen: false).getUserId());
   }
   
   @override

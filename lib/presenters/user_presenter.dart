@@ -13,7 +13,7 @@ class UserPresenter {
 
   void checkUserCredentials(String id, String password){
     _repository.checkUserCredentials(id, password)
-        .then((result) => _view.onCheckUserCredentialsComplete(result))
+        .then((result) => _view.onCheckUserCredentialsComplete(id, result))
         .catchError((onError) {
           print('El error es: ' + onError.toString());
           _view.onCheckUserCredentialError();

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/contracts/payroll_view_contract.dart';
 import 'package:gestint/models/payroll_model.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/payroll_presenter.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
+import 'package:provider/provider.dart';
 
 class PayrollWidget extends StatefulWidget {
   const PayrollWidget({Key? key}) : super(key: key);
@@ -46,7 +48,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
     _yearValue = _currentYear.toString();
 
     _payrollPresenter = PayrollPresenter(this);
-    _payrollPresenter.getPayroll('X46959966', _currentMonth-1, _currentYear);
+    _payrollPresenter.getPayroll(Provider.of<User>(context, listen: false).getUserId(), _currentMonth-1, _currentYear);
   }
 
   String monthConversionToString (int currentMonth) {
@@ -107,7 +109,9 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                   setState(() {
                     _isLoading = true;
                     _monthValue = newValue!;
-                    _payrollPresenter.getPayroll('X46959966', monthList.indexOf(_monthValue)+1 , _currentYear);
+                    _payrollPresenter.getPayroll(
+                        Provider.of<User>(context, listen: false).getUserId(),
+                        monthList.indexOf(_monthValue)+1 , _currentYear);
                   });
                 },
                 items: monthList
@@ -133,7 +137,11 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                   setState(() {
                     _isLoading = true;
                     _yearValue = newValue!;
-                    _payrollPresenter.getPayroll('X46959966', _currentMonth, int.parse(_yearValue));
+                    _payrollPresenter.getPayroll(
+                        Provider.of<User>(context, listen: false).getUserId(),
+                        _currentMonth,
+                        int.parse(_yearValue)
+                    );
                   });
                 },
                 items: yearList

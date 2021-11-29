@@ -5,9 +5,11 @@ import 'package:gestint/contracts/personal_data_contract.dart';
 import 'package:gestint/contracts/personal_data_view_contract.dart';
 import 'package:gestint/models/current_job_model.dart';
 import 'package:gestint/models/personal_data_model.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/current_job_presenter.dart';
 import 'package:gestint/presenters/personal_file_presenter.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
+import 'package:provider/provider.dart';
 
 class CurrentJobWidget extends StatefulWidget{
 
@@ -29,7 +31,7 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
   void initState() {
     super.initState();
     _currentJobPresenter = CurrentJobPresenter(this);
-    _currentJobPresenter.getCurrentJob('X46959966');
+    _currentJobPresenter.getCurrentJob(Provider.of<User>(context, listen: false).getUserId());
   }
   
   @override

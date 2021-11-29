@@ -11,8 +11,8 @@ class WorkerPresenter {
     _repository = new Injector().dataRepository;
   }
 
-  void getWorkerProfile(){
-    _repository.getWorker('X46959966')
+  void getWorkerProfile(String id){
+    _repository.getWorker(id)
         .then((worker) => _view.onLoadWorkerComplete(worker))
         .catchError((onError) {
           print(onError.toString());
