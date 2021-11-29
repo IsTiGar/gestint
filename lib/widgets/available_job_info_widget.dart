@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/models/current_job_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AvailableJobInfoWidget extends StatelessWidget {
 
@@ -60,13 +61,13 @@ class AvailableJobInfoWidget extends StatelessWidget {
                         color: Colors.green,
                         size: 20.0,
                       ),
-                      Text('Inicio: ${job.startDate}'),
+                      Text('${AppLocalizations.of(context)!.start}: ${job.startDate}'),
                       Icon(
                         Icons.event,
                         color: Colors.black,
                         size: 20.0,
                       ),
-                      Text('Final: ${job.endDate}'),
+                      Text('${AppLocalizations.of(context)!.end}: ${job.endDate}'),
                     ],
                   )
                 ],

@@ -5,6 +5,7 @@ import 'package:gestint/models/document_model.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/documents_presenter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
@@ -58,7 +59,7 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
               //textAlign:TextAlign.end,
             ),
             subtitle: Text(
-              'Fecha de efecto: ${_documentsList[index].date}',
+              '${AppLocalizations.of(context)!.effect_date}: ${_documentsList[index].date}',
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
@@ -97,16 +98,16 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Se ha producido un error al recuperar sus documentos'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.documents_warning),
             ],
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

@@ -1,25 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:gestint/contracts/single_procedure_view_contract.dart';
-import 'package:gestint/contracts/worker_view_contract.dart';
 import 'package:gestint/models/current_job_model.dart';
-import 'package:gestint/models/worker_model.dart';
 import 'package:gestint/presenters/single_procedure_presenter.dart';
-import 'package:gestint/presenters/worker_presenter.dart';
 import 'package:gestint/widgets/available_job_info_widget.dart';
-import 'package:gestint/widgets/courses_finished_widget.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
-import 'package:gestint/widgets/payroll_widget.dart';
-import 'package:gestint/widgets/personal_file_widget.dart';
-import 'package:gestint/widgets/available_workers_widget.dart';
-import 'package:gestint/widgets/contact_widget.dart';
-import 'package:gestint/widgets/documents_widget.dart';
-import 'package:gestint/widgets/maps_widget.dart';
-import 'package:gestint/widgets/procedures_widget.dart';
-import 'package:gestint/widgets/scale_widget.dart';
-import 'package:gestint/widgets/profile_widget.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
-import 'package:gestint/widgets/welcome_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SingleProcedureView extends StatefulWidget{
 
@@ -49,7 +36,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Selección de plazas')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.job_selection)),
       body: Padding(
         padding: EdgeInsets.all(10),
         child: _isLoading ? CustomProgressIndicatorWidget() : _singleProcedureNotFound? SizedBox.shrink() : ReorderableListView.builder(
@@ -66,7 +53,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
           header: Container(
             width: double.infinity,
             alignment: Alignment.center,
-            child: UnderlinedTextWidget(text: 'Mantén pulsado el icono de la derecha para ordenar', cellPadding: 5,),
+            child: UnderlinedTextWidget(text: AppLocalizations.of(context)!.long_press_message, cellPadding: 5,),
           ),
           itemBuilder: (BuildContext context, int index) {
             return AvailableJobInfoWidget(
@@ -85,10 +72,10 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Coloca las plazas por orden de preferencia', style: TextStyle(color: Colors.white),),
+                  Text(AppLocalizations.of(context)!.reorder_jobs, style: TextStyle(color: Colors.white),),
                   Row(
                     children: [
-                      Text('Pulsa', style: TextStyle(color: Colors.white),),
+                      Text(AppLocalizations.of(context)!.click, style: TextStyle(color: Colors.white),),
                       SizedBox(width: 3,),
                       Icon(
                         Icons.send,
@@ -96,7 +83,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
                         color: Colors.white,
                       ),
                       SizedBox(width: 3,),
-                      Text('para finalizar', style: TextStyle(color: Colors.white),),
+                      Text(AppLocalizations.of(context)!.to_finalize, style: TextStyle(color: Colors.white),),
                     ],
                   )
                 ],
@@ -142,16 +129,16 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Se ha producido un error al recuperar las plazas disponibles, disculpe las molestias y vuelva a intentarlo más tarde'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.job_warning),
             ],
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

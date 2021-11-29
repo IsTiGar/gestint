@@ -5,6 +5,7 @@ import 'package:gestint/models/scale_model.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/scale_presenter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 import 'underlinedTextWidget.dart';
@@ -39,7 +40,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
       padding: EdgeInsets.all(15),
       child: _isLoading ? CustomProgressIndicatorWidget() : _scaleNotFound? SizedBox.shrink() : Column(
         children: [
-          UnderlinedTextWidget(text: '1. Experiencia docente', cellPadding: 5),
+          UnderlinedTextWidget(text: '1. ${AppLocalizations.of(context)!.teaching_exp}', cellPadding: 5),
           Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             columnWidths: {
@@ -53,7 +54,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                   Container(
                     padding: EdgeInsets.all(_cellPadding),
                     child: Text(
-                      '1.1 Centros públicos',
+                      '1.1 ${AppLocalizations.of(context)!.public_schools}',
                       textAlign:TextAlign.start,
                     ),
                   ),
@@ -71,7 +72,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                   Container(
                     padding: EdgeInsets.all(_cellPadding),
                     child: Text(
-                      '1.2 Centros privados',
+                      '1.2 ${AppLocalizations.of(context)!.private_schools}',
                       textAlign:TextAlign.start,
                     ),
                   ),
@@ -89,7 +90,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                   Container(
                     padding: EdgeInsets.all(_cellPadding),
                     child: Text(
-                      '1.3 Universidades',
+                      '1.3 ${AppLocalizations.of(context)!.universities}',
                       textAlign:TextAlign.start,
                     ),
                   ),
@@ -105,7 +106,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
             ]
           ),
           SizedBox(height: 10,),
-          UnderlinedTextWidget(text: '2. Formación académica', cellPadding: 5),
+          UnderlinedTextWidget(text: '2. ${AppLocalizations.of(context)!.academic_training}', cellPadding: 5),
           Table(
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               columnWidths: {
@@ -119,7 +120,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        '2.1 Nota del expediente académico',
+                        '2.1 ${AppLocalizations.of(context)!.file_qualification}',
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -137,7 +138,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        '2.2 Doctorado y premios extraordinarios',
+                        '2.2 ${AppLocalizations.of(context)!.phd_extra}',
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -155,7 +156,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        '2.3 Otras titulaciones universitarias',
+                        '2.3 ${AppLocalizations.of(context)!.other_degrees}',
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -173,7 +174,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        '2.4 Titulaciones de régimen especial',
+                        '2.4 ${AppLocalizations.of(context)!.special_degrees}',
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -191,7 +192,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        '2.5 Titulaciones de catalán',
+                        '2.5 ${AppLocalizations.of(context)!.catalan_degrees}',
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -207,7 +208,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
               ]
           ),
           SizedBox(height: 10,),
-          UnderlinedTextWidget(text: '3. Formación permanente', cellPadding: 5),
+          UnderlinedTextWidget(text: '3. ${AppLocalizations.of(context)!.training}', cellPadding: 5),
           Table(
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               columnWidths: {
@@ -221,7 +222,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        'Total de horas: ${_scale.coursesHours}',
+                        '${AppLocalizations.of(context)!.total_hours}: ${_scale.coursesHours}',
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -238,7 +239,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
           ),
           SizedBox(height: 25,),
           Text(
-            'Puntuación total: ${_scale.calculateTotalScale()}',
+            '${AppLocalizations.of(context)!.total_score}: ${_scale.calculateTotalScale()}',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -273,16 +274,16 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Se ha producido un error al recuperar esta baremación'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.scale_warning),
             ],
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/contracts/destinations_view_contract.dart';
-import 'package:gestint/contracts/documents_view_contract.dart';
 import 'package:gestint/models/destination_model.dart';
-import 'package:gestint/models/document_model.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/destinations_presenter.dart';
-import 'package:gestint/presenters/documents_presenter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
@@ -51,7 +49,7 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
               //textAlign:TextAlign.end,
             ),
             subtitle: Text(
-              'Desde: ${_destinationsList[index].startDate} hasta ${_destinationsList[index].endDate}',
+              '${AppLocalizations.of(context)!.from}: ${_destinationsList[index].startDate} ${AppLocalizations.of(context)!.to} ${_destinationsList[index].endDate}',
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
@@ -90,16 +88,16 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Se ha producido un error al recuperar su hoja de servicios'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.destinations_warning),
             ],
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

@@ -3,7 +3,7 @@ import 'package:gestint/contracts/user_view_contract.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/user_presenter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'main_menu_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -25,6 +25,8 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
   void initState() {
     super.initState();
     _userPresenter = UserPresenter(this);
+    _userController.clear();
+    _passwordController.clear();
   }
 
   @override
@@ -45,7 +47,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
                 SizedBox(width: 30),
                 Expanded(
                   child: Text(
-                    'Direcció general de personal docent',
+                    AppLocalizations.of(context)!.dgp,
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                         fontSize: 22,
@@ -61,7 +63,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Usuario',
+                    AppLocalizations.of(context)!.user,
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                         fontSize: 18,
@@ -71,19 +73,19 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
                     //this moves the cursor to the next field
                     textInputAction: TextInputAction.next,
                     controller: _userController,
-                    decoration: const InputDecoration(
-                      hintText: 'Ejemplo: X12345678',
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.example,
                     ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor, introduce tu usuario';
+                        return AppLocalizations.of(context)!.enter_user;
                       }
                       return null;
                     },
                   ),
                   SizedBox(height: 15),
                   Text(
-                    'Contraseña',
+                    AppLocalizations.of(context)!.password,
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                       fontSize: 18,
@@ -96,9 +98,10 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
                     decoration: const InputDecoration(
 
                     ),
+                    obscureText: true,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor, introduce tu usuario';
+                        return AppLocalizations.of(context)!.enter_password;
                       }
                       return null;
                     },
@@ -108,15 +111,15 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Validate will return true if the form is valid, or false if
-                        // the form is invalid.
+                        /* Validate will return true if the form is valid, or false if
+                           the form is invalid. */
                         if (_formKey.currentState!.validate()) {
                           var id = _userController.text;
                           var password = _passwordController.text;
                           _userPresenter.checkUserCredentials(id, password);
                         }
                       },
-                      child: const Text('Entrar'),
+                      child: Text(AppLocalizations.of(context)!.login),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 40),
                       )
@@ -126,13 +129,13 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
                         onPressed: () {
-                          // Validate will return true if the form is valid, or false if
-                          // the form is invalid.
+                          /* Validate will return true if the form is valid, or false if
+                           the form is invalid. */
                           if (_formKey.currentState!.validate()) {
                             // Process data.
                           }
                         },
-                        child: const Text('Entrar con certificado digital'),
+                        child: Text(AppLocalizations.of(context)!.digital_login),
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(double.infinity, 40),
                         )
@@ -142,13 +145,13 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
                         onPressed: () {
-                          // Validate will return true if the form is valid, or false if
-                          // the form is invalid.
+                          /* Validate will return true if the form is valid, or false if
+                           the form is invalid. */
                           if (_formKey.currentState!.validate()) {
                             // Process data.
                           }
                         },
-                        child: const Text('Entrar con huella digital'),
+                        child: Text(AppLocalizations.of(context)!.fingerprint_login),
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(double.infinity, 40),
                         )
@@ -174,32 +177,40 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
   @override
   void onCheckUserCredentialsComplete(String userId, bool match) {
     if (match) {
+      /* Credentials are correct, set user id on Provider for future uses */
       Provider.of<User>(context, listen: false).setUserId(userId);
+      /* And navigate to main screen */
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MainMenuView()),
-      );
+      ).then((value) {
+        /* Reset user and password fields in case user returns here clicking back button */
+        _passwordController.clear();
+        _userController.clear();
+      });
     }else {
+      /* Credentials don't match, show error message */
       _showErrorDialog();
     }
   }
 
+  /* Error Dialog */
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Estos credenciales son incorrectos'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.login_warning),
             ],
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

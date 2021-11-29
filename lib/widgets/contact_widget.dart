@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContactWidget extends StatelessWidget {
 
@@ -10,21 +11,21 @@ class ContactWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Si desea contactar con la administración puede enviar un mensaje de correo electrónico a las siguientes direcciones indicando el nombre, dni y cuerpo al cual pertenece:',
+          Text(AppLocalizations.of(context)!.contact_main_message,
             textAlign: TextAlign.center,
             style:TextStyle(fontSize: 16)),
           SizedBox(height: 20),
-          Text('Datos económicos:', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('nomines@dgpdocen.caib.es'),
+          Text(AppLocalizations.of(context)!.economical_data, style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text('nomines@dgpdocen.caib.es'),
           SizedBox(height: 20),
-          Text('Personal de primaria:', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('primaria@dgpdocen.caib.es'),
+          Text(AppLocalizations.of(context)!.pri_workers, style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text('primaria@dgpdocen.caib.es'),
           SizedBox(height: 20),
-          Text('Personal de secundaria:', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('secundaria@dgpdocen.caib.es'),
+          Text(AppLocalizations.of(context)!.sec_workers, style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text('secundaria@dgpdocen.caib.es'),
           SizedBox(height: 20),
-          Text('Reconocimiento de formación del profesorado:', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('sfhc@dgpice.caib.es'),
+          Text(AppLocalizations.of(context)!.education_recognition, style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text('sfhc@dgpice.caib.es'),
         ],
       ),
     );

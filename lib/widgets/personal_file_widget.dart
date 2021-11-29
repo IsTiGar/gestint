@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gestint/widgets/current_job_widget.dart';
 import 'package:gestint/widgets/destinations_widget.dart';
 import 'package:gestint/widgets/personal_data_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PersonalFileWidget extends StatefulWidget {
   const PersonalFileWidget({Key? key}) : super(key: key);
@@ -40,19 +41,19 @@ class _PersonalFileWidgetState extends State<PersonalFileWidget> with SingleTick
               isScrollable: true,
               tabs: [
                 Tab(
-                  text: 'Datos personales',
+                  text: AppLocalizations.of(context)!.personal_data,
                 ),
                 Tab(
-                  text: 'Situación actual',
+                  text: AppLocalizations.of(context)!.current_situation,
                 ),
                 Tab(
-                  text: 'Hoja de servicios',
+                  text: AppLocalizations.of(context)!.destination_list,
                 ),
                 Tab(
-                  text: 'Cargos ocupados',
+                  text: AppLocalizations.of(context)!.occupied_charges,
                 ),
                 Tab(
-                  text: 'Titulaciones',
+                  text: AppLocalizations.of(context)!.degrees,
                 ),
               ],
             ),

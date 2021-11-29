@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/contracts/current_job_view_contract.dart';
-import 'package:gestint/contracts/personal_data_contract.dart';
-import 'package:gestint/contracts/personal_data_view_contract.dart';
 import 'package:gestint/models/current_job_model.dart';
-import 'package:gestint/models/personal_data_model.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/current_job_presenter.dart';
-import 'package:gestint/presenters/personal_file_presenter.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CurrentJobWidget extends StatefulWidget{
 
@@ -42,7 +39,7 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Datos del centro',
+            AppLocalizations.of(context)!.school_data,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -52,11 +49,11 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
             color: Color.fromARGB(255, 204, 7, 60),
             thickness: 2,
           ),
-          Text('Centro en servicio: ${_currentJob.school}'),
-          Text('Localidad: ${_currentJob.city}'),
+          Text('${AppLocalizations.of(context)!.school_service} ${_currentJob.school}'),
+          Text('${AppLocalizations.of(context)!.school_city} ${_currentJob.city}'),
           SizedBox(height: 20,),
           Text(
-            'Datos de la plaza',
+            AppLocalizations.of(context)!.job_data,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -66,10 +63,10 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
             color: Color.fromARGB(255, 204, 7, 60),
             thickness: 2,
           ),
-          Text('Tipo: ${_currentJob.type}'),
-          _currentJob.partTime ? Text('Media jornada: Sí') : Text('Media jornada: No'),
-          Text('Cuerpo: ${_currentJob.body}'),
-          Text('Función: ${_currentJob.function}'),
+          Text('${AppLocalizations.of(context)!.type} ${_currentJob.type}'),
+          _currentJob.partTime ? Text(AppLocalizations.of(context)!.part_time_yes) : Text(AppLocalizations.of(context)!.part_time_no),
+          Text('${AppLocalizations.of(context)!.body} ${_currentJob.body}'),
+          Text('${AppLocalizations.of(context)!.function} ${_currentJob.function}'),
         ],
       ),
     );
@@ -98,16 +95,16 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Se ha producido un error al recuperar su situación actual'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.current_job_warning),
             ],
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

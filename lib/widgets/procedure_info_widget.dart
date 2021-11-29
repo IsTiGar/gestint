@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gestint/models/course_finished_model.dart';
 import 'package:gestint/models/procedure_model.dart';
 import 'package:gestint/views/single_procedure_view.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProcedureInfoWidget extends StatelessWidget {
 
@@ -21,7 +21,7 @@ class ProcedureInfoWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UnderlinedTextWidget(
-              text: 'Trámite ${procedure.id}',
+              text: '${AppLocalizations.of(context)!.procedure} ${procedure.id}',
               cellPadding: 0,
           ),
           Text(
@@ -44,7 +44,7 @@ class ProcedureInfoWidget extends StatelessWidget {
                       image: AssetImage('assets/icons/start_data_icon.png'),
                       height: 20,
                     ),
-                    Text('Fecha de inicio:'),
+                    Text('${AppLocalizations.of(context)!.start_data}:'),
                     Container(
                       padding: EdgeInsets.all(8),
                       child: Text(
@@ -60,7 +60,7 @@ class ProcedureInfoWidget extends StatelessWidget {
                       image: AssetImage('assets/icons/end_data_icon.png'),
                       height: 20,
                     ),
-                    Text('Fecha de fin:'),
+                    Text('${AppLocalizations.of(context)!.end_data}:'),
                     Container(
                       padding: EdgeInsets.all(8),
                       child: Text(
@@ -76,7 +76,7 @@ class ProcedureInfoWidget extends StatelessWidget {
                       image: AssetImage('assets/icons/results_data_icon.png'),
                       height: 20,
                     ),
-                    Text('Resultados:'),
+                    Text('${AppLocalizations.of(context)!.results}:'),
                     Container(
                       padding: EdgeInsets.all(8),
                       child: Text(
@@ -96,7 +96,7 @@ class ProcedureInfoWidget extends StatelessWidget {
             child: Container(
               alignment: Alignment.center,
               width: double.infinity,
-              child: Text('Inicia el trámite'),
+              child: Text(AppLocalizations.of(context)!.start_procedure),
             )
           ) : ElevatedButton(
               onPressed: (){
@@ -106,7 +106,7 @@ class ProcedureInfoWidget extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 width: double.infinity,
-                child: Text('Ver resultados'),
+                child: Text(AppLocalizations.of(context)!.see_results),
               )
           )
         ],

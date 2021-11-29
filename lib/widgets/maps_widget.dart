@@ -32,6 +32,7 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
   }
 
   Future _checkLocationPermission() async {
+    //TODO
     /*final status = await Permission.location.serviceStatus;
     final isGpsActive = status == ServiceStatus.enabled;
     if(!isGpsActive) {
@@ -96,15 +97,12 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
 
   @override
   void onLoadSchoolsError() {
-    // TODO: implement onLoadSchoolsError Arreglar, se llama también
-    print('La lista tiene errores');
+    // TODO: implement onLoadSchoolsError
   }
 
   @override
   void onLoadSchoolsComplete(List<School> schoolList) {
-    print('La lista tiene: ' + schoolList.length.toString());
     setState(() {
-      //_schoolList = schoolList;
       for (final school in schoolList) {
         final marker = Marker(
           markerId: MarkerId(school.phoneNumber),

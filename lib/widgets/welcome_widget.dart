@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeWidget extends StatelessWidget {
 
@@ -10,7 +11,7 @@ class WelcomeWidget extends StatelessWidget {
       padding: EdgeInsets.all(30),
       child: Expanded(
         child: Text(
-          'Bienvenido al portal del personal de la Consejeria de Educación y Formación Profesional de las Islas Baleares',
+          AppLocalizations.of(context)!.welcome_message,
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 20,

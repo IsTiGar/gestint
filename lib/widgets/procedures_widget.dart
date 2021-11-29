@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gestint/contracts/courses_finished_view_contract.dart';
-import 'package:gestint/contracts/destinations_view_contract.dart';
-import 'package:gestint/contracts/documents_view_contract.dart';
 import 'package:gestint/contracts/procedures_view_contract.dart';
-import 'package:gestint/models/course_finished_model.dart';
-import 'package:gestint/models/destination_model.dart';
-import 'package:gestint/models/document_model.dart';
 import 'package:gestint/models/procedure_model.dart';
-import 'package:gestint/presenters/courses_finished_presenter.dart';
-import 'package:gestint/presenters/destinations_presenter.dart';
-import 'package:gestint/presenters/documents_presenter.dart';
 import 'package:gestint/presenters/procedures_presenter.dart';
-import 'package:gestint/widgets/course_finished_info_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 import 'procedure_info_widget.dart';
@@ -78,16 +69,16 @@ class _ProceduresWidgetState extends State<ProceduresWidget> implements Procedur
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Se ha producido un error al recuperar los trámites, disculpe las molestias e inténtelo más tarde'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.procedures_warning),
             ],
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

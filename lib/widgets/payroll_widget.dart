@@ -7,6 +7,7 @@ import 'package:gestint/presenters/payroll_presenter.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PayrollWidget extends StatefulWidget {
   const PayrollWidget({Key? key}) : super(key: key);
@@ -24,7 +25,20 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
   late String _yearValue;
   late int _currentYear;
   var payrollList = <Payroll>[];
-  final monthList = <String>['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  final monthList = <String>[
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre'
+  ];
   final yearList = <String>[];
 
   late Payroll _payroll;
@@ -78,8 +92,6 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
       break;
       case 11: currentMonthString = 'Noviembre';
       break;
-      /*case 12: currentMonthString = 'Diciembre';
-      break;*/
     }
     return currentMonthString;
   }
@@ -94,13 +106,12 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('Nómina de'),
+              Text('${AppLocalizations.of(context)!.payroll} ${AppLocalizations.of(context)!.of_word}'),
               DropdownButton(
                 value: _monthValue,
                 icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
-                //style: const TextStyle(color: Colors.deepPurple),
                 underline: Container(
                     height: 2,
                     color: Color.fromARGB(255, 204, 7, 60)
@@ -122,13 +133,12 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                   );
                 }).toList(),
               ),
-              Text('de'),
+              Text(AppLocalizations.of(context)!.of_word),
               DropdownButton<String>(
                 value: _yearValue,
                 icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
-                //style: const TextStyle(color: Colors.deepPurple),
                 underline: Container(
                     height: 2,
                     color: Color.fromARGB(255, 204, 7, 60)
@@ -159,22 +169,21 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
           _isLoading ? CustomProgressIndicatorWidget() : _payrollNotFound? SizedBox.shrink() : Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             defaultColumnWidth: IntrinsicColumnWidth(),
-            //border: TableBorder.all(),
             children: [
               TableRow(
                 children: [
-                  UnderlinedTextWidget(text: 'Concepto', cellPadding: _cellPadding),
+                  UnderlinedTextWidget(text: AppLocalizations.of(context)!.concept, cellPadding: _cellPadding),
                   Container(
                     padding: EdgeInsets.all(_cellPadding),
                     child: UnderlinedTextWidget(
-                        text: 'Devengos',
+                        text: AppLocalizations.of(context)!.accruals,
                         cellPadding: _cellPadding
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.all(_cellPadding),
                     child: UnderlinedTextWidget(
-                        text: 'Retenciones',
+                        text: AppLocalizations.of(context)!.with_holdings,
                         cellPadding: _cellPadding
                     ),
                   ),
@@ -185,7 +194,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        'Sueldo base',
+                        AppLocalizations.of(context)!.base_salary,
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -204,7 +213,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        'Complemento de destinación',
+                        AppLocalizations.of(context)!.destination_complement,
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -223,7 +232,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        'Indemnización residencia',
+                        AppLocalizations.of(context)!.residence_complement,
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -242,7 +251,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        'Complemento general',
+                        AppLocalizations.of(context)!.general_complement,
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -261,7 +270,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        'Complemento comunidad autónoma',
+                        AppLocalizations.of(context)!.community_complement,
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -299,7 +308,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: Text(
-                        'Contribución CC',
+                        AppLocalizations.of(context)!.contribution,
                         textAlign:TextAlign.start,
                       ),
                     ),
@@ -319,14 +328,14 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: UnderlinedTextWidget(
-                          text: 'Total devengos',
+                          text: AppLocalizations.of(context)!.total_accruals,
                           cellPadding: _cellPadding
                       ),
                     ),
                     Container(
                       padding: EdgeInsets.all(_cellPadding),
                       child: UnderlinedTextWidget(
-                          text: 'Total retenciones',
+                          text: AppLocalizations.of(context)!.total_with_holdings,
                           cellPadding: _cellPadding
                       ),
                     ),
@@ -354,7 +363,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
               TableRow(
                   children: [
                     UnderlinedTextWidget(
-                        text: 'Líquido',
+                        text: AppLocalizations.of(context)!.total_salary,
                         cellPadding: _cellPadding
                     ),
                     Container(),
@@ -405,16 +414,16 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Se ha producido un error al recuperar esta nómina o esta nómina no existe'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.payroll_warning),
             ],
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

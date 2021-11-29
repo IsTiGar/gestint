@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/models/course_finished_model.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseFinishedInfoWidget extends StatelessWidget {
 
@@ -32,7 +33,7 @@ class CourseFinishedInfoWidget extends StatelessWidget {
                 color: Colors.black,
               ),
               children: <TextSpan>[
-                new TextSpan(text: 'Fecha de inicio: ', style: new TextStyle(fontWeight: FontWeight.bold)),
+                new TextSpan(text: AppLocalizations.of(context)!.start_data, style: new TextStyle(fontWeight: FontWeight.bold)),
                 new TextSpan(text: courseFinished.startDate)
               ],
             ),
@@ -46,7 +47,7 @@ class CourseFinishedInfoWidget extends StatelessWidget {
                 color: Colors.black,
               ),
               children: <TextSpan>[
-                new TextSpan(text: 'Fecha de fin: ', style: new TextStyle(fontWeight: FontWeight.bold)),
+                new TextSpan(text: AppLocalizations.of(context)!.end_data, style: new TextStyle(fontWeight: FontWeight.bold)),
                 new TextSpan(text: courseFinished.endDate),
               ],
             ),
@@ -60,7 +61,7 @@ class CourseFinishedInfoWidget extends StatelessWidget {
                 color: Colors.black,
               ),
               children: <TextSpan>[
-                new TextSpan(text: 'Organismo: ', style: new TextStyle(fontWeight: FontWeight.bold)),
+                new TextSpan(text: AppLocalizations.of(context)!.agency, style: new TextStyle(fontWeight: FontWeight.bold)),
                 new TextSpan(text: courseFinished.agency)
               ],
             ),
@@ -74,14 +75,14 @@ class CourseFinishedInfoWidget extends StatelessWidget {
                 color: Colors.black,
               ),
               children: <TextSpan>[
-                new TextSpan(text: 'Línea estratégica: ', style: new TextStyle(fontWeight: FontWeight.bold)),
+                new TextSpan(text: AppLocalizations.of(context)!.strategic_line, style: new TextStyle(fontWeight: FontWeight.bold)),
                 new TextSpan(text: courseFinished.strategicLine)
               ],
             ),
           ),
           Container(
             child: Text(
-              '${courseFinished.hours} horas',
+              '${courseFinished.hours} ${AppLocalizations.of(context)!.hours}',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             alignment: Alignment.centerRight,

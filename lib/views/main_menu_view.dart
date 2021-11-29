@@ -17,6 +17,7 @@ import 'package:gestint/widgets/scale_widget.dart';
 import 'package:gestint/widgets/profile_widget.dart';
 import 'package:gestint/widgets/welcome_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainMenuView extends StatefulWidget{
 
@@ -73,7 +74,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               child: _isLoading ? CustomProgressIndicatorWidget() : ProfileWidget(worker: _worker),
             ),
             ListTile(
-              title: const Text('Expediente personal'),
+              title: Text(AppLocalizations.of(context)!.personal_file),
               leading: Icon(
                 Icons.folder,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -82,7 +83,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Expediente personal';
+                  appBarTitle = AppLocalizations.of(context)!.personal_file;
                   _showBottomBar = false;
                   bodyWidget = PersonalFileWidget();
                 });
@@ -91,7 +92,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Documentos'),
+              title: Text(AppLocalizations.of(context)!.documents),
               leading: Icon(
                 Icons.description,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -100,7 +101,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Documentos';
+                  appBarTitle = AppLocalizations.of(context)!.documents;
                   _showBottomBar = false;
                   bodyWidget = DocumentsWidget();
                 });
@@ -109,7 +110,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Datos económicos'),
+              title: Text(AppLocalizations.of(context)!.economical_data),
               leading: Icon(
                 Icons.euro,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -118,7 +119,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Datos económicos';
+                  appBarTitle = AppLocalizations.of(context)!.economical_data;
                   _showBottomBar = false;
                   bodyWidget = PayrollWidget();
                 });
@@ -127,7 +128,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Formación'),
+              title: Text(AppLocalizations.of(context)!.education),
               leading: Icon(
                 Icons.school,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -136,7 +137,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Formación';
+                  appBarTitle = AppLocalizations.of(context)!.education;
                   _showBottomBar = true;
                   bodyWidget = CoursesFinishedWidget(onHoursCallback: _onHoursCallback);
                 });
@@ -145,7 +146,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Baremación'),
+              title: Text(AppLocalizations.of(context)!.scale),
               leading: Icon(
                 Icons.swap_vert,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -154,7 +155,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Baremación';
+                  appBarTitle = AppLocalizations.of(context)!.scale;
                   _showBottomBar = false;
                   bodyWidget = ScaleWidget();
                 });
@@ -163,7 +164,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Interinos disponibles'),
+              title: Text(AppLocalizations.of(context)!.available_workers),
               leading: Icon(
                 Icons.people,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -172,7 +173,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Interinos disponibles';
+                  appBarTitle = AppLocalizations.of(context)!.available_workers;
                   _showBottomBar = false;
                   bodyWidget = AvailableWorkersWidget();
                 });
@@ -181,7 +182,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Trámites'),
+              title: Text(AppLocalizations.of(context)!.procedures),
               leading: Icon(
                 Icons.schedule,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -190,7 +191,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Trámites';
+                  appBarTitle = AppLocalizations.of(context)!.procedures;
                   _showBottomBar = false;
                   bodyWidget = ProceduresWidget();
                 });
@@ -199,7 +200,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Mapa de centros'),
+              title: Text(AppLocalizations.of(context)!.school_map),
               leading: Icon(
                 Icons.place,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -208,7 +209,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Mapa de centros';
+                  appBarTitle = AppLocalizations.of(context)!.school_map;
                   _showBottomBar = false;
                   bodyWidget = MapsWidget();
                 });
@@ -217,7 +218,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Contacto'),
+              title: Text(AppLocalizations.of(context)!.contact),
               leading: Icon(
                 Icons.contact_support,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -226,7 +227,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               onTap: () {
                 // replace body widget
                 setState(() {
-                  appBarTitle = 'Contacto';
+                  appBarTitle = AppLocalizations.of(context)!.contact;
                   _showBottomBar = false;
                   bodyWidget = ContactWidget();
                 });
@@ -235,7 +236,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: const Text('Salir'),
+              title: Text(AppLocalizations.of(context)!.logout),
               leading: Icon(
                 Icons.logout,
                 color: Color.fromARGB(255, 204, 7, 60),
@@ -261,8 +262,8 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Total de horas: ${bottomBarCourseHours.toString()}', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
-                Text('Solicita más cursos pulsando el botón +', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+                Text('${AppLocalizations.of(context)!.total_hours}: ${bottomBarCourseHours.toString()}', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+                Text(AppLocalizations.of(context)!.course_request, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
               ],
             )
           )
