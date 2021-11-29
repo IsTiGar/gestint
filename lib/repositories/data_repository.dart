@@ -13,6 +13,7 @@ import 'package:gestint/contracts/procedures_contract.dart';
 import 'package:gestint/contracts/scale_contract.dart';
 import 'package:gestint/contracts/schools_contract.dart';
 import 'package:gestint/contracts/single_procedure_contract.dart';
+import 'package:gestint/contracts/user_contract.dart';
 import 'package:gestint/contracts/worker_contract.dart';
 import 'package:gestint/models/certification_model.dart';
 import 'package:gestint/models/charge_model.dart';
@@ -34,7 +35,7 @@ class DataRepository implements WorkerContract,
     ChargesContract, CoursesContract, CoursesFinishedContract, 
     DestinationsContract, DocumentsContract, PayrollContract,
     ScaleContract, AvailableWorkersContract, CurrentJobContract,
-    ProceduresContract, SingleProcedureContract{
+    ProceduresContract, SingleProcedureContract, UserContract{
 
   /* Firestore collections */
   final workerCollection = FirebaseFirestore.instance.collection("Worker");
@@ -50,6 +51,7 @@ class DataRepository implements WorkerContract,
   final courseCollection = FirebaseFirestore.instance.collection("Course");
   final jobCollection = FirebaseFirestore.instance.collection("Job");
   final procedureCollection = FirebaseFirestore.instance.collection("Procedure");
+  final userCollection = FirebaseFirestore.instance.collection("User");
 
   @override
   Future<Worker> getWorker(String id) async {
@@ -289,6 +291,24 @@ class DataRepository implements WorkerContract,
           ),
     );
     return availableJobs;
+  }
+
+  @override
+  Future<bool> checkUserCredentials(String id, String password) async{
+    bool result = false;
+    await userCollection
+        .where('id', isEqualTo: id)
+        .where('password', isEqualTo: password)
+        .limit(1)
+        .get().then(
+          (snapshot) =>
+          snapshot.docs.forEach(
+                (user) {
+              if(user.exists) result = true;
+            },
+          ),
+    );
+    return result;
   }
 
 }

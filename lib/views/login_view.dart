@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gestint/contracts/user_view_contract.dart';
+import 'package:gestint/presenters/user_presenter.dart';
 
 import 'main_menu_view.dart';
 
@@ -9,9 +11,19 @@ class LoginView extends StatefulWidget {
   _LoginViewState createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends State<LoginView> implements UserViewContract {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late UserPresenter _userPresenter;
+  bool _isLoading = true;
+  TextEditingController _userController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _userPresenter = UserPresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +68,7 @@ class _LoginViewState extends State<LoginView> {
                   TextFormField(
                     //this moves the cursor to the next field
                     textInputAction: TextInputAction.next,
+                    controller: _userController,
                     decoration: const InputDecoration(
                       hintText: 'Ejemplo: X12345678',
                     ),
@@ -77,6 +90,7 @@ class _LoginViewState extends State<LoginView> {
                   TextFormField(
                     // this hides the keyboard
                     textInputAction: TextInputAction.done,
+                    controller: _passwordController,
                     decoration: const InputDecoration(
 
                     ),
@@ -95,11 +109,9 @@ class _LoginViewState extends State<LoginView> {
                         // Validate will return true if the form is valid, or false if
                         // the form is invalid.
                         if (_formKey.currentState!.validate()) {
-                          // Check credentials on FireStore ************ //TODO
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MainMenuView()),
-                          );
+                          var id = _userController.text;
+                          var password = _passwordController.text;
+                          _userPresenter.checkUserCredentials(id, password);
                         }
                       },
                       child: const Text('Entrar'),
@@ -146,6 +158,52 @@ class _LoginViewState extends State<LoginView> {
           ],
         ),
       ),
+    );
+  }
+
+  @override
+  void onCheckUserCredentialError() {
+    setState(() {
+      _isLoading = false;
+      _showErrorDialog();
+    });
+  }
+
+  @override
+  void onCheckUserCredentialsComplete(bool match) {
+    if (match) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MainMenuView()),
+      );
+    }else {
+      _showErrorDialog();
+    }
+  }
+
+  Future<void> _showErrorDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Atención'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const <Widget>[
+              Text('Estos credenciales son incorrectos'),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Entendido'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

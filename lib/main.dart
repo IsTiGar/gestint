@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gestint/models/user.dart';
+import 'package:provider/provider.dart';
 
 import 'theme/custom_theme.dart';
 import 'views/login_view.dart';
@@ -8,7 +10,11 @@ import 'views/main_menu_view.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => User(),
+      child: MyApp(),
+  ),);
 }
 
 Map<int, Color> color =
@@ -32,7 +38,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: CustomTheme.lightTheme,
-      home: MainMenuView(), //TODO cambiar a LoginView
+      home: LoginView(),
     );
   }
 }
