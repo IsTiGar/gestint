@@ -119,6 +119,10 @@
   "catalan_degrees": "Titulaciones de catalán",
   "training": "Formación permanente",
   "total_score": "Puntuación total",
-  "scale_warning": "Se ha producido un error al recuperar su baremación, disculpe las molestias y vuelva a intentarlo más tarde"
+  "scale_warning": "Se ha producido un error al recuperar su baremación, disculpe las molestias y vuelva a intentarlo más tarde",
+  "logout_warning": "¿Está seguro de querer salir de la aplicación?",
+  "confirmation": "Confirmación",
+  "yes": "Sí",
+  "no": "No"
 
 }

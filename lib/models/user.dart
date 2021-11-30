@@ -11,6 +11,12 @@ class User extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearUserId() {
+    _userId = "";
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
   /// Get the user id when needed
   String getUserId() {
     return _userId;

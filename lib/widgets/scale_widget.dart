@@ -29,7 +29,6 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
   @override
   void initState() {
     super.initState();
-
     _scalePresenter = ScalePresenter(this);
     _scalePresenter.getScale(Provider.of<User>(context, listen: false).getUserId());
   }

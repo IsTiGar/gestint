@@ -243,10 +243,8 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 size: 30.0,
               ),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
+                // Ask for confirmation dialog
+                _showConfirmationDialog();
               },
             ),
           ],
@@ -299,6 +297,46 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   @override
   void onLoadWorkerError() {
     // TODO: implement onLoadWorkerError, show message or something
+  }
+
+  Future<void> _showConfirmationDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.confirmation),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.logout_warning),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.yes),
+              onPressed: () {
+                // Clear Provider userId
+                Provider.of<User>(context, listen: false).clearUserId();
+                // Then close dialog
+                Navigator.of(context).pop();
+                //Then close drawer
+                Navigator.pop(context);
+                //Then return to login screen
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.no),
+              onPressed: () {
+                // Close dialog
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
 }
