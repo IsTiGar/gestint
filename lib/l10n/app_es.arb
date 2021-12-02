@@ -7,6 +7,7 @@
   "enter_user": "Por favor, introduce tu usuario",
   "enter_password": "Por favor, introduce tu contraseña",
   "login": "Entrar",
+  "remember_me": "Recuérdame",
   "digital_login": "Entrar con certificado digital",
   "fingerprint_login": "Entrar con huella digital",
   "warning": "Atención",
@@ -123,6 +124,10 @@
   "logout_warning": "¿Está seguro de querer salir de la aplicación?",
   "confirmation": "Confirmación",
   "yes": "Sí",
-  "no": "No"
+  "no": "No",
+  "school": "Centro educativo",
+  "charges_warning": "Se ha producido un error al recuperar su lista de cargos, disculpe las molestias y vuelva a intentarlo más tarde",
+  "certifications_warning": "Se ha producido un error al recuperar su lista de titulaciones, disculpe las molestias y vuelva a intentarlo más tarde"
+
 
 }

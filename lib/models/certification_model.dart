@@ -1,9 +1,8 @@
-import 'dart:ffi';
 
 class Certification {
 
   final String title;
-  final Float qualification;
+  final double qualification;
   final bool award;
 
   Certification(
@@ -13,7 +12,7 @@ class Certification {
 
   Certification.fromSnapshot(Map<String, dynamic> json)
       : title = json['title'],
-        qualification = json['qualification'],
+        qualification = json['qualification'] == null ? 0.0 : json['qualification'].toDouble(), // forcefully convert int to double
         award = json['award'];
 
 }

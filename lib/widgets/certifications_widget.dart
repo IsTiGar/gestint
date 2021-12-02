@@ -1,60 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gestint/contracts/destinations_view_contract.dart';
-import 'package:gestint/models/destination_model.dart';
+import 'package:gestint/contracts/certifications_view_contract.dart';
+import 'package:gestint/models/certification_model.dart';
 import 'package:gestint/models/user.dart';
-import 'package:gestint/presenters/destinations_presenter.dart';
+import 'package:gestint/presenters/certifications_presenter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
-class DestinationsWidget extends StatefulWidget {
-  const DestinationsWidget({Key? key}) : super(key: key);
+class CertificationsWidget extends StatefulWidget {
+  const CertificationsWidget({Key? key}) : super(key: key);
 
   @override
-  State<DestinationsWidget> createState() => _DestinationsWidgetState();
+  State<CertificationsWidget> createState() => _CertificationsWidgetState();
 }
 
-class _DestinationsWidgetState extends State<DestinationsWidget> implements DestinationsViewContract {
+class _CertificationsWidgetState extends State<CertificationsWidget> implements CertificationsViewContract {
 
-  late DestinationsPresenter _destinationsPresenter;
-  late List<Destination> _destinationsList;
+  late CertificationsPresenter _certificationsPresenter;
+  late List<Certification> _certificationList;
   bool _isLoading = true;
-  bool _destinationsNotFound = false;
+  bool _certificationsNotFound = false;
 
   @override
   void initState() {
     super.initState();
-    _destinationsPresenter = DestinationsPresenter(this);
-    _destinationsPresenter.getDestinations(Provider.of<User>(context, listen: false).getUserId());
+    _certificationsPresenter = CertificationsPresenter(this);
+    _certificationsPresenter.getCertifications(Provider.of<User>(context, listen: false).getUserId());
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10),
-      child: _isLoading ? CustomProgressIndicatorWidget() : _destinationsNotFound? SizedBox.shrink() : ListView.separated(
+      child: _isLoading ? CustomProgressIndicatorWidget() : _certificationsNotFound? SizedBox.shrink() : ListView.separated(
         padding: const EdgeInsets.all(8),
-        itemCount: _destinationsList.length,
+        itemCount: _certificationList.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(
-              _destinationsList[index].school,
+              _certificationList[index].title,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold
               ),
-              //textAlign:TextAlign.end,
             ),
             subtitle: Text(
-              '${AppLocalizations.of(context)!.from}: ${_destinationsList[index].startDate} ${AppLocalizations.of(context)!.to} ${_destinationsList[index].endDate}',
+              '${AppLocalizations.of(context)!.from}: ${_certificationList[index].qualification} ${AppLocalizations.of(context)!.to} ${_certificationList[index].award}',
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
               ),
-              //textAlign:TextAlign.end,
             ),
             dense: false,
           );
@@ -65,19 +63,19 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
   }
 
   @override
-  void onLoadDestinationsComplete(List<Destination> destinationsList) {
+  void onLoadCertificationsComplete(List<Certification> certificationList) {
     setState(() {
-      _destinationsList = destinationsList;
-      _destinationsNotFound = false;
+      _certificationList = certificationList;
+      _certificationsNotFound = false;
       _isLoading = false;
     });
   }
 
   @override
-  void onLoadDestinationsError() {
+  void onLoadCertificationsError() {
     setState(() {
       _isLoading = false;
-      _destinationsNotFound = true;
+      _certificationsNotFound = true;
       _showErrorDialog();
     });
   }
@@ -92,7 +90,7 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(AppLocalizations.of(context)!.destinations_warning),
+              Text(AppLocalizations.of(context)!.certifications_warning),
             ],
           ),
           actions: <Widget>[

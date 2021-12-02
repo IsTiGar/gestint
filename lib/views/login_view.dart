@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gestint/contracts/storage_view_contract.dart';
 import 'package:gestint/contracts/user_view_contract.dart';
+import 'package:gestint/models/storage_model.dart';
 import 'package:gestint/models/user.dart';
+import 'package:gestint/presenters/storage_presenter.dart';
 import 'package:gestint/presenters/user_presenter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,11 +16,13 @@ class LoginView extends StatefulWidget {
   _LoginViewState createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> implements UserViewContract {
+class _LoginViewState extends State<LoginView> implements UserViewContract, StorageViewContract {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late UserPresenter _userPresenter;
+  late StoragePresenter _storagePresenter;
   bool _isLoading = true;
+  bool _checkboxValue = false;
   TextEditingController _userController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -27,6 +32,9 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
     _userPresenter = UserPresenter(this);
     _userController.clear();
     _passwordController.clear();
+    var _storageModel = new StorageModel();
+    _storagePresenter = new StoragePresenter(this, _storageModel);
+    _storagePresenter.getUserCredentials();
   }
 
   @override
@@ -107,6 +115,22 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
                     },
                   ),
                   SizedBox(height: 10),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(AppLocalizations.of(context)!.remember_me),
+                      Checkbox(
+                        value: _checkboxValue,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _checkboxValue = value!;
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
@@ -175,9 +199,16 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
   }
 
   @override
-  void onCheckUserCredentialsComplete(String userId, bool match) {
+  void onCheckUserCredentialsComplete(String userId, String password, bool match) {
     if (match) {
-      /* Credentials are correct, set user id on Provider for future uses */
+      /* Credentials are correct */
+      /* check if user wishes to remember credentials and save or clear them in that case */
+      if(_checkboxValue) {
+        _storagePresenter.saveUserCredentials(userId, password);
+      }else{
+        _storagePresenter.clearUserCredentials();
+      }
+      /* Set user id on Provider for future uses */
       Provider.of<User>(context, listen: false).setUserId(userId);
       /* And navigate to main screen */
       Navigator.push(
@@ -187,9 +218,10 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
         /* Reset user and password fields in case user returns here clicking back button */
         _passwordController.clear();
         _userController.clear();
+        _storagePresenter.getUserCredentials();
       });
     }else {
-      /* Credentials don't match, show error message */
+      /* Credentials don't match, show error message and reset button*/
       _showErrorDialog();
     }
   }
@@ -220,4 +252,17 @@ class _LoginViewState extends State<LoginView> implements UserViewContract {
       },
     );
   }
+
+  @override
+  void onGetCredentialsComplete(String? userId, String? password) {
+    if(userId != null && password != null) {
+      print('userCredential no es null');
+      setState(() {
+        _checkboxValue = true;
+        _userController.text = userId;
+        _passwordController.text = password;
+      });
+    }
+  }
+
 }
