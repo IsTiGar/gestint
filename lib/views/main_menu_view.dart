@@ -34,9 +34,10 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   late Worker _worker;
   bool _isLoading = true;
   bool _showBottomBar = false;
+  // First widget to show is WelcomeWidget
   Widget bodyWidget = WelcomeWidget();
-  String appBarTitle = 'Portal del personal';
-  String bottomBarCourseHours = '';
+  String appBarTitle = 'Portal del personal'; // this is the same in catalan or spanish
+  String bottomBarCourseHours = ''; // defined later
 
   // callback function
   void _onHoursCallback(double hours) {
@@ -49,6 +50,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   void initState() {
     super.initState();
     _workerPresenter = WorkerPresenter(this);
+    // Get user profile information to show on drawer
     _workerPresenter.getWorkerProfile(Provider.of<User>(context, listen: false).getUserId());
   }
 
@@ -59,29 +61,31 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
       body: Center(
           child: bodyWidget,
       ),
+      // All the drawer options can be shown in one body widget that is updated as needed
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
+        /* Add a ListView to the drawer. This ensures the user can scroll
+        through the options in the drawer if there isn't enough vertical
+        space to fit everything. */
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
               ),
               child: _isLoading ? CustomProgressIndicatorWidget() : ProfileWidget(worker: _worker),
             ),
+            // Navigation block tiles
             ListTile(
               title: Text(AppLocalizations.of(context)!.personal_file),
               leading: Icon(
                 Icons.folder,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
-                // replace body widget
+                // Replace body widget
                 setState(() {
                   appBarTitle = AppLocalizations.of(context)!.personal_file;
                   _showBottomBar = false;
@@ -95,7 +99,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.documents),
               leading: Icon(
                 Icons.description,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
@@ -113,7 +117,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.economical_data),
               leading: Icon(
                 Icons.euro,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
@@ -131,7 +135,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.education),
               leading: Icon(
                 Icons.school,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
@@ -149,7 +153,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.scale),
               leading: Icon(
                 Icons.swap_vert,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
@@ -167,7 +171,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.available_workers),
               leading: Icon(
                 Icons.people,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
@@ -185,7 +189,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.procedures),
               leading: Icon(
                 Icons.schedule,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
@@ -203,7 +207,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.school_map),
               leading: Icon(
                 Icons.place,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
@@ -221,7 +225,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.contact),
               leading: Icon(
                 Icons.contact_support,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {
@@ -239,7 +243,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               title: Text(AppLocalizations.of(context)!.logout),
               leading: Icon(
                 Icons.logout,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onTap: () {

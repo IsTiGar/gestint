@@ -38,7 +38,7 @@ class _PersonalFileWidgetState extends State<PersonalFileWidget> with SingleTick
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: Container(
-            color: Color.fromARGB(255, 204, 7, 60),
+            color: Theme.of(context).primaryColor,
             child: TabBar(
               isScrollable: true,
               tabs: [

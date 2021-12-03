@@ -46,7 +46,7 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
             ),
           ),
           Divider(
-            color: Color.fromARGB(255, 204, 7, 60),
+            color: Theme.of(context).primaryColor,
             thickness: 2,
           ),
           Text('${AppLocalizations.of(context)!.school_service} ${_currentJob.school}'),
@@ -60,7 +60,7 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
             ),
           ),
           Divider(
-            color: Color.fromARGB(255, 204, 7, 60),
+            color: Theme.of(context).primaryColor,
             thickness: 2,
           ),
           Text('${AppLocalizations.of(context)!.type} ${_currentJob.type}'),

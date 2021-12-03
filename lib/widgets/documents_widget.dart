@@ -43,7 +43,7 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
             trailing: IconButton(
               icon: Icon(
                 Icons.download,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
               onPressed: () {

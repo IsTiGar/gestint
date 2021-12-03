@@ -74,12 +74,12 @@ class AvailableJobInfoWidget extends StatelessWidget {
               ),
               Icon(
                 Icons.swap_vert,
-                color: Color.fromARGB(255, 204, 7, 60),
+                color: Theme.of(context).primaryColor,
                 size: 30.0,
               ),
             ],
           ),
-          Divider(color: Color.fromARGB(255, 204, 7, 60),),
+          Divider(color: Theme.of(context).primaryColor),
         ],
       )
     );

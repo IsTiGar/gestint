@@ -45,7 +45,7 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> implements Pers
             ),
           ),
           Divider(
-            color: Color.fromARGB(255, 204, 7, 60),
+            color: Theme.of(context).primaryColor,
             thickness: 2,
           ),
           Text('${AppLocalizations.of(context)!.name}: ${_personalData.firstName} ${_personalData.lastName1} ${_personalData.lastName2}'),
@@ -60,7 +60,7 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> implements Pers
             ),
           ),
           Divider(
-            color: Color.fromARGB(255, 204, 7, 60),
+            color: Theme.of(context).primaryColor,
             thickness: 2,
           ),
           Text('${AppLocalizations.of(context)!.birth_date}: ${_personalData.dateOfBirth}'),
@@ -77,7 +77,7 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> implements Pers
             ),
           ),
           Divider(
-            color: Color.fromARGB(255, 204, 7, 60),
+            color: Theme.of(context).primaryColor,
             thickness: 2,
           ),
           Text('${AppLocalizations.of(context)!.address}: ${_personalData.address}'),

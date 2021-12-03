@@ -92,7 +92,7 @@ class AvailableWorkersWidget extends StatefulWidget {
             //style: const TextStyle(color: Colors.deepPurple),
             underline: Container(
                 height: 2,
-                color: Color.fromARGB(255, 204, 7, 60)
+                color: Theme.of(context).primaryColor
             ),
             onChanged: (String? newValue) {
               setState(() {
@@ -119,7 +119,7 @@ class AvailableWorkersWidget extends StatefulWidget {
             //style: const TextStyle(color: Colors.deepPurple),
             underline: Container(
                 height: 2,
-                color: Color.fromARGB(255, 204, 7, 60)
+                color: Theme.of(context).primaryColor
             ),
             onChanged: (String? newValue) {
               setState(() {

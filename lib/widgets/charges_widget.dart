@@ -80,7 +80,7 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
             dense: false,
           );
         },
-        separatorBuilder: (BuildContext context, int index) => const Divider(color: Color.fromARGB(255, 204, 7, 60)),
+        separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor),
       ),
     );
   }

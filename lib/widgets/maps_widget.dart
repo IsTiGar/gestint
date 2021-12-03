@@ -72,7 +72,7 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
       floatingActionButton: FloatingActionButton(
         onPressed: _goToMyPosition,
         child: Icon(Icons.my_location),
-        backgroundColor: Color.fromARGB(255, 204, 7, 60),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

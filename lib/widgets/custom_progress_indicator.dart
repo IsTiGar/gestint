@@ -9,7 +9,7 @@ class CustomProgressIndicatorWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: CircularProgressIndicator(
-        color: Color.fromARGB(255, 204, 7, 60),
+        color: Theme.of(context).primaryColor,
       ),
     );
   }

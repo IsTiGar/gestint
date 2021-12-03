@@ -23,7 +23,7 @@ class UnderlinedTextWidget extends StatelessWidget {
             //textAlign:TextAlign.end,
           ),
           Divider(
-            color: Color.fromARGB(255, 204, 7, 60),
+            color: Theme.of(context).primaryColor,
             thickness: 2,
           ),
         ],

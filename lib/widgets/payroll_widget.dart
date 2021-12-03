@@ -114,7 +114,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                 elevation: 16,
                 underline: Container(
                     height: 2,
-                    color: Color.fromARGB(255, 204, 7, 60)
+                    color: Theme.of(context).primaryColor
                 ),
                 onChanged: (String? newValue) {
                   setState(() {
@@ -141,7 +141,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                 elevation: 16,
                 underline: Container(
                     height: 2,
-                    color: Color.fromARGB(255, 204, 7, 60)
+                    color: Theme.of(context).primaryColor
                 ),
                 onChanged: (String? newValue) {
                   setState(() {

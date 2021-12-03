@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:gestint/contracts/storage_view_contract.dart';
 import 'package:gestint/contracts/user_view_contract.dart';
@@ -5,6 +6,7 @@ import 'package:gestint/models/storage_model.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/storage_presenter.dart';
 import 'package:gestint/presenters/user_presenter.dart';
+import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'main_menu_view.dart';
@@ -21,7 +23,6 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late UserPresenter _userPresenter;
   late StoragePresenter _storagePresenter;
-  bool _isLoading = true;
   bool _checkboxValue = false;
   TextEditingController _userController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -30,8 +31,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   void initState() {
     super.initState();
     _userPresenter = UserPresenter(this);
-    _userController.clear();
-    _passwordController.clear();
+    /* Check if user has saved credentials */
     var _storageModel = new StorageModel();
     _storagePresenter = new StoragePresenter(this, _storageModel);
     _storagePresenter.getUserCredentials();
@@ -40,7 +40,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // this avoids overflow when keyboard is visible
+      /* this avoids overflow when keyboard is visible */
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
@@ -70,6 +70,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  // User id block
                   Text(
                     AppLocalizations.of(context)!.user,
                     textAlign: TextAlign.start,
@@ -78,7 +79,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     ),
                   ),
                   TextFormField(
-                    //this moves the cursor to the next field
+                    // this moves the cursor to the next field
                     textInputAction: TextInputAction.next,
                     controller: _userController,
                     decoration: InputDecoration(
@@ -92,6 +93,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     },
                   ),
                   SizedBox(height: 15),
+                  // Password block
                   Text(
                     AppLocalizations.of(context)!.password,
                     textAlign: TextAlign.start,
@@ -103,9 +105,6 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     // this hides the keyboard
                     textInputAction: TextInputAction.done,
                     controller: _passwordController,
-                    decoration: const InputDecoration(
-
-                    ),
                     obscureText: true,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -115,6 +114,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     },
                   ),
                   SizedBox(height: 10),
+                  // Remember me block
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -138,6 +138,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                         /* Validate will return true if the form is valid, or false if
                            the form is invalid. */
                         if (_formKey.currentState!.validate()) {
+                          buildLoadingIndicator(context);
                           var id = _userController.text;
                           var password = _passwordController.text;
                           _userPresenter.checkUserCredentials(id, password);
@@ -153,11 +154,14 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
                         onPressed: () {
-                          /* Validate will return true if the form is valid, or false if
-                           the form is invalid. */
-                          if (_formKey.currentState!.validate()) {
-                            // Process data.
-                          }
+                          // Future feature, show snackBar to the user
+                          final scaffold = ScaffoldMessenger.of(context);
+                          scaffold.showSnackBar(
+                              SnackBar(
+                                content: Text(AppLocalizations.of(context)!.not_available_option),
+                                action: SnackBarAction(label: AppLocalizations.of(context)!.ok, onPressed: scaffold.hideCurrentSnackBar),
+                              )
+                          );
                         },
                         child: Text(AppLocalizations.of(context)!.digital_login),
                         style: ElevatedButton.styleFrom(
@@ -169,11 +173,16 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
                         onPressed: () {
-                          /* Validate will return true if the form is valid, or false if
-                           the form is invalid. */
-                          if (_formKey.currentState!.validate()) {
-                            // Process data.
-                          }
+                          /* Future feature, now as particular developer I have not access
+                          to government's digital user system */
+                          // Future feature, show snackBar to the user
+                          final scaffold = ScaffoldMessenger.of(context);
+                          scaffold.showSnackBar(
+                              SnackBar(
+                                content: Text(AppLocalizations.of(context)!.not_available_option),
+                                action: SnackBarAction(label: AppLocalizations.of(context)!.ok, onPressed: scaffold.hideCurrentSnackBar),
+                              )
+                          );
                         },
                         child: Text(AppLocalizations.of(context)!.fingerprint_login),
                         style: ElevatedButton.styleFrom(
@@ -193,7 +202,6 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   @override
   void onCheckUserCredentialError() {
     setState(() {
-      _isLoading = false;
       _showErrorDialog();
     });
   }
@@ -201,11 +209,16 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   @override
   void onCheckUserCredentialsComplete(String userId, String password, bool match) {
     if (match) {
-      /* Credentials are correct */
-      /* check if user wishes to remember credentials and save or clear them in that case */
+      // Credentials are correct
+      // Remove loading indicator
+      Navigator.of(context).pop();
+      /* check if user wishes to remember credentials and
+        save or clear them in that case */
       if(_checkboxValue) {
+        // User want his credentials to be remembered
         _storagePresenter.saveUserCredentials(userId, password);
       }else{
+        // User don't want his credentials to be remembered
         _storagePresenter.clearUserCredentials();
       }
       /* Set user id on Provider for future uses */
@@ -215,18 +228,19 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
         context,
         MaterialPageRoute(builder: (context) => MainMenuView()),
       ).then((value) {
-        /* Reset user and password fields in case user returns here clicking back button */
+        /* Reset user and password fields in case user
+          returns here clicking back button */
         _passwordController.clear();
         _userController.clear();
         _storagePresenter.getUserCredentials();
       });
     }else {
-      /* Credentials don't match, show error message and reset button*/
+      // Credentials don't match, show error message
       _showErrorDialog();
     }
   }
 
-  /* Error Dialog */
+  // Error Dialog
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,
@@ -255,14 +269,28 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
 
   @override
   void onGetCredentialsComplete(String? userId, String? password) {
+    // if credentials are not saved then userId and password will be null
     if(userId != null && password != null) {
-      print('userCredential no es null');
+      // Credentials were saved so update text fields and checkbox
       setState(() {
         _checkboxValue = true;
         _userController.text = userId;
         _passwordController.text = password;
       });
     }
+  }
+
+  /* This shows a loading indicator with shadowed background while
+  the credentials are checked on the remote database */
+  buildLoadingIndicator(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(
+          child: CustomProgressIndicatorWidget(),
+        );
+      });
   }
 
 }
