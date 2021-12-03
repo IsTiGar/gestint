@@ -75,7 +75,6 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
                   ),
                 ),
               ]
-              //textAlign:TextAlign.end,
             ),
             dense: false,
           );
