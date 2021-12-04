@@ -79,6 +79,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     ),
                   ),
                   TextFormField(
+                    key: new Key('userId'),
                     // this moves the cursor to the next field
                     textInputAction: TextInputAction.next,
                     controller: _userController,
@@ -102,6 +103,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     ),
                   ),
                   TextFormField(
+                    key: new Key('password'),
                     // this hides the keyboard
                     textInputAction: TextInputAction.done,
                     controller: _passwordController,
@@ -134,6 +136,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
+                      key: new Key('UserPasswordLoginButton'),
                       onPressed: () {
                         /* Validate will return true if the form is valid, or false if
                            the form is invalid. */
@@ -153,11 +156,13 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
+                        key: new Key('DigitalFingerprintLoginButton'),
                         onPressed: () {
                           // Future feature, show snackBar to the user
                           final scaffold = ScaffoldMessenger.of(context);
                           scaffold.showSnackBar(
                               SnackBar(
+                                key: new Key('FingerprintSnackBar'),
                                 content: Text(AppLocalizations.of(context)!.not_available_option),
                                 action: SnackBarAction(label: AppLocalizations.of(context)!.ok, onPressed: scaffold.hideCurrentSnackBar),
                               )
@@ -172,6 +177,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
+                        key: new Key('DigitalCertificateLoginButton'),
                         onPressed: () {
                           /* Future feature, now as particular developer I have not access
                           to government's digital user system */
@@ -179,6 +185,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                           final scaffold = ScaffoldMessenger.of(context);
                           scaffold.showSnackBar(
                               SnackBar(
+                                key: new Key('DigitalCertificateSnackBar'),
                                 content: Text(AppLocalizations.of(context)!.not_available_option),
                                 action: SnackBarAction(label: AppLocalizations.of(context)!.ok, onPressed: scaffold.hideCurrentSnackBar),
                               )
@@ -288,7 +295,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Center(
-          child: CustomProgressIndicatorWidget(),
+          child: CustomProgressIndicatorWidget(key: new Key('loadingIndicator'),),
         );
       });
   }

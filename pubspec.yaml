@@ -37,6 +37,8 @@ dependencies:
   location: ^4.3.0
   permission_handler: ^8.1.6
   flutter_secure_storage: ^5.0.2
+  fake_cloud_firestore: ^1.2.0
+  mockito: ^5.0.16
 
 dev_dependencies:
   flutter_test:
