@@ -174,5 +174,8 @@
   "available_workers_warning": "Se ha producido un error al recuperar la lista de interinos disponibles, disculpe las molestias y vuelva a intentarlo más tarde",
   "qualification": "Nota",
   "award": "Premio extraordinario",
-  "downloading": "Descargando archivo..."
+  "downloading": "Descargando archivo...",
+  "zero_results": "La consulta ha producido 0 resultados",
+  "substitution": "Sustitución",
+  "vacant": "Vacante"
 }

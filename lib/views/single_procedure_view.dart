@@ -11,8 +11,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SingleProcedureView extends StatefulWidget{
 
   final String procedureId;
+  final Map<String, String> codeList;
 
-  SingleProcedureView({Key? key, required this.procedureId}) : super(key: key);
+  SingleProcedureView({Key? key, required this.procedureId, required this.codeList}) : super(key: key);
 
   @override
   State<SingleProcedureView> createState() => _SingleProcedureViewState();
@@ -57,8 +58,10 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
           ),
           itemBuilder: (BuildContext context, int index) {
             return AvailableJobInfoWidget(
-                key: ValueKey(_availableJobList[index].id),
-                job: _availableJobList[index]
+              key: ValueKey(_availableJobList[index].id),
+              job: _availableJobList[index],
+              typeString: getTypeString(context, _availableJobList[index].type),
+              functionString: getFunctionString(context, _availableJobList[index].function),
             );
           },
           itemCount: _availableJobList.length,
@@ -72,10 +75,10 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(AppLocalizations.of(context)!.reorder_jobs, style: TextStyle(color: Colors.white),),
+                  Text(AppLocalizations.of(context)!.reorder_jobs, style: TextStyle(color: Colors.white)),
                   Row(
                     children: [
-                      Text(AppLocalizations.of(context)!.click, style: TextStyle(color: Colors.white),),
+                      Text(AppLocalizations.of(context)!.click, style: TextStyle(color: Colors.white)),
                       SizedBox(width: 3,),
                       Icon(
                         Icons.send,
@@ -83,7 +86,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
                         color: Colors.white,
                       ),
                       SizedBox(width: 3,),
-                      Text(AppLocalizations.of(context)!.to_finalize, style: TextStyle(color: Colors.white),),
+                      Text(AppLocalizations.of(context)!.to_finalize, style: TextStyle(color: Colors.white)),
                     ],
                   )
                 ],
@@ -147,6 +150,18 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
         );
       },
     );
+  }
+
+  // this functions returns the localized string for the job type, example 1 -> Vacant if locale Code is 'ca' (Catalan)
+  getTypeString(BuildContext context, String type) {
+    String typeString;
+    type == '0' ? typeString = AppLocalizations.of(context)!.substitution : typeString = AppLocalizations.of(context)!.vacant;
+    return typeString;
+  }
+
+  // this functions returns the localized string for the functionCode, example 006 -> Matemàtiques if locale Code is 'ca' (Catalan)
+  getFunctionString(BuildContext context, String functionCode) {
+    return widget.codeList[functionCode];
   }
 
 }

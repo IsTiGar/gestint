@@ -112,33 +112,36 @@ class AvailableWorkersWidget extends StatefulWidget {
             },
             child: Text(AppLocalizations.of(context)!.show_button_text),
           ),
-          SizedBox(height: 10,),
-          _isLoading ? CustomProgressIndicatorWidget() : _availableWorkersNotFound? SizedBox.shrink() : ListView.separated(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(8),
-            itemCount: _availableWorkersList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                contentPadding: EdgeInsets.zero,
-                trailing: Text(_availableWorkersList[index].score.toStringAsFixed(3)),
-                title: Text(
-                  '${index+1}. ${_availableWorkersList[index].lastName1} ${_availableWorkersList[index].lastName2}, ${_availableWorkersList[index].firstName}',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-                subtitle: Text(
-                  _availableWorkersList[index].trained ? '${AppLocalizations.of(context)!.trained}: ${AppLocalizations.of(context)!.yes}' : '${AppLocalizations.of(context)!.trained}: ${AppLocalizations.of(context)!.no}',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-                dense: false,
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor),
+          SizedBox(height: 10),
+          _isLoading ? Expanded(child: CustomProgressIndicatorWidget())
+              : _availableWorkersNotFound ? SizedBox.shrink()
+              : _availableWorkersList.length==0 ? Column(children: [SizedBox(height: 30,), Text(AppLocalizations.of(context)!.zero_results)])
+              :ListView.separated(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(8),
+                  itemCount: _availableWorkersList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      trailing: Text(_availableWorkersList[index].score.toStringAsFixed(3)),
+                      title: Text(
+                        '${index+1}. ${_availableWorkersList[index].lastName1} ${_availableWorkersList[index].lastName2}, ${_availableWorkersList[index].firstName}',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      subtitle: Text(
+                        _availableWorkersList[index].trained ? '${AppLocalizations.of(context)!.trained}: ${AppLocalizations.of(context)!.yes}' : '${AppLocalizations.of(context)!.trained}: ${AppLocalizations.of(context)!.no}',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      dense: false,
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor),
           ),
         ]
       ),

@@ -6,9 +6,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AvailableJobInfoWidget extends StatelessWidget {
 
   final CurrentJob job;
+  final String functionString;
+  final String typeString;
 
   const AvailableJobInfoWidget(
-      {Key? key, required this.job})
+      {Key? key, required this.job, required this.functionString, required this.typeString})
       : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class AvailableJobInfoWidget extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
@@ -31,7 +33,7 @@ class AvailableJobInfoWidget extends StatelessWidget {
                         color: Colors.pinkAccent,
                         size: 20.0,
                       ),
-                      Text(job.type)
+                      Text(typeString)
                     ],
                   ),
                   Row(
@@ -51,7 +53,7 @@ class AvailableJobInfoWidget extends StatelessWidget {
                         color: Colors.purple,
                         size: 20.0,
                       ),
-                      Text(job.function)
+                      Text(functionString)
                     ],
                   ),
                   Row(
