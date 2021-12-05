@@ -47,12 +47,23 @@ class _CertificationsWidgetState extends State<CertificationsWidget> implements 
                 fontWeight: FontWeight.bold
               ),
             ),
-            subtitle: Text(
-              '${AppLocalizations.of(context)!.from}: ${_certificationList[index].qualification} ${AppLocalizations.of(context)!.to} ${_certificationList[index].award}',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold
-              ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${AppLocalizations.of(context)!.qualification}: ${_certificationList[index].qualification}',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                Text(
+                _certificationList[index].award ? '${AppLocalizations.of(context)!.award}: ${AppLocalizations.of(context)!.yes}' : '${AppLocalizations.of(context)!.award}: ${AppLocalizations.of(context)!.no}',
+                  style: TextStyle(
+                      fontSize: 14
+                  ),
+                ),
+              ],
             ),
             dense: false,
           );

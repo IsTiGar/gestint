@@ -47,7 +47,14 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
                 size: 30.0,
               ),
               onPressed: () {
-                //TODO download something
+                // I have not access to the real documents, show a fake downloading document message to the user for now
+                final scaffold = ScaffoldMessenger.of(context);
+                scaffold.showSnackBar(
+                    SnackBar(
+                      content: Text(AppLocalizations.of(context)!.downloading),
+                      action: SnackBarAction(label: AppLocalizations.of(context)!.ok, onPressed: scaffold.hideCurrentSnackBar),
+                    )
+                );
               },
             ),
             title: Text(
@@ -56,7 +63,6 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
                 fontSize: 16,
                 fontWeight: FontWeight.bold
               ),
-              //textAlign:TextAlign.end,
             ),
             subtitle: Text(
               '${AppLocalizations.of(context)!.effect_date}: ${_documentsList[index].date}',
@@ -64,7 +70,6 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
                   fontSize: 16,
                   fontWeight: FontWeight.bold
               ),
-              //textAlign:TextAlign.end,
             ),
             dense: false,
           );

@@ -126,7 +126,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 setState(() {
                   appBarTitle = AppLocalizations.of(context)!.economical_data;
                   _showBottomBar = false;
-                  bodyWidget = PayrollWidget();
+                  bodyWidget = PayrollWidget(monthList: getMonthList(context));
                 });
                 // Close drawer
                 Navigator.pop(context);
@@ -372,6 +372,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
     );
   }
 
+  // Build the lists here because the context is needed
   List<String> getBodyList(BuildContext context) {
     return [
       '058 ' + AppLocalizations.of(context)!.primary,
@@ -434,6 +435,24 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
       '202 ' + AppLocalizations.of(context)!.english,
       '203 ' + AppLocalizations.of(context)!.spanish_foreign,
       '204 ' + AppLocalizations.of(context)!.french,
+    ];
+  }
+
+  // Month list for payroll widget
+  List<String> getMonthList(BuildContext context) {
+    return [
+      AppLocalizations.of(context)!.january,
+      AppLocalizations.of(context)!.february,
+      AppLocalizations.of(context)!.march,
+      AppLocalizations.of(context)!.april,
+      AppLocalizations.of(context)!.may,
+      AppLocalizations.of(context)!.june,
+      AppLocalizations.of(context)!.july,
+      AppLocalizations.of(context)!.august,
+      AppLocalizations.of(context)!.september,
+      AppLocalizations.of(context)!.october,
+      AppLocalizations.of(context)!.november,
+      AppLocalizations.of(context)!.december
     ];
   }
 

@@ -17,6 +17,9 @@ class CustomTheme {
       }),
       primaryColor: Color.fromARGB(255, 204, 7, 60),
       backgroundColor: Color.fromARGB(255, 242, 242, 242),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: Color.fromARGB(255, 50, 129, 75),
+      ),
       scaffoldBackgroundColor: Color.fromARGB(255, 242, 242, 242),
       buttonTheme: ButtonThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),

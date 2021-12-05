@@ -170,5 +170,10 @@
   "hair": "Perruqueria",
   "administration": "Gestió administrativa",
   "community_services": "Serveis a la comunitat",
-  "spanish_foreign": "Espanyol per estrangers"
+  "spanish_foreign": "Espanyol per estrangers",
+  "available_workers_warning": "S'ha produït un error en recuperar la llista d'interins disponibles, disculpeu les molèsties i torneu-ho a intentar més tard",
+  "qualification": "Nota",
+  "award": "Premi extraordinari",
+  "downloading": "Descarregant arxiu..."
+
 }

@@ -145,28 +145,30 @@ class AvailableWorkersWidget extends StatefulWidget {
     );
   }
 
-  String getCode(BuildContext context, String? string) {
-    String code;
-    string == null ? code = '0' : code = string.substring(0, 3); // returns first 3 characters (the code) or 0
+  String getCode(BuildContext context, String string) {
+    String code = string.substring(0, 3); // returns first 3 characters (the code)
     return code;
   }
 
   List<String> getFunctionList(BuildContext context) {
-
     List<String>? _functionList;
     String bodyCode = getCode(context, _bodyValue);
 
     switch (bodyCode) {
       case '058':
+        // Primary school
         _functionList = widget.priFunctionList;
         break;
       case '059':
+        // Secondary school
         _functionList = widget.secFunctionList;
         break;
       case '060':
+        // Fp school
         _functionList = widget.fpFunctionList;
         break;
       case '061':
+        // Eoi school
         _functionList = widget.eoiFunctionList;
         break;
       default: _functionList = widget.priFunctionList;
@@ -202,8 +204,8 @@ class AvailableWorkersWidget extends StatefulWidget {
           title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Se ha producido un error al acceder al listado'),
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.available_workers_warning),
             ],
           ),
           actions: <Widget>[
