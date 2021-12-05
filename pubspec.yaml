@@ -39,6 +39,7 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   fake_cloud_firestore: ^1.2.0
   mockito: ^5.0.16
+  age_calculator: ^1.0.0
 
 dev_dependencies:
   flutter_test:

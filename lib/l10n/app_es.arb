@@ -128,7 +128,10 @@
   "no": "No",
   "school": "Centro educativo",
   "charges_warning": "Se ha producido un error al recuperar su lista de cargos, disculpe las molestias y vuelva a intentarlo más tarde",
-  "certifications_warning": "Se ha producido un error al recuperar su lista de titulaciones, disculpe las molestias y vuelva a intentarlo más tarde"
-
+  "certifications_warning": "Se ha producido un error al recuperar su lista de titulaciones, disculpe las molestias y vuelva a intentarlo más tarde",
+  "years": "años",
+  "months": "meses",
+  "days": "días",
+  "and": "y"
 
 }

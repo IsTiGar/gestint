@@ -128,5 +128,9 @@
   "no": "No",
   "school": "Centre educatiu",
   "charges_warning": "S'ha produït un error en recuperar la llista de càrrecs, disculpeu les molèsties i torneu-ho a provar més tard",
-  "certifications_warning": "S'ha produït un error en recuperar la llista de titulacions, disculpeu les molèsties i torneu-ho a intentar més tard"
+  "certifications_warning": "S'ha produït un error en recuperar la llista de titulacions, disculpeu les molèsties i torneu-ho a intentar més tard",
+  "years": "anys",
+  "months": "mesos",
+  "days": "dies",
+  "and": "i"
 }

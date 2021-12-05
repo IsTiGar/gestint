@@ -240,6 +240,25 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
+              title: Text('Más información'),
+              leading: Icon(
+                Icons.info,
+                color: Theme.of(context).primaryColor,
+                size: 30.0,
+              ),
+              onTap: () {
+                // Ask for confirmation dialog
+                showAboutDialog(
+                  context: context,
+                  applicationVersion: '1.0.0',
+                  applicationName: 'Gestint',
+                  applicationLegalese: '© Israel Tierno García Reservados todos los derechos. Está prohibido la reproducción total o parcial de esta obra por cualquier medio o procedimiento, comprendidos la impresión, la reprografía, el microfilme, el tratamiento informático o cualquier otro sistema, así como la distribución de ejemplares mediante alquiler y préstamo, sin la autorización escrita del autor o de los límites que autorice la Ley de Propiedad Intelectual',
+                  applicationIcon: Image(image: AssetImage('assets/images/flag.png')),
+                );
+              },
+            ),
+            Divider(color: Theme.of(context).primaryColor,),
+            ListTile(
               title: Text(AppLocalizations.of(context)!.logout),
               leading: Icon(
                 Icons.logout,

@@ -74,6 +74,12 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
                       fontWeight: FontWeight.bold
                   ),
                 ),
+                Text(
+                  buildTimeString(_chargesList[index].calculateTime()),
+                  style: TextStyle(
+                      fontSize: 14,
+                  ),
+                ),
               ]
             ),
             dense: false,
@@ -125,6 +131,10 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
         );
       },
     );
+  }
+
+  String buildTimeString(List timeList) {
+    return '${timeList[0]} ${AppLocalizations.of(context)!.years}, ${timeList[1]} ${AppLocalizations.of(context)!.months} ${AppLocalizations.of(context)!.and} ${timeList[2]} ${AppLocalizations.of(context)!.days}';
   }
 
 }

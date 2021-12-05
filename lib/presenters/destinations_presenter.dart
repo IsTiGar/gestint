@@ -15,7 +15,6 @@ class DestinationsPresenter {
     _repository.getDestinations(id)
         .then((destinationList) => _view.onLoadDestinationsComplete(destinationList))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadDestinationsError();
         });
   }

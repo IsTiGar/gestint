@@ -48,13 +48,24 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
               ),
               //textAlign:TextAlign.end,
             ),
-            subtitle: Text(
-              '${AppLocalizations.of(context)!.from}: ${_destinationsList[index].startDate} ${AppLocalizations.of(context)!.to} ${_destinationsList[index].endDate}',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold
-              ),
-              //textAlign:TextAlign.end,
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${AppLocalizations.of(context)!.from}: ${_destinationsList[index].startDate} ${AppLocalizations.of(context)!.to} ${_destinationsList[index].endDate}',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                  ),
+                  //textAlign:TextAlign.end,
+                ),
+                Text(
+                  buildTimeString(_destinationsList[index].calculateTime()),
+                  style: TextStyle(
+                      fontSize: 14,
+                  ),
+                ),
+              ],
             ),
             dense: false,
           );
@@ -106,6 +117,10 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
         );
       },
     );
+  }
+
+  String buildTimeString(List timeList) {
+    return '${timeList[0]} ${AppLocalizations.of(context)!.years}, ${timeList[1]} ${AppLocalizations.of(context)!.months} ${AppLocalizations.of(context)!.and} ${timeList[2]} ${AppLocalizations.of(context)!.days}';
   }
 
 }
