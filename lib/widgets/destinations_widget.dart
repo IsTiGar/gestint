@@ -46,7 +46,6 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
                 fontSize: 16,
                 fontWeight: FontWeight.bold
               ),
-              //textAlign:TextAlign.end,
             ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

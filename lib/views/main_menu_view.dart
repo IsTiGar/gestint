@@ -33,6 +33,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   late WorkerPresenter _workerPresenter;
   late Worker _worker;
   bool _isLoading = true;
+  bool _workerNotFound = false;
   bool _showBottomBar = false;
   // First widget to show is WelcomeWidget
   Widget bodyWidget = WelcomeWidget();
@@ -74,7 +75,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
               ),
-              child: _isLoading ? CustomProgressIndicatorWidget() : ProfileWidget(worker: _worker),
+              child: _isLoading ? CustomProgressIndicatorWidget() : _workerNotFound? Container(child: Text(AppLocalizations.of(context)!.profile_warning), alignment: Alignment.center,) : ProfileWidget(worker: _worker),
             ),
             // Navigation block tiles
             ListTile(
@@ -179,7 +180,13 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 setState(() {
                   appBarTitle = AppLocalizations.of(context)!.available_workers;
                   _showBottomBar = false;
-                  bodyWidget = AvailableWorkersWidget();
+                  bodyWidget = AvailableWorkersWidget(
+                    bodyList: getBodyList(context),
+                    priFunctionList: getPrimaryFunctionsList(context),
+                    secFunctionList: getSecondaryFunctionsList(context),
+                    fpFunctionList: getFpFunctionsList(context),
+                    eoiFunctionList: getEoiFunctionsList(context),
+                  );
                 });
                 // Close drawer
                 Navigator.pop(context);
@@ -240,7 +247,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               },
             ),
             ListTile(
-              title: Text('Más información'),
+              title: Text(AppLocalizations.of(context)!.more_info),
               leading: Icon(
                 Icons.info,
                 color: Theme.of(context).primaryColor,
@@ -252,7 +259,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                   context: context,
                   applicationVersion: '1.0.0',
                   applicationName: 'Gestint',
-                  applicationLegalese: '© Israel Tierno García Reservados todos los derechos. Está prohibido la reproducción total o parcial de esta obra por cualquier medio o procedimiento, comprendidos la impresión, la reprografía, el microfilme, el tratamiento informático o cualquier otro sistema, así como la distribución de ejemplares mediante alquiler y préstamo, sin la autorización escrita del autor o de los límites que autorice la Ley de Propiedad Intelectual',
+                  applicationLegalese: AppLocalizations.of(context)!.copyright_info,
                   applicationIcon: Image(image: AssetImage('assets/images/flag.png')),
                 );
               },
@@ -319,7 +326,10 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
 
   @override
   void onLoadWorkerError() {
-    // TODO: implement onLoadWorkerError, show message or something
+    setState(() {
+      _isLoading = false;
+      _workerNotFound = true;
+    });
   }
 
   Future<void> _showConfirmationDialog() async {
@@ -360,6 +370,71 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
         );
       },
     );
+  }
+
+  List<String> getBodyList(BuildContext context) {
+    return [
+      '058 ' + AppLocalizations.of(context)!.primary,
+      '059 ' + AppLocalizations.of(context)!.secondary,
+      '060 ' + AppLocalizations.of(context)!.fp,
+      '061 ' + AppLocalizations.of(context)!.eoi,
+    ];
+  }
+
+  List<String> getPrimaryFunctionsList(BuildContext context) {
+    return [
+      '021 ' + AppLocalizations.of(context)!.ccss,
+      '022 ' + AppLocalizations.of(context)!.ccnn,
+      '023 ' + AppLocalizations.of(context)!.maths,
+      '024 ' + AppLocalizations.of(context)!.cast,
+      '025 ' + AppLocalizations.of(context)!.english,
+      '026 ' + AppLocalizations.of(context)!.french,
+      '027 ' + AppLocalizations.of(context)!.ef,
+      '028 ' + AppLocalizations.of(context)!.music,
+    ];
+  }
+
+  List<String> getSecondaryFunctionsList(BuildContext context) {
+    return [
+      '001 ' + AppLocalizations.of(context)!.filo,
+      '002 ' + AppLocalizations.of(context)!.greek,
+      '003 ' + AppLocalizations.of(context)!.latin,
+      '004 ' + AppLocalizations.of(context)!.cast,
+      '005 ' + AppLocalizations.of(context)!.geo_hist,
+      '006 ' + AppLocalizations.of(context)!.maths,
+      '007 ' + AppLocalizations.of(context)!.fq,
+      '008 ' + AppLocalizations.of(context)!.bio_geo,
+      '009 ' + AppLocalizations.of(context)!.draw,
+      '010 ' + AppLocalizations.of(context)!.french,
+      '011 ' + AppLocalizations.of(context)!.english,
+      '012 ' + AppLocalizations.of(context)!.german,
+      '013 ' + AppLocalizations.of(context)!.music,
+      '014 ' + AppLocalizations.of(context)!.economy,
+      '015 ' + AppLocalizations.of(context)!.ef,
+      '016 ' + AppLocalizations.of(context)!.technology,
+    ];
+  }
+
+  List<String> getFpFunctionsList(BuildContext context) {
+    return [
+      '101 ' + AppLocalizations.of(context)!.cooking,
+      '102 ' + AppLocalizations.of(context)!.electronic,
+      '103 ' + AppLocalizations.of(context)!.aesthetic,
+      '104 ' + AppLocalizations.of(context)!.installs,
+      '105 ' + AppLocalizations.of(context)!.vehicle,
+      '106 ' + AppLocalizations.of(context)!.hair,
+      '107 ' + AppLocalizations.of(context)!.administration,
+      '108 ' + AppLocalizations.of(context)!.community_services,
+    ];
+  }
+
+  List<String> getEoiFunctionsList(BuildContext context) {
+    return [
+      '201 ' + AppLocalizations.of(context)!.german,
+      '202 ' + AppLocalizations.of(context)!.english,
+      '203 ' + AppLocalizations.of(context)!.spanish_foreign,
+      '204 ' + AppLocalizations.of(context)!.french,
+    ];
   }
 
 }

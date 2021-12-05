@@ -39,6 +39,7 @@ class DataRepository implements WorkerContract,
 
   /* Firestore collections */
   final workerCollection = FirebaseFirestore.instance.collection("Worker");
+  final workerFullCollection = FirebaseFirestore.instance.collection("WorkerFull");
   final personalDataCollection = FirebaseFirestore.instance.collection("PersonalData");
   final schoolCollection = FirebaseFirestore.instance.collection("School");
   final certificationCollection = FirebaseFirestore.instance.collection("Certification");
@@ -72,10 +73,11 @@ class DataRepository implements WorkerContract,
   @override
   Future<List<WorkerFull>> getAvailableWorkers(String body, String function) async{
     var availableWorkers = <WorkerFull>[];
-    await documentCollection
+    await workerFullCollection
         .where('body', isEqualTo: body)
         .where('function', isEqualTo: function)
         .where('available', isEqualTo: true)
+        .orderBy('score', descending: true)
         .get().then(
           (snapshot) =>
           snapshot.docs.forEach(
@@ -84,6 +86,7 @@ class DataRepository implements WorkerContract,
             },
           ),
     );
+    print('Resultados: ' + availableWorkers.length.toString());
     return availableWorkers;
   }
 

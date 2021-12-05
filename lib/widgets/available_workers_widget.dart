@@ -3,11 +3,25 @@ import 'package:flutter/widgets.dart';
 import 'package:gestint/contracts/available_workers_view_contract.dart';
 import 'package:gestint/models/worker_full_model.dart';
 import 'package:gestint/presenters/available_workers_presenter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
 class AvailableWorkersWidget extends StatefulWidget {
-  const AvailableWorkersWidget({Key? key}) : super(key: key);
+
+  final List<String> bodyList;
+  final List<String> priFunctionList;
+  final List<String> secFunctionList;
+  final List<String> fpFunctionList;
+  final List<String> eoiFunctionList;
+
+  AvailableWorkersWidget(
+      {Key? key,
+        required this.bodyList,
+        required this.priFunctionList,
+        required this.secFunctionList,
+        required this.fpFunctionList,
+        required this.eoiFunctionList}) : super(key: key);
 
   @override
   State<AvailableWorkersWidget> createState() => _AvailableWorkersWidgetState();
@@ -21,58 +35,14 @@ class AvailableWorkersWidget extends StatefulWidget {
   bool _isLoading = false;
   bool _availableWorkersNotFound = true;
 
-  String? _bodyValue;
-  String? _functionValue;
-  late String? _functionSelected;
-  final _bodyList = <String>['Primaria','Secundaria', 'Formación profesional', 'Escuela oficial de idiomas'];
-  final _priFunctionList = <String>[
-    '021 Ciencias sociales',
-    '022 Ciencias de la naturaleza',
-    '023 Matemáticas',
-    '024 Lengua castellana y literatura',
-    '025 Inglés',
-    '026 Francés',
-    '027 Educació física',
-    '028 Música',
-  ];
-  final _secFunctionList = <String>[
-    '001 Filosofia',
-    '002 Griego',
-    '003 Latín',
-    '004 Lengua castellana y literatura',
-    '005 Geografia e historia',
-    '006 Matemáticas',
-    '007 Física y química',
-    '008 Biología y geología',
-    '009 Dibujo',
-    '010 Francés',
-    '011 Inglés',
-    '012 Alemán',
-    '013 Música',
-    '014 Economía',
-    '015 Educació Física',
-    '016 Tecnología',
-  ];
-  final _fpFunctionList = <String>[
-    '101 Cocina y pastelería',
-    '102 Equipos electrónicos',
-    '103 Estética',
-    '104 Instalaciones electrotécnicas',
-    '105 Mantenimiento de vehículos',
-    '106 Peluquería',
-    '107 Gestión administrativa',
-    '108 Servicios a la comunidad',
-  ];
-  final _eoiFunctionList = <String>[
-    '201 Alemán',
-    '202 Inglés',
-    '203 Español para estranjeros',
-    '204 Francés',
-  ];
+  late String _bodyValue;
+  late String _functionValue;
 
   @override
   void initState() {
     super.initState();
+    _bodyValue = widget.bodyList.first;
+    _functionValue = widget.priFunctionList.first;
     _availableWorkersPresenter = AvailableWorkersPresenter(this);
   }
 
@@ -85,11 +55,10 @@ class AvailableWorkersWidget extends StatefulWidget {
           DropdownButton(
             isExpanded: true,
             value: _bodyValue,
-            hint: Text('Selecciona un cuerpo'),
+            hint: Text(AppLocalizations.of(context)!.choose_body),
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             elevation: 16,
-            //style: const TextStyle(color: Colors.deepPurple),
             underline: Container(
                 height: 2,
                 color: Theme.of(context).primaryColor
@@ -97,10 +66,10 @@ class AvailableWorkersWidget extends StatefulWidget {
             onChanged: (String? newValue) {
               setState(() {
                 _bodyValue = newValue!;
-                _functionValue = null;
+                _functionValue = getFunctionList(context).first;
               });
             },
-            items: _bodyList
+            items: widget.bodyList
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -108,26 +77,24 @@ class AvailableWorkersWidget extends StatefulWidget {
               );
             }).toList(),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10),
           DropdownButton<String>(
             isExpanded: true,
             value: _functionValue,
-            hint: Text('Selecciona una función'),
+            hint: Text(AppLocalizations.of(context)!.choose_function),
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             elevation: 16,
-            //style: const TextStyle(color: Colors.deepPurple),
             underline: Container(
                 height: 2,
                 color: Theme.of(context).primaryColor
             ),
             onChanged: (String? newValue) {
               setState(() {
-                _isLoading = true;
                 _functionValue = newValue!;
               });
             },
-            items: getFunctionList()
+            items: getFunctionList(context)
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -135,18 +102,19 @@ class AvailableWorkersWidget extends StatefulWidget {
               );
             }).toList(),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
-              // TODO asegurarme que no son null
-              _availableWorkersPresenter.getAvailableWorkers(getBodyCode(_bodyValue!), getFunctionCode(_functionValue!));
+              _availableWorkersPresenter.getAvailableWorkers(getCode(context, _bodyValue), getCode(context, _functionValue));
               setState(() {
                 _isLoading = true;
               });
             },
-            child: Text('MOSTRAR'),
+            child: Text(AppLocalizations.of(context)!.show_button_text),
           ),
+          SizedBox(height: 10,),
           _isLoading ? CustomProgressIndicatorWidget() : _availableWorkersNotFound? SizedBox.shrink() : ListView.separated(
+            shrinkWrap: true,
             padding: const EdgeInsets.all(8),
             itemCount: _availableWorkersList.length,
             itemBuilder: (BuildContext context, int index) {
@@ -154,70 +122,54 @@ class AvailableWorkersWidget extends StatefulWidget {
                 contentPadding: EdgeInsets.zero,
                 trailing: Text(_availableWorkersList[index].score.toStringAsFixed(3)),
                 title: Text(
-                  '${_availableWorkersList[index].lastName1} ${_availableWorkersList[index].lastName2}, ${_availableWorkersList[index].firstName}',
+                  '${index+1}. ${_availableWorkersList[index].lastName1} ${_availableWorkersList[index].lastName2}, ${_availableWorkersList[index].firstName}',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold
                   ),
-                  //textAlign:TextAlign.end,
                 ),
                 subtitle: Text(
-                  _availableWorkersList[index].trained ? 'Tutorizado: Sí' : 'Tutorizado: No',
+                  _availableWorkersList[index].trained ? '${AppLocalizations.of(context)!.trained}: ${AppLocalizations.of(context)!.yes}' : '${AppLocalizations.of(context)!.trained}: ${AppLocalizations.of(context)!.no}',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold
                   ),
-                  //textAlign:TextAlign.end,
                 ),
                 dense: false,
               );
             },
-            separatorBuilder: (BuildContext context, int index) => const Divider(),
+            separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor),
           ),
         ]
       ),
     );
   }
 
-  String getBodyCode(String body) {
-    String code = '0';
-    switch (body) {
-      case 'Primaria':
-        code = '058';
-        break;
-      case 'Secundaria':
-        code = '059';
-        break;
-      case 'Formación profesional':
-        code = '060';
-        break;
-      case 'Escuela oficial de idiomas':
-        code = '061';
-        break;
-    }
+  String getCode(BuildContext context, String? string) {
+    String code;
+    string == null ? code = '0' : code = string.substring(0, 3); // returns first 3 characters (the code) or 0
     return code;
   }
 
-  String getFunctionCode(String function) {
-    return function.substring(0, 2); // returns first 3 characters (the code)
-  }
+  List<String> getFunctionList(BuildContext context) {
 
-  List<String> getFunctionList() {
     List<String>? _functionList;
-    switch (_bodyValue) {
-      case 'Primaria':
-        _functionList = _priFunctionList;
+    String bodyCode = getCode(context, _bodyValue);
+
+    switch (bodyCode) {
+      case '058':
+        _functionList = widget.priFunctionList;
         break;
-      case 'Secundaria':
-        _functionList = _secFunctionList;
+      case '059':
+        _functionList = widget.secFunctionList;
         break;
-      case 'Formación profesional':
-        _functionList = _fpFunctionList;
+      case '060':
+        _functionList = widget.fpFunctionList;
         break;
-      case 'Escuela oficial de idiomas':
-        _functionList = _eoiFunctionList;
+      case '061':
+        _functionList = widget.eoiFunctionList;
         break;
-      default: _functionList = _priFunctionList;
+      default: _functionList = widget.priFunctionList;
         break;
     }
     return _functionList;
@@ -247,7 +199,7 @@ class AvailableWorkersWidget extends StatefulWidget {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Atención'),
+          title: Text(AppLocalizations.of(context)!.warning),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: const <Widget>[
@@ -256,7 +208,7 @@ class AvailableWorkersWidget extends StatefulWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Entendido'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },
