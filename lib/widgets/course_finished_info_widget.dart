@@ -33,7 +33,7 @@ class CourseFinishedInfoWidget extends StatelessWidget {
                 color: Colors.black,
               ),
               children: <TextSpan>[
-                new TextSpan(text: AppLocalizations.of(context)!.start_data, style: new TextStyle(fontWeight: FontWeight.bold)),
+                new TextSpan(text: '${AppLocalizations.of(context)!.start_data}: ', style: new TextStyle(fontWeight: FontWeight.bold)),
                 new TextSpan(text: courseFinished.startDate)
               ],
             ),
@@ -47,7 +47,7 @@ class CourseFinishedInfoWidget extends StatelessWidget {
                 color: Colors.black,
               ),
               children: <TextSpan>[
-                new TextSpan(text: AppLocalizations.of(context)!.end_data, style: new TextStyle(fontWeight: FontWeight.bold)),
+                new TextSpan(text: '${AppLocalizations.of(context)!.end_data}: ', style: new TextStyle(fontWeight: FontWeight.bold)),
                 new TextSpan(text: courseFinished.endDate),
               ],
             ),

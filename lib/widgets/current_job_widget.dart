@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/contracts/current_job_view_contract.dart';
+import 'package:gestint/helpers/helper.dart';
 import 'package:gestint/models/current_job_model.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/current_job_presenter.dart';
@@ -23,10 +24,12 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
   late CurrentJob _currentJob;
   late CurrentJobPresenter _currentJobPresenter;
   bool _currentJobNotFound = false;
+  late Helper _helper;
 
   @override
   void initState() {
     super.initState();
+    _helper = new Helper(context);
     _currentJobPresenter = CurrentJobPresenter(this);
     _currentJobPresenter.getCurrentJob(Provider.of<User>(context, listen: false).getUserId());
   }
@@ -51,7 +54,7 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
           ),
           Text('${AppLocalizations.of(context)!.school_service} ${_currentJob.school}'),
           Text('${AppLocalizations.of(context)!.school_city} ${_currentJob.city}'),
-          SizedBox(height: 20,),
+          SizedBox(height: 20),
           Text(
             AppLocalizations.of(context)!.job_data,
             style: TextStyle(
@@ -63,11 +66,10 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
             color: Theme.of(context).primaryColor,
             thickness: 2,
           ),
-          Text('${AppLocalizations.of(context)!.type} ${_currentJob.type}'),
-          Text('${AppLocalizations.of(context)!.type} ${_currentJob.type}'),
+          Text('${AppLocalizations.of(context)!.type} ${_helper.getTypeString(context, _currentJob.type)}'),
           _currentJob.partTime ? Text(AppLocalizations.of(context)!.part_time_yes) : Text(AppLocalizations.of(context)!.part_time_no),
-          Text('${AppLocalizations.of(context)!.body} ${_currentJob.body}'),
-          Text('${AppLocalizations.of(context)!.function} ${_currentJob.function}'),
+          Text('${AppLocalizations.of(context)!.body} ${_helper.getBodyString(context, _currentJob.body)}'),
+          Text('${AppLocalizations.of(context)!.function} ${_helper.getFunctionString(context, _currentJob.function)}'),
         ],
       ),
     );

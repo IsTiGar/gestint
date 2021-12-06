@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gestint/helpers/helper.dart';
 import 'package:gestint/models/procedure_model.dart';
 import 'package:gestint/views/single_procedure_view.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
@@ -9,12 +10,13 @@ class ProcedureInfoWidget extends StatelessWidget {
 
   final Procedure procedure;
 
-  const ProcedureInfoWidget(
+  ProcedureInfoWidget(
       {Key? key, required this.procedure})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Helper _helper = new Helper(context);
     return Padding(
       padding: EdgeInsets.all(10),
       child: Column(
@@ -34,7 +36,7 @@ class ProcedureInfoWidget extends StatelessWidget {
             columnWidths: {
               0: FlexColumnWidth(1),
               1: IntrinsicColumnWidth(),
-              2: IntrinsicColumnWidth()// i want this one to take the rest available space
+              2: IntrinsicColumnWidth()
             },
             //border: TableBorder.all(),
             children: [
@@ -90,7 +92,8 @@ class ProcedureInfoWidget extends StatelessWidget {
           ),
           procedure.isActive ? ElevatedButton(
             onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SingleProcedureView(procedureId: procedure.id, codeList: getCodeList(context),)));
+              // Go to available job list selection
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SingleProcedureView(procedureId: procedure.id, codeList: _helper.getCodeList(context),)));
             },
             style: ElevatedButton.styleFrom(primary: Color.fromARGB(255, 50, 129, 75)),
             child: Container(
@@ -100,7 +103,7 @@ class ProcedureInfoWidget extends StatelessWidget {
             )
           ) : ElevatedButton(
               onPressed: (){
-                // TODO
+                // TODO See results of a procedure
               },
               child: Container(
                 alignment: Alignment.center,
@@ -111,46 +114,5 @@ class ProcedureInfoWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Map<String, String> getCodeList(BuildContext context) {
-    return {
-      '001' : AppLocalizations.of(context)!.filo,
-      '002' : AppLocalizations.of(context)!.greek,
-      '003' : AppLocalizations.of(context)!.latin,
-      '004' : AppLocalizations.of(context)!.cast,
-      '005' : AppLocalizations.of(context)!.geo_hist,
-      '006' : AppLocalizations.of(context)!.maths,
-      '007' : AppLocalizations.of(context)!.fq,
-      '008' : AppLocalizations.of(context)!.bio_geo,
-      '009' : AppLocalizations.of(context)!.draw,
-      '010' : AppLocalizations.of(context)!.french,
-      '011' : AppLocalizations.of(context)!.english,
-      '012' : AppLocalizations.of(context)!.german,
-      '013' : AppLocalizations.of(context)!.music,
-      '014' : AppLocalizations.of(context)!.economy,
-      '015' : AppLocalizations.of(context)!.ef,
-      '016' : AppLocalizations.of(context)!.technology,
-      '021' : AppLocalizations.of(context)!.ccss,
-      '022' : AppLocalizations.of(context)!.ccnn,
-      '023' : AppLocalizations.of(context)!.maths,
-      '024' : AppLocalizations.of(context)!.cast,
-      '025' : AppLocalizations.of(context)!.english,
-      '026' : AppLocalizations.of(context)!.french,
-      '027' : AppLocalizations.of(context)!.ef,
-      '028' : AppLocalizations.of(context)!.music,
-      '101' : AppLocalizations.of(context)!.cooking,
-      '102' : AppLocalizations.of(context)!.electronic,
-      '103' : AppLocalizations.of(context)!.aesthetic,
-      '104' : AppLocalizations.of(context)!.installs,
-      '105' : AppLocalizations.of(context)!.vehicle,
-      '106' : AppLocalizations.of(context)!.hair,
-      '107' : AppLocalizations.of(context)!.administration,
-      '108' : AppLocalizations.of(context)!.community_services,
-      '201' : AppLocalizations.of(context)!.german,
-      '202' : AppLocalizations.of(context)!.english,
-      '203' : AppLocalizations.of(context)!.spanish_foreign,
-      '204' : AppLocalizations.of(context)!.french,
-    };
   }
 }

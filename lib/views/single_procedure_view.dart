@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gestint/contracts/single_procedure_view_contract.dart';
+import 'package:gestint/helpers/helper.dart';
 import 'package:gestint/models/current_job_model.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/single_procedure_presenter.dart';
@@ -29,10 +30,12 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
   late List<CurrentJob> _availableJobList;
   bool _singleProcedureNotFound = false;
   bool _isLoading = true;
+  late Helper _helper;
 
   @override
   void initState() {
     super.initState();
+    _helper = new Helper(context);
     _singleProcedurePresenter = SingleProcedurePresenter(this);
     _singleProcedurePresenter.getAvailableJobs();
   }
@@ -63,8 +66,8 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
             return AvailableJobInfoWidget(
               key: ValueKey(_availableJobList[index].id),
               job: _availableJobList[index],
-              typeString: getTypeString(context, _availableJobList[index].type),
-              functionString: getFunctionString(context, _availableJobList[index].function),
+              typeString: _helper.getTypeString(context, _availableJobList[index].type),
+              functionString: _helper.getFunctionString(context, _availableJobList[index].function),
             );
           },
           itemCount: _availableJobList.length,
@@ -172,22 +175,8 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
         });
   }
 
-
-      // this functions returns the localized string for the job type, example 1 -> Vacant if locale Code is 'ca' (Catalan)
-  getTypeString(BuildContext context, String type) {
-    String typeString;
-    type == '0' ? typeString = AppLocalizations.of(context)!.substitution : typeString = AppLocalizations.of(context)!.vacant;
-    return typeString;
-  }
-
-  // this functions returns the localized string for the functionCode, example 006 -> Matemàtiques if locale Code is 'ca' (Catalan)
-  getFunctionString(BuildContext context, String functionCode) {
-    return widget.codeList[functionCode];
-  }
-
   @override
   void onRegisterProcedureComplete() {
-    // TODO: implement onRegisterProcedureComplete
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ProcedureRegistrationResultWidget(success: true,)),
