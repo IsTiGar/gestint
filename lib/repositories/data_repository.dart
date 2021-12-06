@@ -281,6 +281,23 @@ class DataRepository implements WorkerContract,
   }
 
   @override
+  Future<void> registerProcedure(String procedureId, String userId, String jobIdList) async {
+
+    var result = false;
+
+    await procedureCollection.where('id', isEqualTo: procedureId)
+        .get().then((docSnapshot){
+          docSnapshot.docs.first.reference.collection('Petitions').doc(userId).set({
+            'timestamp' : Timestamp.now(),
+            'petition' : jobIdList
+          });
+    });
+
+    //return result;
+
+  }
+
+  @override
   Future<List<CurrentJob>> getAvailableJobs() async{
     var availableJobs = <CurrentJob>[];
     await jobCollection

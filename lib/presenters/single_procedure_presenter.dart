@@ -20,4 +20,17 @@ class SingleProcedurePresenter {
     });
   }
 
+  void registerProcedure(String procedureId, String userId, List<String> jobIdList){
+    print(jobIdList);
+    String jobIdListString = jobIdList.join(', ');
+    print(jobIdListString);
+    _repository.registerProcedure(procedureId, userId, jobIdListString)
+        .then((result){
+            _view.onRegisterProcedureComplete();
+        })
+        .catchError((onError) {
+          print('El error es: ' + onError.toString());
+          _view.onRegisterProcedureError();
+         });
+    }
 }

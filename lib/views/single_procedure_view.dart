@@ -2,11 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:gestint/contracts/single_procedure_view_contract.dart';
 import 'package:gestint/models/current_job_model.dart';
+import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/single_procedure_presenter.dart';
 import 'package:gestint/widgets/available_job_info_widget.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
+import 'package:gestint/widgets/procedure_registration_result_widget.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class SingleProcedureView extends StatefulWidget{
 
@@ -103,7 +106,11 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
           color: Colors.white,
         ),
         onPressed: () {
-          //TODO ir a la pantalla de cursos
+          buildLoadingIndicator(context);
+          _singleProcedurePresenter.registerProcedure(
+              widget.procedureId,
+              Provider.of<User>(context, listen: false).getUserId(),
+              _availableJobList.map((job) => job.id).toList());
         },
       ),
     );
@@ -152,7 +159,21 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
     );
   }
 
-  // this functions returns the localized string for the job type, example 1 -> Vacant if locale Code is 'ca' (Catalan)
+  /* This shows a loading indicator with shadowed background while
+  the credentials are checked on the remote database */
+  buildLoadingIndicator(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: CustomProgressIndicatorWidget(),
+          );
+        });
+  }
+
+
+      // this functions returns the localized string for the job type, example 1 -> Vacant if locale Code is 'ca' (Catalan)
   getTypeString(BuildContext context, String type) {
     String typeString;
     type == '0' ? typeString = AppLocalizations.of(context)!.substitution : typeString = AppLocalizations.of(context)!.vacant;
@@ -162,6 +183,23 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
   // this functions returns the localized string for the functionCode, example 006 -> Matemàtiques if locale Code is 'ca' (Catalan)
   getFunctionString(BuildContext context, String functionCode) {
     return widget.codeList[functionCode];
+  }
+
+  @override
+  void onRegisterProcedureComplete() {
+    // TODO: implement onRegisterProcedureComplete
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProcedureRegistrationResultWidget(success: true,)),
+    );
+  }
+
+  @override
+  void onRegisterProcedureError() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProcedureRegistrationResultWidget(success: false,)),
+    );
   }
 
 }

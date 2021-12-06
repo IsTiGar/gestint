@@ -177,6 +177,12 @@
   "downloading": "Descarregant arxiu...",
   "zero_results": "La consulta ha produït 0 resultats",
   "substitution": "Substitució",
-  "vacant": "Vacant"
+  "vacant": "Vacant",
+  "procedure_success_message": "Tràmite registrat correctament",
+  "procedure_failure_message": "S'ha produït un error en registrar el tràmit",
+  "go_to_main_ok": "Pitja OK per tornar a la pantalla principal",
+  "go_to_main_not_ok": "Pitja OK per tornar a la pantalla principal i torna-ho a provar més tard",
+  "success_appbar_title": "Tràmit registrat",
+  "failure_appbar_title": "Tràmit no registrat"
 
 }

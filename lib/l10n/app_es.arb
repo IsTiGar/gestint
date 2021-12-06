@@ -177,5 +177,11 @@
   "downloading": "Descargando archivo...",
   "zero_results": "La consulta ha producido 0 resultados",
   "substitution": "Sustitución",
-  "vacant": "Vacante"
+  "vacant": "Vacante",
+  "procedure_success_message": "Trámite registrado correctamente",
+  "procedure_failure_message": "Se ha producido un error al registrar el trámite",
+  "go_to_main_ok": "Pulsa OK para volver a la pantalla principal",
+  "go_to_main_not_ok": "Pulsa OK para volver a la pantalla principal y vuelve a intentarlo más tarde",
+  "success_appbar_title": "Trámite registrado",
+  "failure_appbar_title": "Trámite no registrado"
 }
