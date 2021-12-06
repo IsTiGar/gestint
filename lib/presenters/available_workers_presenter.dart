@@ -15,7 +15,6 @@ class AvailableWorkersPresenter {
     _repository.getAvailableWorkers(body, function)
         .then((workersList) => _view.onLoadAvailableWorkersComplete(workersList))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadAvailableWorkersError();
         });
   }

@@ -15,7 +15,6 @@ class DocumentsPresenter {
     _repository.getDocuments(id)
         .then((docList) => _view.onLoadDocumentsComplete(docList))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadDocumentsError();
         });
   }

@@ -15,7 +15,6 @@ class ScalePresenter {
     _repository.getScale(id)
         .then((scale) => _view.onLoadScaleComplete(scale))
         .catchError((onError) {
-          print('El error es: ' + onError.toString());
           _view.onLoadScaleError();
     });
   }

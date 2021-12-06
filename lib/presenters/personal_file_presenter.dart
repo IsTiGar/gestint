@@ -12,11 +12,9 @@ class PersonalDataPresenter {
   }
 
   void getPersonalData(String id){
-    print('Buscando en presenter');
     _repository.getPersonalData(id)
         .then((pd) => _view.onLoadPersonalDataComplete(pd))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadPersonalDataError();
     });
   }

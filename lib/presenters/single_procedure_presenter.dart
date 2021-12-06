@@ -15,7 +15,6 @@ class SingleProcedurePresenter {
     _repository.getAvailableJobs()
         .then((jobList) => _view.onLoadSingleProcedureComplete(jobList))
         .catchError((onError) {
-          print('El error es: ' + onError.toString());
           _view.onLoadSingleProcedureError();
     });
   }
@@ -29,7 +28,6 @@ class SingleProcedurePresenter {
             _view.onRegisterProcedureComplete();
         })
         .catchError((onError) {
-          print('El error es: ' + onError.toString());
           _view.onRegisterProcedureError();
          });
     }

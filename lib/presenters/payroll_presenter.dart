@@ -15,7 +15,6 @@ class PayrollPresenter {
     _repository.getPayroll(id, month, year)
         .then((payroll) => _view.onLoadPayrollComplete(payroll))
         .catchError((onError) {
-          print('El error es: ' + onError.toString());
           _view.onLoadPayrollError();
     });
   }

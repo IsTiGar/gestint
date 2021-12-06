@@ -15,7 +15,6 @@ class ProceduresPresenter {
     _repository.getProcedures()
         .then((procedureList) => _view.onLoadProceduresComplete(procedureList))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadProceduresError();
         });
   }

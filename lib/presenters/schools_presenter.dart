@@ -15,7 +15,6 @@ class SchoolsPresenter {
     _repository.getSchools()
         .then((schoolList) => _view.onLoadSchoolsComplete(schoolList))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadSchoolsError();
         });
   }

@@ -15,7 +15,6 @@ class ChargesPresenter {
     _repository.getCharges(id)
         .then((chargeList) => _view.onLoadChargesComplete(chargeList))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadChargesError();
         });
   }

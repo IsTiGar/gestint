@@ -8,15 +8,12 @@ class StoragePresenter {
 
   StoragePresenter(this._view, this._storageModel);
 
-
   void saveUserCredentials(String userId, String password){
     _storageModel.saveUserData(userId, password);
-    print('Datos de usuario registrados');
   }
 
   void clearUserCredentials(){
     _storageModel.clearData();
-    print('Datos de usuario borrados');
   }
 
   void getUserCredentials(){

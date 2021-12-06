@@ -15,7 +15,6 @@ class WorkerPresenter {
     _repository.getWorker(id)
         .then((worker) => _view.onLoadWorkerComplete(worker))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadWorkerError();
     });
   }

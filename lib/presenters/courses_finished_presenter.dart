@@ -15,7 +15,6 @@ class CoursesFinishedPresenter {
     _repository.getCoursesFinished(id)
         .then((courseList) => _view.onLoadCoursesFinishedComplete(courseList))
         .catchError((onError) {
-          print(onError.toString());
           _view.onLoadCoursesFinishedError();
         });
   }

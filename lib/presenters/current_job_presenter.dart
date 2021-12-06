@@ -15,7 +15,6 @@ class CurrentJobPresenter {
     _repository.getCurrentJob(owner)
         .then((job) => _view.onLoadCurrentJobComplete(job))
         .catchError((onError) {
-          print('El error es: ' + onError.toString());
           _view.onLoadCurrentJobError();
     });
   }
