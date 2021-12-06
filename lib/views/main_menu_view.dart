@@ -5,6 +5,7 @@ import 'package:gestint/helpers/helper.dart';
 import 'package:gestint/models/user.dart';
 import 'package:gestint/models/worker_model.dart';
 import 'package:gestint/presenters/worker_presenter.dart';
+import 'package:gestint/views/course_request_view.dart';
 import 'package:gestint/widgets/courses_finished_widget.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:gestint/widgets/payroll_widget.dart';
@@ -129,7 +130,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 setState(() {
                   appBarTitle = AppLocalizations.of(context)!.economical_data;
                   _showBottomBar = false;
-                  bodyWidget = PayrollWidget(monthList: _helper.getMonthList(context));
+                  bodyWidget = PayrollWidget(monthList: _helper.getMonthList());
                 });
                 // Close drawer
                 Navigator.pop(context);
@@ -184,11 +185,11 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                   appBarTitle = AppLocalizations.of(context)!.available_workers;
                   _showBottomBar = false;
                   bodyWidget = AvailableWorkersWidget(
-                    bodyList: _helper.getBodyList(context),
-                    priFunctionList: _helper.getPrimaryFunctionsList(context),
-                    secFunctionList: _helper.getSecondaryFunctionsList(context),
-                    fpFunctionList: _helper.getFpFunctionsList(context),
-                    eoiFunctionList: _helper.getEoiFunctionsList(context),
+                    bodyList: _helper.getBodyList(),
+                    priFunctionList: _helper.getPrimaryFunctionsList(),
+                    secFunctionList: _helper.getSecondaryFunctionsList(),
+                    fpFunctionList: _helper.getFpFunctionsList(),
+                    eoiFunctionList: _helper.getEoiFunctionsList(),
                   );
                 });
                 // Close drawer
@@ -313,6 +314,10 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
           ),
           onPressed: () {
             //TODO ir a la pantalla de cursos
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CourseRequestView(cepList: _helper.getCepList())),
+            );
           },
         ),
       )

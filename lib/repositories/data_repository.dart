@@ -236,10 +236,13 @@ class DataRepository implements WorkerContract,
     return coursesFinished;
   }
 
+  // Get courses information
   @override
-  Future<List<Course>> getCourses() async{
+  Future<List<Course>> getCourses(String cepCode) async{
     var courses = <Course>[];
-    await courseCollection.get().then(
+    await courseCollection
+        .where('cepCode', isEqualTo: cepCode)
+        .get().then(
           (snapshot) =>
           snapshot.docs.forEach(
                 (course) {
@@ -250,6 +253,7 @@ class DataRepository implements WorkerContract,
     return courses;
   }
 
+  // Get current job for current user
   @override
   Future<CurrentJob> getCurrentJob(String id) async {
     var currentJobs = <CurrentJob>[];
@@ -266,6 +270,7 @@ class DataRepository implements WorkerContract,
     return currentJobs.first;
   }
 
+  // Get procedures list
   @override
   Future<List<Procedure>> getProcedures() async {
     var procedures = <Procedure>[];
@@ -280,11 +285,9 @@ class DataRepository implements WorkerContract,
     return procedures;
   }
 
+  // User request to be part of this procedure and send the available job list ordered by his/her preference
   @override
   Future<void> registerProcedure(String procedureId, String userId, String jobIdList) async {
-
-    var result = false;
-
     await procedureCollection.where('id', isEqualTo: procedureId)
         .get().then((docSnapshot){
           docSnapshot.docs.first.reference.collection('Petitions').doc(userId).set({
@@ -292,9 +295,6 @@ class DataRepository implements WorkerContract,
             'petition' : jobIdList
           });
     });
-
-    //return result;
-
   }
 
   @override

@@ -1,40 +1,39 @@
-import 'dart:ffi';
 
 class Course {
 
   final String title;
-  final Float hours;
+  final String description;
+  final double hours;
   final String agency;
   final String startDate;
   final String endDate;
-  final String infoUrl;
   final String strategicLine;
-  final String admittedList;
-  final String waitingList;
-  final String inscribedList;
+  final List<String> admittedList;
+  final List<String> waitingList;
+  final bool available;
 
   Course(
       this.title,
+      this.description,
       this.hours,
       this.agency,
       this.startDate,
       this.endDate,
-      this.infoUrl,
       this.strategicLine,
       this.admittedList,
       this.waitingList,
-      this.inscribedList);
+      this.available);
 
   Course.fromSnapshot(Map<String, dynamic> json)
       : title = json['title'],
-        hours = json['hours'],
+        description = json['description'],
+        hours = json['hours'] == null ? 0.0 : json['hours'].toDouble(), // forcefully convert to double
         agency = json['agency'],
         startDate = json['startDate'],
         endDate = json['endDate'],
-        infoUrl = json['infoUrl'],
         strategicLine = json['strategicLine'],
-        admittedList = json['admittedList'],
-        waitingList = json['waitingList'],
-        inscribedList = json['inscribedList'];
+        admittedList = List.from(json['admittedList']),
+        waitingList = List.from(json['waitingList']),
+        available = json['available'];
 
 }

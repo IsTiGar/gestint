@@ -9,7 +9,7 @@ class Helper {
   Helper(this.context);
 
   // Build the lists here because the context is needed
-  List<String> getBodyList(BuildContext context) {
+  List<String> getBodyList() {
     return [
       '058 ' + AppLocalizations.of(context)!.primary,
       '059 ' + AppLocalizations.of(context)!.secondary,
@@ -18,7 +18,7 @@ class Helper {
     ];
   }
 
-  List<String> getPrimaryFunctionsList(BuildContext context) {
+  List<String> getPrimaryFunctionsList() {
     return [
       '021 ' + AppLocalizations.of(context)!.ccss,
       '022 ' + AppLocalizations.of(context)!.ccnn,
@@ -31,7 +31,7 @@ class Helper {
     ];
   }
 
-  List<String> getSecondaryFunctionsList(BuildContext context) {
+  List<String> getSecondaryFunctionsList() {
     return [
       '001 ' + AppLocalizations.of(context)!.filo,
       '002 ' + AppLocalizations.of(context)!.greek,
@@ -52,7 +52,7 @@ class Helper {
     ];
   }
 
-  List<String> getFpFunctionsList(BuildContext context) {
+  List<String> getFpFunctionsList() {
     return [
       '101 ' + AppLocalizations.of(context)!.cooking,
       '102 ' + AppLocalizations.of(context)!.electronic,
@@ -65,7 +65,7 @@ class Helper {
     ];
   }
 
-  List<String> getEoiFunctionsList(BuildContext context) {
+  List<String> getEoiFunctionsList() {
     return [
       '201 ' + AppLocalizations.of(context)!.german,
       '202 ' + AppLocalizations.of(context)!.english,
@@ -75,7 +75,7 @@ class Helper {
   }
 
   // Month list for payroll widget
-  List<String> getMonthList(BuildContext context) {
+  List<String> getMonthList() {
     return [
       AppLocalizations.of(context)!.january,
       AppLocalizations.of(context)!.february,
@@ -92,7 +92,7 @@ class Helper {
     ];
   }
 
-  Map<String, String> getCodeList(BuildContext context) {
+  Map<String, String> getCodeList() {
     return {
       '001' : AppLocalizations.of(context)!.filo,
       '002' : AppLocalizations.of(context)!.greek,
@@ -134,21 +134,21 @@ class Helper {
   }
 
   // this functions returns the localized string for the job type, example 1 -> Vacant if locale Code is 'ca' (Catalan)
-  getTypeString(BuildContext context, String type) {
+  getTypeString(String type) {
     String typeString;
     type == '0' ? typeString = AppLocalizations.of(context)!.substitution : typeString = AppLocalizations.of(context)!.vacant;
     return typeString;
   }
 
   // this functions returns the localized string for the functionCode, example 006 -> Matemàtiques if locale Code is 'ca' (Catalan)
-  getFunctionString(BuildContext context, String functionCode) {
-    return getCodeList(context)[functionCode];
+  getFunctionString(String functionCode) {
+    return getCodeList()[functionCode];
   }
 
-  getBodyString(BuildContext context, String bodyCode) {
+  getBodyString(String bodyCode) {
     String bodyString = "N/A"; // not available
     switch (bodyCode) {
-      case '058':
+      case '':
         // Primary school
         bodyString = AppLocalizations.of(context)!.primary;
         break;
@@ -166,6 +166,19 @@ class Helper {
         break;
     }
     return bodyString;
+  }
+
+  Map<String, String> getCepList() {
+    return {
+      AppLocalizations.of(context)!.formentera_cep : '0',
+      AppLocalizations.of(context)!.ibiza_cep : '1',
+      AppLocalizations.of(context)!.mallorca_cep : '2',
+      AppLocalizations.of(context)!.menorca_cep : '3'
+    };
+  }
+
+  getCepCode(String cepString) {
+    return getCepList()[cepString];
   }
 
 }

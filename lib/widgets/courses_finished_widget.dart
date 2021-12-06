@@ -43,7 +43,7 @@ class _CoursesFinishedWidgetState extends State<CoursesFinishedWidget> implement
         itemBuilder: (BuildContext context, int index) {
           return CourseFinishedInfoWidget(courseFinished: _courseFinishedList[index]);
         },
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor),
       ),
     );
   }

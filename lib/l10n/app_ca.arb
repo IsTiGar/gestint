@@ -183,6 +183,20 @@
   "go_to_main_ok": "Pitja OK per tornar a la pantalla principal",
   "go_to_main_not_ok": "Pitja OK per tornar a la pantalla principal i torna-ho a provar més tard",
   "success_appbar_title": "Tràmit registrat",
-  "failure_appbar_title": "Tràmit no registrat"
-
+  "failure_appbar_title": "Tràmit no registrat",
+  "ibiza_cep": "CEP d'Eivissa",
+  "formentera_cep": "CEP de Formentera",
+  "mallorca_cep": "CEP de Mallorca",
+  "menorca_cep": "CEP de Menorca",
+  "subscription": "Inscripció",
+  "info": "Informació",
+  "admitted": "Admesos",
+  "waiting": "En espera",
+  "request": "Inscriure's",
+  "closed": "Tancat",
+  "course_lists": "Llistes",
+  "courses": "Cursos de formació",
+  "course_subscription_message": "Confirma que vols inscriure't aquest curs",
+  "cancel": "CANCEL·LAR",
+  "confirm": "CONFIRMAR"
 }

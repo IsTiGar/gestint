@@ -66,10 +66,10 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
             color: Theme.of(context).primaryColor,
             thickness: 2,
           ),
-          Text('${AppLocalizations.of(context)!.type} ${_helper.getTypeString(context, _currentJob.type)}'),
+          Text('${AppLocalizations.of(context)!.type} ${_helper.getTypeString(_currentJob.type)}'),
           _currentJob.partTime ? Text(AppLocalizations.of(context)!.part_time_yes) : Text(AppLocalizations.of(context)!.part_time_no),
-          Text('${AppLocalizations.of(context)!.body} ${_helper.getBodyString(context, _currentJob.body)}'),
-          Text('${AppLocalizations.of(context)!.function} ${_helper.getFunctionString(context, _currentJob.function)}'),
+          Text('${AppLocalizations.of(context)!.body} ${_helper.getBodyString(_currentJob.body)}'),
+          Text('${AppLocalizations.of(context)!.function} ${_helper.getFunctionString(_currentJob.function)}'),
         ],
       ),
     );

@@ -93,7 +93,7 @@ class ProcedureInfoWidget extends StatelessWidget {
           procedure.isActive ? ElevatedButton(
             onPressed: (){
               // Go to available job list selection
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SingleProcedureView(procedureId: procedure.id, codeList: _helper.getCodeList(context),)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SingleProcedureView(procedureId: procedure.id, codeList: _helper.getCodeList(),)));
             },
             style: ElevatedButton.styleFrom(primary: Color.fromARGB(255, 50, 129, 75)),
             child: Container(

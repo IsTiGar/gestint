@@ -30,7 +30,7 @@ class Payroll {
         residenceComplement = json['residenceComplement'],
         generalComplement = json['generalComplement'],
         communityComplement = json['communityComplement'],
-        irpf = json['irpf'] == null ? 0.0 : json['irpf'].toDouble(), // forcefully convert int to double
+        irpf = json['irpf'] == null ? 0.0 : json['irpf'].toDouble(), // forcefully convert to double
         contribution = json['contribution'];
 
   double calculateAccrual() {

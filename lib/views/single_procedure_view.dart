@@ -66,8 +66,8 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
             return AvailableJobInfoWidget(
               key: ValueKey(_availableJobList[index].id),
               job: _availableJobList[index],
-              typeString: _helper.getTypeString(context, _availableJobList[index].type),
-              functionString: _helper.getFunctionString(context, _availableJobList[index].function),
+              typeString: _helper.getTypeString(_availableJobList[index].type),
+              functionString: _helper.getFunctionString(_availableJobList[index].function),
             );
           },
           itemCount: _availableJobList.length,
