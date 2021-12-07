@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gestint/contracts/storage_view_contract.dart';
 import 'package:gestint/contracts/user_view_contract.dart';
@@ -156,17 +158,40 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
-                        key: new Key('DigitalFingerprintLoginButton'),
-                        onPressed: () {
+                        key: new Key('DigitalCertificateLoginButton'),
+                        onPressed: () async{
+                          /* Future feature, now as particular developer I have not access
+                          to government's digital user system */
                           // Future feature, show snackBar to the user
-                          final scaffold = ScaffoldMessenger.of(context);
+                          /*final scaffold = ScaffoldMessenger.of(context);
                           scaffold.showSnackBar(
                               SnackBar(
-                                key: new Key('FingerprintSnackBar'),
+                                key: new Key('DigitalCertificateSnackBar'),
                                 content: Text(AppLocalizations.of(context)!.not_available_option),
                                 action: SnackBarAction(label: AppLocalizations.of(context)!.ok, onPressed: scaffold.hideCurrentSnackBar),
                               )
-                          );
+                          );*/
+                          bool connect = await _showDigitalCertificateDialog();
+                          if(connect) {
+                            // I don't have access to this kind of government credentials
+                            // Lets simulate a 3 seconds success connection
+                            buildLoadingIndicator(context);
+                            Timer.periodic(
+                              const Duration(seconds: 2),
+                              (Timer timer) {
+                                timer.cancel();
+                                /* Set user id on Provider for future uses */
+                                Provider.of<User>(context, listen: false).setUserId('X46959966');
+                                // remove loading indicator
+                                Navigator.of(context).pop();
+                                /* And navigate to main screen */
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MainMenuView()),
+                                );
+                              }
+                            );
+                          }
                         },
                         child: Text(AppLocalizations.of(context)!.digital_login),
                         style: ElevatedButton.styleFrom(
@@ -177,15 +202,13 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ElevatedButton(
-                        key: new Key('DigitalCertificateLoginButton'),
+                        key: new Key('DigitalFingerprintLoginButton'),
                         onPressed: () {
-                          /* Future feature, now as particular developer I have not access
-                          to government's digital user system */
                           // Future feature, show snackBar to the user
                           final scaffold = ScaffoldMessenger.of(context);
                           scaffold.showSnackBar(
                               SnackBar(
-                                key: new Key('DigitalCertificateSnackBar'),
+                                key: new Key('FingerprintSnackBar'),
                                 content: Text(AppLocalizations.of(context)!.not_available_option),
                                 action: SnackBarAction(label: AppLocalizations.of(context)!.ok, onPressed: scaffold.hideCurrentSnackBar),
                               )
@@ -245,6 +268,39 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
       // Credentials don't match, show error message
       _showErrorDialog();
     }
+  }
+
+  // Certificate Dialog
+  Future<bool> _showDigitalCertificateDialog() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.digital_certificate_title),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.digital_certificate_message),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.cancel),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.connect),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    ).then((connect) => connect ?? false);
   }
 
   // Error Dialog

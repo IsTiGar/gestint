@@ -117,7 +117,7 @@ class _CourseInfoWidgetState extends State<CourseInfoWidget> {
               widget.course.available ? ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Color.fromARGB(255, 50, 129, 75)),
                 onPressed: () {
-                  //TODO Register user in this course
+                  _showSubscriptionDialog(widget.course.title);
                 },
                 child: Text(AppLocalizations.of(context)!.subscription, style: TextStyle(fontSize: 14),),
               ) : ElevatedButton(
@@ -125,7 +125,7 @@ class _CourseInfoWidgetState extends State<CourseInfoWidget> {
                 onPressed: () {
                   //TODO Register user in this course
                 },
-                child: Text(AppLocalizations.of(context)!.subscription, style: TextStyle(fontSize: 14),),
+                child: Text(AppLocalizations.of(context)!.closed, style: TextStyle(fontSize: 14),),
               ),
             ],
           )
@@ -204,4 +204,35 @@ class _CourseInfoWidgetState extends State<CourseInfoWidget> {
     );
   }
 
+  Future<void> _showSubscriptionDialog(String title) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.course_subscription_message),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.cancel),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.confirm, style: TextStyle(color: Color.fromARGB(255, 50, 129, 75)),),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

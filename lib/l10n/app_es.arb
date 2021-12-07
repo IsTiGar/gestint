@@ -198,5 +198,8 @@
   "courses": "Cursos de formación",
   "course_subscription_message": "Confirma que quieres inscribirte en este curso",
   "cancel": "CANCELAR",
-  "confirm": "CONFIRMAR"
+  "confirm": "CONFIRMAR",
+  "digital_certificate_title": "Se requiere un certificado de cliente válido",
+  "digital_certificate_message": "¿Utilizar el certificado - TIERNO GARCÍA, ISRAEL - para conectarse?",
+  "connect": "CONECTAR"
 }
