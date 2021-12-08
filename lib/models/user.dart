@@ -4,7 +4,6 @@ class User extends ChangeNotifier {
   /// Internal, private state of the user.
   late String _userId;
 
-  ///
   void setUserId(String userId) {
     _userId = userId;
     // This call tells the widgets that are listening to this model to rebuild.

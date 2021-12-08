@@ -39,10 +39,24 @@ class _ProcedureResultViewState extends State<ProcedureResultView> implements Pr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.job_selection)), //TODO cambiar texto
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.awards,
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              '${AppLocalizations.of(context)!.procedure} ${widget.procedureId}',
+              style: TextStyle(fontSize: 14),
+            )
+          ],
+        )
+      ),
       body: Padding(
         padding: EdgeInsets.all(10),
-        child: _isLoading ? CustomProgressIndicatorWidget() : _procedureResultNotFound? SizedBox.shrink() : ListView.builder(
+        child: _isLoading ? CustomProgressIndicatorWidget() : _procedureResultNotFound? SizedBox.shrink() : ListView.separated(
           padding: const EdgeInsets.all(0),
           itemBuilder: (BuildContext context, int index) {
             return ProcedureResultInfoWidget(
@@ -52,6 +66,7 @@ class _ProcedureResultViewState extends State<ProcedureResultView> implements Pr
             );
           },
           itemCount: _procedureResultList.length,
+          separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor),
         ),
       ),
     );
@@ -67,7 +82,7 @@ class _ProcedureResultViewState extends State<ProcedureResultView> implements Pr
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(AppLocalizations.of(context)!.job_warning), //TODO
+              Text(AppLocalizations.of(context)!.procedure_result_warning),
             ],
           ),
           actions: <Widget>[

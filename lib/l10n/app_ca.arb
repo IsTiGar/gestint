@@ -201,5 +201,10 @@
   "confirm": "CONFIRMAR",
   "digital_certificate_title": "Cal un certificat de client vàlid",
   "digital_certificate_message": "Vol utilitzar el certificat - TIERNO GARCÍA, ISRAEL - per connectar-se?",
-  "connect": "CONNECTAR"
+  "connect": "CONNECTAR",
+  "awarded_to": "Adjudicada a",
+  "score": "punts",
+  "awards": "Adjudicaciones",
+  "procedure_result_warning": "S'ha produït un error en recuperar aquestes adjudicacions, disculpeu les molèsties i torneu-ho a intentar més tard"
+
 }

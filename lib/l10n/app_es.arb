@@ -18,7 +18,7 @@
   "documents": "Documentos",
   "economical_data": "Datos económicos",
   "education": "Formación",
-  "scale": "Baremación",
+  "scale": "Baremo",
   "available_workers": "Interinos disponibles",
   "procedures": "Trámites",
   "school_map": "Mapa de centros",
@@ -121,7 +121,7 @@
   "catalan_degrees": "Titulaciones de catalán",
   "training": "Formación permanente",
   "total_score": "Puntuación total",
-  "scale_warning": "Se ha producido un error al recuperar su baremación, disculpe las molestias y vuelva a intentarlo más tarde",
+  "scale_warning": "Se ha producido un error al recuperar su baremo, disculpe las molestias y vuelva a intentarlo más tarde",
   "logout_warning": "¿Está seguro de querer salir de la aplicación?",
   "confirmation": "Confirmación",
   "yes": "Sí",
@@ -135,7 +135,7 @@
   "and": "y",
   "more_info": "Más información",
   "copyright_info": "© Israel Tierno García Reservados todos los derechos. Está prohibido la reproducción total o parcial de esta obra por cualquier medio o procedimiento, comprendidos la impresión, la reprografía, el microfilme, el tratamiento informático o cualquier otro sistema, así como la distribución de ejemplares mediante alquiler y préstamo, sin la autorización escrita del autor o de los límites que autorice la Ley de Propiedad Intelectual",
-  "profile_warning": "Se ha producido un error al recuperar sus datos de perfil",
+  "profile_warning": "Se ha producido un error al recuperar sus datos de perfil, disculpe las molestias y vuelva a intentarlo más tarde",
   "choose_body": "Selecciona un cuerpo",
   "choose_function": "Selecciona una función",
   "show_button_text": "MOSTRAR",
@@ -201,5 +201,9 @@
   "confirm": "CONFIRMAR",
   "digital_certificate_title": "Se requiere un certificado de cliente válido",
   "digital_certificate_message": "¿Utilizar el certificado - TIERNO GARCÍA, ISRAEL - para conectarse?",
-  "connect": "CONECTAR"
+  "connect": "CONECTAR",
+  "awarded_to": "Adjudicada a",
+  "score": "puntos",
+  "awards": "Adjudicaciones",
+  "procedure_result_warning": "Se ha producido un error al recuperar estas adjudicaciones, disculpe las molestias y vuelva a intentarlo más tarde"
 }

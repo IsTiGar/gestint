@@ -18,67 +18,62 @@ class ProcedureResultInfoWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(5),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.group_outlined,
-                        color: Colors.pinkAccent,
-                        size: 20.0,
-                      ),
-                      Text(typeString)
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.home,
-                        color: Colors.cyan,
-                        size: 20.0,
-                      ),
-                      Text('${procedureResult.school}')
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.purple,
-                        size: 20.0,
-                      ),
-                      Text(functionString)
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.event,
-                        color: Colors.green,
-                        size: 20.0,
-                      ),
-                      Text('${AppLocalizations.of(context)!.start}: ${procedureResult.startDate}'),
-                      Icon(
-                        Icons.event,
-                        color: Colors.black,
-                        size: 20.0,
-                      ),
-                      Text('${AppLocalizations.of(context)!.end}: ${procedureResult.endDate}'),
-                    ],
-                  )
-                ],
+              Icon(
+                Icons.group_outlined,
+                color: Colors.pinkAccent,
+                size: 20.0,
               ),
+              Text(typeString)
             ],
           ),
-          Divider(color: Theme.of(context).primaryColor),
+          Row(
+            children: [
+              Icon(
+                Icons.home,
+                color: Colors.cyan,
+                size: 20.0,
+              ),
+              Text('${procedureResult.school}')
+            ],
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.star,
+                color: Colors.purple,
+                size: 20.0,
+              ),
+              Text(functionString)
+            ],
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.event,
+                color: Colors.green,
+                size: 20.0,
+              ),
+              Text('${AppLocalizations.of(context)!.start}: ${procedureResult.startDate}'),
+              Icon(
+                Icons.event,
+                color: Colors.black,
+                size: 20.0,
+              ),
+              Text('${AppLocalizations.of(context)!.end}: ${procedureResult.endDate}'),
+            ],
+          ),
+          Text(
+            '${AppLocalizations.of(context)!.awarded_to} ${procedureResult.newOwner}, ${AppLocalizations.of(context)!.score}: ${procedureResult.score}',
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
         ],
-      )
+      ),
     );
   }
 }
