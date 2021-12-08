@@ -41,7 +41,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
     super.initState();
     DateTime now = new DateTime.now();
     _currentMonth = now.month; // from 1 to 12
-    // get the more recent payroll (past month)
+    // get the more recent payroll (past month) automatically
     _monthValue = widget.monthList[_currentMonth-2];
     _currentYear = now.year;
     // if december then set past year
@@ -126,7 +126,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
                 ],
               ),
               SizedBox(height: 10,),
-              // Payroll info
+              // Payroll info, this time the information is shown in a table with no borders
               _isLoading ? CustomProgressIndicatorWidget() : _payrollNotFound ? SizedBox.shrink() : Table(
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 defaultColumnWidth: IntrinsicColumnWidth(),
@@ -375,6 +375,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
     );
   }
 
+  // Update payroll info to show
   @override
   void onLoadPayrollComplete(Payroll payroll) {
     setState(() {
@@ -384,6 +385,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
     });
   }
 
+  // Show error dialog
   @override
   void onLoadPayrollError() {
     setState(() {
@@ -393,6 +395,7 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
     });
   }
 
+  // show dialog if app can't get the payroll
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

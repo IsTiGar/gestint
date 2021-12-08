@@ -10,6 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'custom_progress_indicator.dart';
 import 'underlinedTextWidget.dart';
 
+/// This widget shows the individual category user score and also the total score of the current user
+
 class ScaleWidget extends StatefulWidget {
   const ScaleWidget({Key? key}) : super(key: key);
 

@@ -8,6 +8,9 @@ import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:gestint/widgets/procedure_result_info_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a list with the results of a procedure
+/// Users can check here if he/she is hired
+
 class ProcedureResultView extends StatefulWidget{
 
   final String procedureId;
@@ -32,6 +35,7 @@ class _ProcedureResultViewState extends State<ProcedureResultView> implements Pr
   void initState() {
     super.initState();
     _helper = new Helper(context);
+    // Get results of the procedure whose id is procedureId
     _procedureResultPresenter = ProcedureResultsPresenter(this);
     _procedureResultPresenter.getProcedureResult(widget.procedureId);
   }
@@ -39,7 +43,7 @@ class _ProcedureResultViewState extends State<ProcedureResultView> implements Pr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar( // show screen title and procedure id as subtitle
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -72,6 +76,7 @@ class _ProcedureResultViewState extends State<ProcedureResultView> implements Pr
     );
   }
 
+  // show dialog if app can't get the results
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,
@@ -111,6 +116,7 @@ class _ProcedureResultViewState extends State<ProcedureResultView> implements Pr
         });
   }
 
+  // Update procedure result list and remove loading indicator
   @override
   void onLoadProcedureResultComplete(List<ProcedureResult> procedureResultList) {
     setState(() {
@@ -119,11 +125,12 @@ class _ProcedureResultViewState extends State<ProcedureResultView> implements Pr
     });
   }
 
+  // Remove loading indicator and show warning dialog
   @override
   void onLoadProcedureResultError() {
     setState(() {
       _isLoading = false;
-      _procedureResultNotFound = true;
+      _procedureResultNotFound = true; // This makes Listview to show SizedBox.shrink() = nothing
       _showErrorDialog();
     });
   }

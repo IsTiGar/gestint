@@ -9,6 +9,9 @@ import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows the user current job (where and job info)
+/// This info corresponds to the second Personal file tabs
+
 class CurrentJobWidget extends StatefulWidget{
 
   CurrentJobWidget({Key? key}) : super(key: key);
@@ -38,7 +41,7 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(25, 20, 25, 0),
-      child: _isLoading ? CustomProgressIndicatorWidget() : Column(
+      child: _isLoading ? CustomProgressIndicatorWidget() : _currentJobNotFound ? SizedBox.shrink() : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -75,14 +78,17 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
     );
   }
 
+  // update job info
   @override
   void onLoadCurrentJobComplete(CurrentJob currentJob) {
     setState(() {
       _currentJob = currentJob;
+      _currentJobNotFound = false;
       _isLoading = false;
     });
   }
 
+  // Something happened retrieving the info
   @override
   void onLoadCurrentJobError() {
     setState(() {
@@ -92,6 +98,7 @@ class _CurrentJobWidgetState extends State<CurrentJobWidget> implements CurrentJ
     });
   }
 
+  // Show error dialog if app fail getting the user current situation
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

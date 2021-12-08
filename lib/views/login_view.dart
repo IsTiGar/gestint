@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'main_menu_view.dart';
 
+/// This widget shows a login form, user has to log in in order to use the app
+
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -33,7 +35,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   void initState() {
     super.initState();
     _userPresenter = UserPresenter(this);
-    /* Check if user has saved credentials */
+    // Check if user has saved credentials
     var _storageModel = new StorageModel();
     _storagePresenter = new StoragePresenter(this, _storageModel);
     _storagePresenter.getUserCredentials();
@@ -42,7 +44,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /* this avoids overflow when keyboard is visible */
+      // this avoids overflow when keyboard is visible
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
@@ -171,11 +173,12 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                               const Duration(seconds: 2),
                               (Timer timer) {
                                 timer.cancel();
-                                /* Set user id on Provider for future uses */
+                                /* Set user id on Provider for future uses, in real life
+                                * the userId comes from the digital certificate */
                                 Provider.of<User>(context, listen: false).setUserId('X46959966');
                                 // remove loading indicator
                                 Navigator.of(context).pop();
-                                /* And navigate to main screen */
+                                // And navigate to main screen
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => MainMenuView()),
@@ -195,7 +198,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     child: ElevatedButton(
                         key: new Key('DigitalFingerprintLoginButton'),
                         onPressed: () {
-                          // Future feature, show snackBar to the user
+                          // Future feature, show snackBar to the user, not available at current app version
                           final scaffold = ScaffoldMessenger.of(context);
                           scaffold.showSnackBar(
                               SnackBar(
@@ -263,7 +266,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
     }
   }
 
-  // Certificate Dialog
+  // Certificate Dialog (simulation)
   Future<bool> _showDigitalCertificateDialog() {
     return showDialog(
       context: context,

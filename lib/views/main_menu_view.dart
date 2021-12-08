@@ -21,6 +21,9 @@ import 'package:gestint/widgets/welcome_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows the main menu, it has a side menu
+/// If user click on a section the widget rebuild and show the corresponding screen instead of navigating to a new screen
+
 class MainMenuView extends StatefulWidget{
 
   MainMenuView({Key? key}) : super(key: key);
@@ -37,11 +40,11 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
   bool _isLoading = true;
   bool _workerNotFound = false;
   bool _showBottomBar = false;
-  // First widget to show is WelcomeWidget
+  // First widget to show is always WelcomeWidget
   Widget bodyWidget = WelcomeWidget();
-  String appBarTitle = 'Portal del personal'; // this is the same in catalan or spanish
+  String appBarTitle = 'Portal del personal'; // this is the same in catalan or spanish so no need for translation
   String bottomBarCourseHours = ''; // defined later
-  late Helper _helper;
+  late Helper _helper; // this is a helper class for string translation, it's used in many screens
 
   // callback function
   void _onHoursCallback(double hours) {
@@ -81,7 +84,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
               ),
               child: _isLoading ? CustomProgressIndicatorWidget() : _workerNotFound? Container(child: Text(AppLocalizations.of(context)!.profile_warning), alignment: Alignment.center,) : ProfileWidget(worker: _worker),
             ),
-            // Navigation block tiles
+            // Navigation drawer block tiles
             ListTile(
               title: Text(AppLocalizations.of(context)!.personal_file),
               leading: Icon(
@@ -262,7 +265,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 showAboutDialog(
                   context: context,
                   applicationVersion: '1.0.0',
-                  applicationName: 'Gestint',
+                  applicationName: 'GestInt',
                   applicationLegalese: AppLocalizations.of(context)!.copyright_info,
                   applicationIcon: Image(image: AssetImage('assets/images/flag.png')),
                 );
@@ -284,7 +287,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
           ],
         ),
       ),
-      bottomNavigationBar: Visibility(
+      bottomNavigationBar: Visibility( // only visible if we are in some screen
         visible: _showBottomBar,
         child: BottomAppBar(
           color: Theme.of(context).primaryColor,
@@ -302,7 +305,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
         )
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: Visibility(
+      floatingActionButton: Visibility( // only visible if we are in some screen
         visible: _showBottomBar,
         child: FloatingActionButton(
           backgroundColor: Colors.green,
@@ -360,9 +363,9 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 Provider.of<User>(context, listen: false).clearUserId();
                 // Then close dialog
                 Navigator.of(context).pop();
-                //Then close drawer
+                // Then close drawer
                 Navigator.pop(context);
-                //Then return to login screen
+                // Then return to login screen
                 Navigator.pop(context);
               },
             ),

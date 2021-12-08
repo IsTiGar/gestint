@@ -14,23 +14,30 @@ La aplicación es muy intuitiva, pero para poder utilizarla correctamente se han
 1. Es una aplicación donde el usuario ha de estar registrado previamente por la Conselleria d’Educació de les Illes Balears, es decir, no existe un botón para registrarse. En la vida real la persona interesada va en persona a la Conselleria en un plazo determinado y solicita el registro entregando los papeles necesarios para la docencia. En las Islas Baleares se pide la titulación universitaria, el Máster de profesorado o equivalente y la certificación de conocimiento de la lengua catalana.
 
 2. A día de hoy para poder acceder a la aplicación existen dos maneras:
-    - Mediante usuario y contraseña. Las credenciales son:
-        - Usuario: X46959966
-        - Contraseña 1234
+   - Mediante usuario y contraseña. Las credenciales son:
+      - Usuario: X46959966
+      - Contraseña 1234
 
-    - Mediante certificado digital. Pulsando el botón correspondiente se simula la utilización de un certificado digital gubernamental con el mismo usuario. Simplemente se han de seguir las instrucciones por pantalla para conectar.
+   - Mediante certificado digital. Pulsando el botón correspondiente se simula la utilización de un certificado digital gubernamental con el mismo usuario. Simplemente se han de seguir las instrucciones por pantalla para conectar.
 
 3. Si se accede a la aplicación mediante el método de usuario y contraseña el usuario tiene la opción de recordar estas credenciales para futuros usos. Si se marca la casilla “Recuérdame” las credenciales se guardarán y los campos de usuario y contraseña se auto-cumplimentarán la próxima vez. Si se accede sin marcar dicha casilla las credenciales se borrarán del sistema.
 
 4. En el apartado “Datos económicos” se pueden consultar las nóminas (ficticias) de este usuario. Para ahorrar trabajo al interesado las nóminas que se pueden consultar son las siguientes:
-    - Agosto 2021
-    - Septiembre 2021
-    - Octubre 2021
-    - Noviembre 2021
-    - Diciembre 2021
+   - Agosto 2021
+   - Septiembre 2021
+   - Octubre 2021
+   - Noviembre 2021
+   - Diciembre 2021
 
 5. En el apartado “Formación” se pueden visualizar los cursos que el usuario ha realizado y tiene registrados, pero también puede solicitar inscribirse en nuevos cursos de diferentes centros de profesorado (CEP). Para ahorrar trabajo al corrector los CEPS que tienen cursos disponibles para solicitar son:
-    - CEP de Formentera
+   - CEP de Formentera
+
+6. En el apartado “Interinos disponibles” se pueden visualizar listas de trabajadores que no tienen un centro asignado y, por lo tanto, están disponibles para cubrir una plaza. Se pueden visualizar filtrando por cuerpo de enseñanza y función. Como son muchas listas diferentes he optado por incluir trabajadores sólo en algunas, obviamente en la vida real todas, o casi todas, las listas tendrían trabajadores disponibles. Para ahorrar trabajo al corrector las listas que poseen trabajadores para mostrar son las siguientes:
+   - Cuerpo: 059 Secundaria, Función: 001 Filosofía
+   - Cuerpo: 059 Secundaria, Función: 005 Geografía e Historia
+   - Cuerpo: 059 Secundaria, Función: 006 Matemáticas
+   - Cuerpo: 059 Secundaria, Función: 007 Física y Química
+
 
 ### Idiomas disponibles
 La aplicación puede ser utilizada tanto en castellano como en catalán ya que son las lenguas oficiales de las Islas Baleares. La aplicación detecta automáticamente el idioma principal del dispositivo y muestra los textos en ese idioma.
@@ -57,23 +64,29 @@ L'aplicació és molt intuïtiva, però per poder-la utilitzar correctament s'ha
 1. És una aplicació on l‟usuari ha d‟estar registrat prèviament per la Conselleria d‟Educació de les Illes Balears, és a dir, no hi ha un botó per registrar-se. A la vida real la persona interessada va en persona a la Conselleria en un termini determinat i sol·licita el registre lliurant els papers necessaris per a la docència. A les Illes Balears es demana la titulació universitària, el Màster de professorat o equivalent i la certificació de coneixement de la llengua catalana.
 
 2. A dia d'avui per poder accedir a l'aplicació hi ha dues maneres:
-    - Mitjançant usuari i contrasenya. Les credencials són:
-        - Usuari: X46959966
-        - Contrasenya 1234
+   - Mitjançant usuari i contrasenya. Les credencials són:
+      - Usuari: X46959966
+      - Contrasenya 1234
 
-    - Mitjançant certificat digital. Fent clic al botó corresponent se simula la utilització d'un certificat digital governamental amb el mateix usuari. Simplement s'han de seguir les instruccions per pantalla per connectar.
+   - Mitjançant certificat digital. Fent clic al botó corresponent se simula la utilització d'un certificat digital governamental amb el mateix usuari. Simplement s'han de seguir les instruccions per pantalla per connectar.
 
 3. Si s'accedeix a l'aplicació mitjançant el mètode d'usuari i contrasenya l'usuari té l'opció de recordar aquestes credencials per a usos futurs. Si es marca la casella “Recorda'm” les credencials es desaran i els camps d'usuari i contrasenya s'autoemplenaran la propera vegada. Si s'accedeix sense marcar aquesta casella, les credencials s'esborraran del sistema.
 
 4. A l'apartat “Dades econòmiques” es poden consultar les nòmines (fictícies) d'aquest usuari. Per estalviar feina a l'interessat les nòmines que es poden consultar són les següents:
-    - Agost 2021
-    - Setembre 2021
-    - Octubre 2021
-    - Novembre 2021
-    - Desembre 2021
+   - Agost 2021
+   - Setembre 2021
+   - Octubre 2021
+   - Novembre 2021
+   - Desembre 2021
 
 5. A l'apartat “Formació” es poden visualitzar els cursos que l'usuari ha realitzat i té registrats, però també pot sol·licitar inscriure's a nous cursos de diferents centres de professorat (CEP). Per estalviar feina al corrector els CEPS que tenen cursos disponibles per sol·licitar són:
-    - CEP de Formentera
+   - CEP de Formentera
+
+6. A l'apartat “Interins disponibles” es poden visualitzar llistes de treballadors que no tenen un centre assignat i, per tant, estan disponibles per cobrir una plaça. Es poden visualitzar filtrant per cos d'ensenyament i funció. Com que són moltes llistes diferents he optat per incloure treballadors només en algunes, òbviament a la vida real totes, o gairebé totes, les llistes tindrien treballadors disponibles. Per estalviar feina al corrector les llistes que tenen treballadors per mostrar són les següents:
+   - Cos: 059 Secundària, Funció: 001 Filosofia
+   - Cos: 059 Secundària, Funció: 005 Geografia i Història
+   - Cos: 059 Secundària, Funció: 006 Matemàtiques
+   - Cos: 059 Secundària, Funció: 007 Física i Química
 
 ### Idiomes disponibles
 L'aplicació pot ser utilitzada tant en castellà com en català, ja que són les llengües oficials de les Illes Balears. L'aplicació detecta automàticament l'idioma principal del dispositiu i mostra els textos en aquest idioma.
@@ -83,4 +96,3 @@ Obrir el projecte a Android Studio i executar en un emulador o dispositiu real. 
 
 ### Observacions
 L'aplicació ha estat testejada únicament en dispositius Android.
-

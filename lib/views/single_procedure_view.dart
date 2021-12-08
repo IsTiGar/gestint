@@ -119,6 +119,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
     );
   }
 
+  // Update job list
   @override
   void onLoadSingleProcedureComplete(List<CurrentJob> availableJobList) {
     setState(() {
@@ -127,6 +128,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
     });
   }
 
+  // Show error dialog
   @override
   void onLoadSingleProcedureError() {
     setState(() {
@@ -136,6 +138,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
     });
   }
 
+  // show dialog if app can't get the jobs
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,
@@ -175,6 +178,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
         });
   }
 
+  // If register is complete go to previous screen and show success screen
   @override
   void onRegisterProcedureComplete() {
     Navigator.push(
@@ -183,6 +187,7 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
     );
   }
 
+  // If register fails go to previous screen and show failure screen
   @override
   void onRegisterProcedureError() {
     Navigator.push(

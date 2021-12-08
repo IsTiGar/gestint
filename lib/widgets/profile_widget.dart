@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/models/worker_model.dart';
 
+/// This widget shows user profile info on drawer header (avatar, full name and email)
+
 class ProfileWidget extends StatelessWidget {
 
   final Worker worker;

@@ -9,6 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
+/// This widget shows a list of user past and present destinations (where and when)
+
 class DestinationsWidget extends StatefulWidget {
   const DestinationsWidget({Key? key}) : super(key: key);
 
@@ -56,7 +58,6 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
                       fontSize: 16,
                       fontWeight: FontWeight.bold
                   ),
-                  //textAlign:TextAlign.end,
                 ),
                 Text(
                   buildTimeString(_destinationsList[index].calculateTime()),
@@ -74,6 +75,7 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
     );
   }
 
+  // update destinations list
   @override
   void onLoadDestinationsComplete(List<Destination> destinationsList) {
     setState(() {
@@ -83,6 +85,7 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
     });
   }
 
+  // Something happened retrieving the list
   @override
   void onLoadDestinationsError() {
     setState(() {
@@ -92,6 +95,7 @@ class _DestinationsWidgetState extends State<DestinationsWidget> implements Dest
     });
   }
 
+  // Show error dialog if app fail getting the user destinations
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+/// This widget shows a text with a colored underline, is used in many parts of the app
+
 class UnderlinedTextWidget extends StatelessWidget {
 
   final String text;

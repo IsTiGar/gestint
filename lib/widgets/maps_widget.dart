@@ -8,6 +8,7 @@ import 'package:gestint/presenters/schools_presenter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MapsWidget extends StatefulWidget {
   @override
@@ -32,19 +33,13 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
   }
 
   Future _checkLocationPermission() async {
-    //TODO
-    /*final status = await Permission.location.serviceStatus;
-    final isGpsActive = status == ServiceStatus.enabled;
-    if(!isGpsActive) {
-      print('Gps no activo');
-    }*/
     if (await Permission.location.request().isGranted) {
-      // Permiso concedido
+      // Access granted
       _goToMyPosition();
     }
-
   }
 
+  // Get schools location coordinates
   Future _getSchoolsInfo() async {
     _schoolsPresenter.getSchools();
   }
@@ -52,7 +47,7 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
   // Initial position, these are central Mallorca coordinates
   static final CameraPosition _initialPosition = CameraPosition(
     target: LatLng(39.615689, 2.882468),
-    zoom: 20,
+    zoom: 7,
   );
 
   @override
@@ -97,7 +92,7 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
 
   @override
   void onLoadSchoolsError() {
-    // TODO: implement onLoadSchoolsError
+    _showErrorDialog();
   }
 
   @override
@@ -116,4 +111,31 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
       }
     });
   }
+
+  Future<void> _showErrorDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.warning),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.maps_warning),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.ok),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

@@ -205,5 +205,7 @@
   "awarded_to": "Adjudicada a",
   "score": "puntos",
   "awards": "Adjudicaciones",
-  "procedure_result_warning": "Se ha producido un error al recuperar estas adjudicaciones, disculpe las molestias y vuelva a intentarlo más tarde"
+  "procedure_result_warning": "Se ha producido un error al recuperar estas adjudicaciones, disculpe las molestias y vuelva a intentarlo más tarde",
+  "maps_warning": "Se ha producido un error al recuperar las ubicaciones de los centros, disculpe las molestias y vuelva a intentarlo más tarde",
+  "personal_data_warning": "Se ha producido un error al recuperar sus datos personales, disculpe las molestias y vuelva a intentarlo más tarde"
 }

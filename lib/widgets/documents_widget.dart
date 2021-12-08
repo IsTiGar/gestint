@@ -9,6 +9,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
+/// This widget shows a list of user documents, can be downloaded in real life
+/// The app shows a fake downloading message due to I have not access to real documents
+
 class DocumentsWidget extends StatefulWidget {
   const DocumentsWidget({Key? key}) : super(key: key);
 
@@ -79,6 +82,7 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
     );
   }
 
+  // update documents list
   @override
   void onLoadDocumentsComplete(List<Document> documentsList) {
     setState(() {
@@ -88,6 +92,7 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
     });
   }
 
+  // Something happened retrieving the list
   @override
   void onLoadDocumentsError() {
     setState(() {
@@ -97,6 +102,7 @@ class _DocumentsWidgetState extends State<DocumentsWidget> implements DocumentsV
     });
   }
 
+  // Show error dialog if app fail getting the user documents
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

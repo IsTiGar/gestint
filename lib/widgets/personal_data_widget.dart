@@ -8,6 +8,9 @@ import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows some user personal info like name, email, birth, phone number, etc.
+/// This info corresponds to the first Personal file tabs
+
 class PersonalDataWidget extends StatefulWidget{
 
   PersonalDataWidget({Key? key}) : super(key: key);
@@ -20,6 +23,7 @@ class PersonalDataWidget extends StatefulWidget{
 class _PersonalDataWidgetState extends State<PersonalDataWidget> implements PersonalDataViewContract {
 
   bool _isLoading = true;
+  bool _personalDataNotFound = false;
   late PersonalData _personalData;
   late PersonalDataPresenter _personalDataPresenter;
 
@@ -34,7 +38,7 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> implements Pers
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(25, 20, 25, 0),
-      child: _isLoading ? CustomProgressIndicatorWidget() : Column(
+      child: _isLoading ? CustomProgressIndicatorWidget() : _personalDataNotFound ? SizedBox.shrink() : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -90,17 +94,51 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> implements Pers
     );
   }
 
+  // update data list
   @override
   void onLoadPersonalDataComplete(PersonalData personalData) {
     setState(() {
       _personalData = personalData;
+      _personalDataNotFound = false;
       _isLoading = false;
     });
   }
 
+  // Something happened retrieving the list
   @override
   void onLoadPersonalDataError() {
-    // TODO: implement onLoadPersonalDataError
+    setState(() {
+      _isLoading = false;
+      _personalDataNotFound = true;
+      _showErrorDialog();
+    });
+  }
+
+  // Show error dialog if app fail getting the user documents
+  Future<void> _showErrorDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.warning),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.personal_data_warning),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.ok),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
   
 
