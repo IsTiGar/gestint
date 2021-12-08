@@ -261,7 +261,7 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
                 size: 30.0,
               ),
               onTap: () {
-                // Ask for confirmation dialog
+                // Show Dialog with copyright and licenses info
                 showAboutDialog(
                   context: context,
                   applicationVersion: '1.0.0',

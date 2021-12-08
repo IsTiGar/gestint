@@ -53,6 +53,7 @@
   "function": "Función:",
   "part_time_yes": "Media jornada: Sí",
   "part_time_no": "Media jornada: No",
+  "part_time": "Media jornada",
   "current_job_warning": "Se ha producido un error al recuperar su situación actual, disculpe las molestias y vuelva a intentarlo más tarde",
   "from": "Desde",
   "to": "hasta",

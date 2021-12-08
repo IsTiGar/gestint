@@ -30,7 +30,8 @@ class ProcedureResultInfoWidget extends StatelessWidget {
                 color: Colors.pinkAccent,
                 size: 20.0,
               ),
-              Text(typeString)
+              // Show if its a part time job, nothing means full time job
+              procedureResult.partTime ? Text(typeString + ' (${AppLocalizations.of(context)!.part_time})') : Text(typeString),
             ],
           ),
           Row(

@@ -53,6 +53,7 @@
   "function": "Funció:",
   "part_time_yes": "Mitja jornada: Sí",
   "part_time_no": "Mitja jornada: No",
+  "part_time": "Mitja jornada",
   "current_job_warning": "S'ha produït un error en recuperar la seva situació actual, disculpeu les molèsties i torneu-ho a intentar més tard",
   "from": "Des de",
   "to": "fins",

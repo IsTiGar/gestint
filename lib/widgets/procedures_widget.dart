@@ -42,7 +42,7 @@ class _ProceduresWidgetState extends State<ProceduresWidget> implements Procedur
         itemBuilder: (BuildContext context, int index) {
           return ProcedureInfoWidget(procedure: _procedureList[index]);
         },
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor,),
       ),
     );
   }

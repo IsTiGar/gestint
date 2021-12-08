@@ -151,7 +151,7 @@ class Helper {
   getBodyString(String bodyCode) {
     String bodyString = "N/A"; // not available
     switch (bodyCode) {
-      case '':
+      case '058':
         // Primary school
         bodyString = AppLocalizations.of(context)!.primary;
         break;
