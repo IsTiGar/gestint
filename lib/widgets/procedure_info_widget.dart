@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestint/helpers/helper.dart';
 import 'package:gestint/models/procedure_model.dart';
+import 'package:gestint/views/procedure_result_view.dart';
 import 'package:gestint/views/single_procedure_view.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -103,7 +104,8 @@ class ProcedureInfoWidget extends StatelessWidget {
             )
           ) : ElevatedButton(
               onPressed: (){
-                // TODO See results of a procedure
+                // Go to available job list selection
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProcedureResultView(procedureId: procedure.id, codeList: _helper.getCodeList(),)));
               },
               child: Container(
                 alignment: Alignment.center,

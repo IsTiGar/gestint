@@ -313,7 +313,6 @@ class _MainMenuState extends State<MainMenuView> implements WorkerViewContract {
             color: Colors.white,
           ),
           onPressed: () {
-            //TODO ir a la pantalla de cursos
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => CourseRequestView(cepList: _helper.getCepList())),

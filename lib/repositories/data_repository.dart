@@ -9,6 +9,7 @@ import 'package:gestint/contracts/destinations_contract.dart';
 import 'package:gestint/contracts/documents_contract.dart';
 import 'package:gestint/contracts/payroll_contract.dart';
 import 'package:gestint/contracts/personal_data_contract.dart';
+import 'package:gestint/contracts/procedure_result_contract.dart';
 import 'package:gestint/contracts/procedures_contract.dart';
 import 'package:gestint/contracts/scale_contract.dart';
 import 'package:gestint/contracts/schools_contract.dart';
@@ -25,6 +26,7 @@ import 'package:gestint/models/document_model.dart';
 import 'package:gestint/models/payroll_model.dart';
 import 'package:gestint/models/personal_data_model.dart';
 import 'package:gestint/models/procedure_model.dart';
+import 'package:gestint/models/procedure_result_model.dart';
 import 'package:gestint/models/scale_model.dart';
 import 'package:gestint/models/school_model.dart';
 import 'package:gestint/models/worker_full_model.dart';
@@ -35,7 +37,8 @@ class DataRepository implements WorkerContract,
     ChargesContract, CoursesContract, CoursesFinishedContract, 
     DestinationsContract, DocumentsContract, PayrollContract,
     ScaleContract, AvailableWorkersContract, CurrentJobContract,
-    ProceduresContract, SingleProcedureContract, UserContract{
+    ProceduresContract, SingleProcedureContract, UserContract,
+    ProcedureResultContract{
 
   /* Firestore collections */
   final workerCollection = FirebaseFirestore.instance.collection("Worker");
@@ -56,233 +59,209 @@ class DataRepository implements WorkerContract,
 
   @override
   Future<Worker> getWorker(String id) async {
-    var workers = <Worker>[];
-    await workerCollection.limit(1)
-        .where('id', isEqualTo: id)
-        .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (worker) {
-              workers.add(Worker.fromSnapshot(worker.data()));
-            },
-          ),
+    List<Worker> workerList = await workerCollection.limit(1)
+        .where('id', isEqualTo: id).get().then(
+            (snapshot){
+          return snapshot.docs.map(
+                  (worker) => Worker.fromSnapshot(worker.data())).toList();
+        }
     );
-    return workers.first;
+    return workerList.first;
+
   }
 
   @override
   Future<List<WorkerFull>> getAvailableWorkers(String body, String function) async{
-    var availableWorkers = <WorkerFull>[];
-    await workerFullCollection
+    List<WorkerFull> workerFullList = await workerFullCollection
         .where('body', isEqualTo: body)
         .where('function', isEqualTo: function)
         .where('available', isEqualTo: true)
         .orderBy('score', descending: true)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (availableWorker) {
-                  availableWorkers.add(WorkerFull.fromSnapshot(availableWorker.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (availableWorker) => WorkerFull.fromSnapshot(availableWorker.data())).toList();
+        }
     );
-    print('Resultados: ' + availableWorkers.length.toString());
-    return availableWorkers;
+    return workerFullList;
   }
 
   // This function gets all schools location and other info to show on the map
   @override
   Future<List<School>> getSchools() async {
-    var schools = <School>[];
-    await schoolCollection.get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (school) {
-              schools.add(School.fromSnapshot(school.data()));
-            },
-          ),
+    List<School> schoolList = await schoolCollection
+        .get().then(
+            (snapshot){
+          return snapshot.docs.map(
+                  (school) => School.fromSnapshot(school.data())).toList();
+        }
     );
-    return schools;
+    return schoolList;
   }
 
   @override
   Future<PersonalData> getPersonalData(String id) async {
-    var personalDataArray = <PersonalData>[];
-    await personalDataCollection.limit(1)
-        .where('id', isEqualTo: id)
-        .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (pd) {
-                  personalDataArray.add(PersonalData.fromSnapshot(pd.data()));
-            },
-          ),
+    List<PersonalData> personalDataList = await personalDataCollection.limit(1)
+        .where('id', isEqualTo: id).get().then(
+            (snapshot){
+          return snapshot.docs.map(
+                  (pd) => PersonalData.fromSnapshot(pd.data())).toList();
+        }
     );
-    return personalDataArray.first;
+
+    return personalDataList.first;
   }
 
   @override
   Future<List<Certification>> getCertifications(String id) async {
-    var certifications = <Certification>[];
-    await certificationCollection
+    List<Certification> certificationList = await certificationCollection
         .where('id', isEqualTo: id)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (certification) {
-                  certifications.add(Certification.fromSnapshot(certification.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (certification) => Certification.fromSnapshot(certification.data())).toList();
+        }
     );
-    return certifications;
+    return certificationList;
   }
 
   @override
   Future<List<Charge>> getCharges(String id) async{
-    var charges = <Charge>[];
-    await chargeCollection
+    List<Charge> chargeList = await chargeCollection
         .where('id', isEqualTo: id)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (charge) {
-              charges.add(Charge.fromSnapshot(charge.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (charge) => Charge.fromSnapshot(charge.data())).toList();
+        }
     );
-    return charges;
+    return chargeList;
   }
 
   @override
   Future<List<Destination>> getDestinations(String id) async{
-    var destinations = <Destination>[];
-    await destinationCollection
+    List<Destination> destinationList = await destinationCollection
         .where('id', isEqualTo: id)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (destination) {
-              destinations.add(Destination.fromSnapshot(destination.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (destination) => Destination.fromSnapshot(destination.data())).toList();
+        }
     );
-    return destinations;
+    return destinationList;
   }
 
   @override
   Future<List<Document>> getDocuments(String id) async{
-    var documents = <Document>[];
-    await documentCollection
+    List<Document> documentList = await documentCollection
         .where('id', isEqualTo: id)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (document) {
-              documents.add(Document.fromSnapshot(document.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (document) => Document.fromSnapshot(document.data())).toList();
+        }
     );
-    return documents;
+    return documentList;
   }
 
   @override
   Future<Payroll> getPayroll(String id, int month, int year) async{
-    var payrolls = <Payroll>[];
-    await payrollCollection
+    List<Payroll> payrollList = await payrollCollection.limit(1)
         .where('id', isEqualTo: id)
         .where('month', isEqualTo: month)
         .where('year', isEqualTo: year)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (payroll) {
-              payrolls.add(Payroll.fromSnapshot(payroll.data()));
-            },
-          ),
+            (snapshot){
+              return snapshot.docs.map(
+                  (payroll) => Payroll.fromSnapshot(payroll.data())).toList();
+        }
     );
-    print('Longitud del vector: ' + payrolls.length.toString());
-    return payrolls.first;
+    return payrollList.first;
   }
 
   @override
   Future<Scale> getScale(String id) async{
-    var scales = <Scale>[];
-    await scaleCollection.limit(1)
+    List<Scale> scaleList = await scaleCollection.limit(1)
         .where('id', isEqualTo: id)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (scale) {
-              scales.add(Scale.fromSnapshot(scale.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (scale) => Scale.fromSnapshot(scale.data())).toList();
+        }
     );
-    return scales.first;
+    return scaleList.first;
   }
 
   @override
   Future<List<CourseFinished>> getCoursesFinished(String id) async {
-    var coursesFinished = <CourseFinished>[];
-    await courseFinishedCollection
+    List<CourseFinished> courseFinishedList = await courseFinishedCollection
         .where('id', isEqualTo: id)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (courseFinished) {
-              coursesFinished.add(CourseFinished.fromSnapshot(courseFinished.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (courseFinished) => CourseFinished.fromSnapshot(courseFinished.data())).toList();
+        }
     );
-    return coursesFinished;
+    return courseFinishedList;
   }
 
   // Get courses information
   @override
   Future<List<Course>> getCourses(String cepCode) async{
-    var courses = <Course>[];
-    await courseCollection
+    List<Course> courseList = await courseCollection
         .where('cepCode', isEqualTo: cepCode)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (course) {
-              courses.add(Course.fromSnapshot(course.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (course) => Course.fromSnapshot(course.data())).toList();
+        }
     );
-    return courses;
+    return courseList;
+
   }
 
   // Get current job for current user
   @override
   Future<CurrentJob> getCurrentJob(String id) async {
-    var currentJobs = <CurrentJob>[];
-    await jobCollection.limit(1)
+    List<CurrentJob> currentJobList = await jobCollection.limit(1)
         .where('owner', isEqualTo: id)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (job) {
-              currentJobs.add(CurrentJob.fromSnapshot(job.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (job) => CurrentJob.fromSnapshot(job.data())).toList();
+        }
     );
-    return currentJobs.first;
+    return currentJobList.first;
   }
 
   // Get procedures list
   @override
   Future<List<Procedure>> getProcedures() async {
-    var procedures = <Procedure>[];
-    await procedureCollection.get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (procedure) {
-              procedures.add(Procedure.fromSnapshot(procedure.data()));
-            },
-          ),
+    List<Procedure> procedureList = await procedureCollection
+        .get().then(
+            (snapshot){
+          return snapshot.docs.map(
+                  (procedure) => Procedure.fromSnapshot(procedure.data())).toList();
+        }
     );
-    return procedures;
+    return procedureList;
+  }
+
+  // Get procedure results
+  @override
+  Future<List<ProcedureResult>> getProcedureResult(String procedureId) async {
+    CollectionReference procedureResultsCollection = await procedureCollection.limit(1)
+        .where('id', isEqualTo: procedureId)
+        .get().then(
+            (snapshot) => snapshot.docs.first.reference.collection('ProcedureResults')
+    );
+    List<ProcedureResult> procedureResults = await procedureResultsCollection.get().then(
+            (snapshot){
+              return snapshot.docs.map(
+                      (doc) => ProcedureResult.fromSnapshot(doc.data() as Map<String, dynamic>)).toList();
+            }
+    );
+    return procedureResults;
   }
 
   // User request to be part of this procedure and send the available job list ordered by his/her preference
@@ -299,35 +278,26 @@ class DataRepository implements WorkerContract,
 
   @override
   Future<List<CurrentJob>> getAvailableJobs() async{
-    var availableJobs = <CurrentJob>[];
-    await jobCollection
+    List<CurrentJob> availableJobList = await jobCollection
         .where('available', isEqualTo: true)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (job) {
-                  availableJobs.add(CurrentJob.fromSnapshot(job.data()));
-            },
-          ),
+            (snapshot){
+          return snapshot.docs.map(
+                  (job) => CurrentJob.fromSnapshot(job.data())).toList();
+        }
     );
-    return availableJobs;
+    return availableJobList;
   }
 
   @override
   Future<bool> checkUserCredentials(String id, String password) async{
-    bool result = false;
-    await userCollection
+    bool result = await userCollection
         .where('id', isEqualTo: id)
         .where('password', isEqualTo: password)
         .limit(1)
         .get().then(
-          (snapshot) =>
-          snapshot.docs.forEach(
-                (user) {
-              if(user.exists) result = true;
-            },
-          ),
-    );
+          (snapshot) => snapshot.docs.first.exists
+        );
     return result;
   }
 

@@ -162,15 +162,6 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                         onPressed: () async{
                           /* Future feature, now as particular developer I have not access
                           to government's digital user system */
-                          // Future feature, show snackBar to the user
-                          /*final scaffold = ScaffoldMessenger.of(context);
-                          scaffold.showSnackBar(
-                              SnackBar(
-                                key: new Key('DigitalCertificateSnackBar'),
-                                content: Text(AppLocalizations.of(context)!.not_available_option),
-                                action: SnackBarAction(label: AppLocalizations.of(context)!.ok, onPressed: scaffold.hideCurrentSnackBar),
-                              )
-                          );*/
                           bool connect = await _showDigitalCertificateDialog();
                           if(connect) {
                             // I don't have access to this kind of government credentials
@@ -232,6 +223,8 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   @override
   void onCheckUserCredentialError() {
     setState(() {
+      // Hide loading indicator
+      Navigator.of(context).pop();
       _showErrorDialog();
     });
   }
@@ -265,7 +258,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
         _storagePresenter.getUserCredentials();
       });
     }else {
-      // Credentials don't match, show error message
+      // Credentials don't match, show error message and hide loading indicator
       _showErrorDialog();
     }
   }

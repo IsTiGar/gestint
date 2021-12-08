@@ -1,5 +1,3 @@
-//TODO extends from Worker
-
 class WorkerFull {
 
   final String body;
