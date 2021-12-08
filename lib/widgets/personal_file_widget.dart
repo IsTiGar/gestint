@@ -7,6 +7,8 @@ import 'package:gestint/widgets/destinations_widget.dart';
 import 'package:gestint/widgets/personal_data_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a list of tabs with some user information (personal data, current job, etc.)
+
 class PersonalFileWidget extends StatefulWidget {
   const PersonalFileWidget({Key? key}) : super(key: key);
 
@@ -17,6 +19,7 @@ class PersonalFileWidget extends StatefulWidget {
 class _PersonalFileWidgetState extends State<PersonalFileWidget> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin<PersonalFileWidget> {
   late TabController _tabController;
 
+  // Tabs configuration
   @override
   void initState() {
     super.initState();

@@ -9,6 +9,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
+/// This widget shows a list of user certifications
+/// This info corresponds to the fifth Personal file tabs
+
 class CertificationsWidget extends StatefulWidget {
   const CertificationsWidget({Key? key}) : super(key: key);
 
@@ -73,6 +76,7 @@ class _CertificationsWidgetState extends State<CertificationsWidget> implements 
     );
   }
 
+  // update certification list
   @override
   void onLoadCertificationsComplete(List<Certification> certificationList) {
     setState(() {
@@ -82,6 +86,7 @@ class _CertificationsWidgetState extends State<CertificationsWidget> implements 
     });
   }
 
+  // Something happened retrieving the list
   @override
   void onLoadCertificationsError() {
     setState(() {
@@ -91,6 +96,7 @@ class _CertificationsWidgetState extends State<CertificationsWidget> implements 
     });
   }
 
+  // Show error dialog if app fail getting the user certifications list
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

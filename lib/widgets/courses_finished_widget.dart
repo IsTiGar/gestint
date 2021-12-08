@@ -9,6 +9,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'custom_progress_indicator.dart';
 
+/// This widget shows a list of user finished courses (course title, dates, who did the course, hours dedicated to the course, etc.)
+/// Also user can request more courses clicking on the + floating button
+
 class CoursesFinishedWidget extends StatefulWidget {
 
   final Function onHoursCallback;
@@ -50,10 +53,12 @@ class _CoursesFinishedWidgetState extends State<CoursesFinishedWidget> implement
 
   @override
   void onLoadCoursesFinishedComplete(List<CourseFinished> courseList) {
+    // Calculate total hours dedicated to courses
     double totalHours = 0;
     for(var course in courseList) {
       totalHours += course.hours;
     }
+    // update info on screen
     setState(() {
       _courseFinishedList = courseList;
       _coursesNotFound = false;
@@ -62,6 +67,7 @@ class _CoursesFinishedWidgetState extends State<CoursesFinishedWidget> implement
     });
   }
 
+  // Something went wrong retrieving the information
   @override
   void onLoadCoursesFinishedError() {
     setState(() {
@@ -71,6 +77,7 @@ class _CoursesFinishedWidgetState extends State<CoursesFinishedWidget> implement
     });
   }
 
+  // Show a dialog error if app failed retrieving the info
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

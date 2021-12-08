@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a list of email addresses
+/// User can send an email to this addresses if he/she wishes to ask something about payrolls, courses, etc.
+
 class ContactWidget extends StatelessWidget {
 
   @override

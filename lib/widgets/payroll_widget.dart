@@ -9,6 +9,10 @@ import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a payroll info, can be downloaded in real life
+/// The app shows a fake downloading message due to I have not access to real documents
+/// It shows the last month payroll automatically but user can retrieve any payroll of the last 10 years
+
 class PayrollWidget extends StatefulWidget {
 
   final List<String> monthList;

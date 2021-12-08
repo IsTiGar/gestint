@@ -8,6 +8,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'custom_progress_indicator.dart';
 import 'procedure_info_widget.dart';
 
+/// This widget shows a list of past and present procedures
+
 class ProceduresWidget extends StatefulWidget {
 
   const ProceduresWidget({Key? key}) : super(key: key);
@@ -45,6 +47,7 @@ class _ProceduresWidgetState extends State<ProceduresWidget> implements Procedur
     );
   }
 
+  // Update list
   @override
   void onLoadProceduresComplete(List<Procedure> procedureList) {
     setState(() {
@@ -54,6 +57,7 @@ class _ProceduresWidgetState extends State<ProceduresWidget> implements Procedur
     });
   }
 
+  // Something went wrong
   @override
   void onLoadProceduresError() {
     setState(() {
@@ -63,6 +67,7 @@ class _ProceduresWidgetState extends State<ProceduresWidget> implements Procedur
     });
   }
 
+  // Show error dialog if something went wrong retrieving the info
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

@@ -4,6 +4,9 @@ import 'package:gestint/models/course_finished_model.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a single course info
+/// Is used in every row of the finished courses list
+
 class CourseFinishedInfoWidget extends StatelessWidget {
 
   final CourseFinished courseFinished;

@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This helper class is needed in some widgets
+/// It helps with the strings translation in spanish or catalan
+/// Also do other functions like code translation to text
 
 class Helper {
 

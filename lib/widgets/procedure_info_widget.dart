@@ -7,6 +7,9 @@ import 'package:gestint/views/single_procedure_view.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a list of past and present procedures
+/// User can check past procedure results or register his own procedure to ask for a job
+
 class ProcedureInfoWidget extends StatelessWidget {
 
   final Procedure procedure;
@@ -104,7 +107,7 @@ class ProcedureInfoWidget extends StatelessWidget {
             )
           ) : ElevatedButton(
               onPressed: (){
-                // Go to available job list selection
+                // Go to this procedure result
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProcedureResultView(procedureId: procedure.id, codeList: _helper.getCodeList(),)));
               },
               child: Container(

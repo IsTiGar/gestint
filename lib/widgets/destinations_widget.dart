@@ -9,7 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
-/// This widget shows a list of user past and present destinations (where and when)
+/// This widget shows a list of user past and present destinations (where, when and total time in destination)
+/// This info corresponds to the third Personal file tabs
 
 class DestinationsWidget extends StatefulWidget {
   const DestinationsWidget({Key? key}) : super(key: key);

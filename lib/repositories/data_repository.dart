@@ -32,6 +32,9 @@ import 'package:gestint/models/school_model.dart';
 import 'package:gestint/models/worker_full_model.dart';
 import 'package:gestint/models/worker_model.dart';
 
+/// Repository that get all information from Firestore
+/// Some methods write on the remote database
+
 class DataRepository implements WorkerContract,
     SchoolsContract, PersonalDataContract, CertificationsContract,
     ChargesContract, CoursesContract, CoursesFinishedContract, 

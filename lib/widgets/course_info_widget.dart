@@ -5,6 +5,9 @@ import 'package:gestint/models/course_model.dart';
 import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a single course info (dates, agency, etc.)
+/// User can check some course info, admitted and waiting lists and subscribe to available courses
+
 class CourseInfoWidget extends StatefulWidget{
 
   final Course course;
@@ -19,7 +22,6 @@ class CourseInfoWidget extends StatefulWidget{
 }
 
 class _CourseInfoWidgetState extends State<CourseInfoWidget> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -134,6 +136,7 @@ class _CourseInfoWidgetState extends State<CourseInfoWidget> {
     );
   }
 
+  // Show a list of admitted people in this course, only if course registration is closed, blank list otherwise
   Future<void> _showListDialog(List<String> admittedList, List<String> waitingList) async {
     return showDialog<void>(
       context: context,
@@ -178,6 +181,7 @@ class _CourseInfoWidgetState extends State<CourseInfoWidget> {
     );
   }
 
+  // Show this course general information
   Future<void> _showInfoDialog(String title, String message) async {
     return showDialog<void>(
       context: context,
@@ -204,6 +208,7 @@ class _CourseInfoWidgetState extends State<CourseInfoWidget> {
     );
   }
 
+  // User must confirm the subscription to the course
   Future<void> _showSubscriptionDialog(String title) async {
     return showDialog<void>(
       context: context,

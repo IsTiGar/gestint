@@ -1,20 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:gestint/contracts/courses_view_contract.dart';
-import 'package:gestint/contracts/single_procedure_view_contract.dart';
 import 'package:gestint/helpers/helper.dart';
 import 'package:gestint/models/course_model.dart';
-import 'package:gestint/models/current_job_model.dart';
-import 'package:gestint/models/user.dart';
 import 'package:gestint/presenters/courses_presenter.dart';
-import 'package:gestint/presenters/single_procedure_presenter.dart';
-import 'package:gestint/widgets/available_job_info_widget.dart';
 import 'package:gestint/widgets/course_info_widget.dart';
 import 'package:gestint/widgets/custom_progress_indicator.dart';
-import 'package:gestint/widgets/procedure_registration_result_widget.dart';
-import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
+
+/// This widget shows a list of available courses user can request filtered by CEP (centro de profesorado)
 
 class CourseRequestView extends StatefulWidget{
 
@@ -105,6 +99,27 @@ class _CourseRequestViewState extends State<CourseRequestView> implements Course
     );
   }
 
+  // Update list
+  @override
+  void onLoadCoursesComplete(List<Course> courseList) {
+    setState(() {
+      _courseList = courseList;
+      _coursesNotFound = false;
+      _isLoading = false;
+    });
+  }
+
+  // Something went wrong
+  @override
+  void onLoadCoursesError() {
+    setState(() {
+      _isLoading = false;
+      _coursesNotFound = true;
+      _showErrorDialog();
+    });
+  }
+
+  // Show error dialog in case something went wrong
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,
@@ -135,31 +150,14 @@ class _CourseRequestViewState extends State<CourseRequestView> implements Course
   the credentials are checked on the remote database */
   buildLoadingIndicator(BuildContext context) {
     return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Center(
-            child: CustomProgressIndicatorWidget(),
-          );
-        });
-  }
-
-  @override
-  void onLoadCoursesComplete(List<Course> courseList) {
-    setState(() {
-      _courseList = courseList;
-      _coursesNotFound = false;
-      _isLoading = false;
-    });
-  }
-
-  @override
-  void onLoadCoursesError() {
-    setState(() {
-      _isLoading = false;
-      _coursesNotFound = true;
-      _showErrorDialog();
-    });
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(
+          child: CustomProgressIndicatorWidget(),
+        );
+      }
+    );
   }
 
 }

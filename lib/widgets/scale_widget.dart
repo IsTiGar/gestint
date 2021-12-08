@@ -214,7 +214,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               columnWidths: {
                 0: FlexColumnWidth(1.0),
-                1: IntrinsicColumnWidth(), // i want this one to take the rest available space
+                1: IntrinsicColumnWidth(), // I want this one to take the rest available space
               },
               //border: TableBorder.all(),
               children: [
@@ -251,6 +251,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
     );
   }
 
+  // Update the info
   @override
   void onLoadScaleComplete(Scale scale) {
     setState(() {
@@ -260,6 +261,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
     });
   }
 
+  // Something went wrong
   @override
   void onLoadScaleError() {
     setState(() {
@@ -269,6 +271,7 @@ class _ScaleWidgetState extends State<ScaleWidget> implements ScaleViewContract 
     });
   }
 
+  // Show error dialog if something failed
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

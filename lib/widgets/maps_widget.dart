@@ -10,6 +10,9 @@ import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a map with school locations
+/// If user gives permission to use his location it shows the current user position in map
+
 class MapsWidget extends StatefulWidget {
   @override
   State<MapsWidget> createState() => MapsWidgetState();
@@ -90,11 +93,13 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
 
   }
 
+  // Something went wrong
   @override
   void onLoadSchoolsError() {
     _showErrorDialog();
   }
 
+  // Update markers to show on the map
   @override
   void onLoadSchoolsComplete(List<School> schoolList) {
     setState(() {
@@ -112,6 +117,7 @@ class MapsWidgetState extends State<MapsWidget> implements SchoolsViewContract {
     });
   }
 
+  // Show error dialog in case
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

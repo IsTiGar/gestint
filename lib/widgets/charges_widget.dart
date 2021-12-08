@@ -8,6 +8,8 @@ import 'package:gestint/widgets/custom_progress_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a list of user past and present charges (Tutor, Jefe de estudios, Director, etc.)
+/// This info corresponds to the fourth Personal file tabs
 
 class ChargesWidget extends StatefulWidget{
 
@@ -90,6 +92,7 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
     );
   }
 
+  // update charge list
   @override
   void onLoadChargesComplete(List<Charge> chargeList) {
     setState(() {
@@ -98,6 +101,7 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
     });
   }
 
+  // Something happened retrieving the list
   @override
   void onLoadChargesError() {
     setState(() {
@@ -107,6 +111,7 @@ class _ChargesWidgetState extends State<ChargesWidget> implements ChargesViewCon
     });
   }
 
+  // Show error dialog if app fail getting the user charge list
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

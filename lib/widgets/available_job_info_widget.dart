@@ -3,6 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:gestint/models/current_job_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// This widget shows a single job info (school, dates, type (sustitución or vacante), etc.)
+/// Is used in every row of the available jobs list
+
 class AvailableJobInfoWidget extends StatelessWidget {
 
   final CurrentJob job;

@@ -7,6 +7,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'custom_progress_indicator.dart';
 
+/// This widget shows a list of available workers
+/// User can filter by body and function (example: Secundaria and Matemáticas)
+
 class AvailableWorkersWidget extends StatefulWidget {
 
   final List<String> bodyList;
@@ -148,11 +151,13 @@ class AvailableWorkersWidget extends StatefulWidget {
     );
   }
 
+  // Code is inserted at 3 first digits, this function extracts this 3 digits to get the code
   String getCode(BuildContext context, String string) {
     String code = string.substring(0, 3); // returns first 3 characters (the code)
     return code;
   }
 
+  // This function gets the corresponding function list to show on the second dropdownbutton
   List<String> getFunctionList(BuildContext context) {
     List<String>? _functionList;
     String bodyCode = getCode(context, _bodyValue);
@@ -180,6 +185,7 @@ class AvailableWorkersWidget extends StatefulWidget {
     return _functionList;
   }
 
+  // update the list
   @override
   void onLoadAvailableWorkersComplete(List<WorkerFull> availableWorkersList) {
     setState(() {
@@ -189,6 +195,7 @@ class AvailableWorkersWidget extends StatefulWidget {
     });
   }
 
+  // Something went wrong
   @override
   void onLoadAvailableWorkersError() {
     setState(() {
@@ -198,6 +205,7 @@ class AvailableWorkersWidget extends StatefulWidget {
     });
   }
 
+  // Show a dialog error if app failed retrieving the info
   Future<void> _showErrorDialog() async {
     return showDialog<void>(
       context: context,

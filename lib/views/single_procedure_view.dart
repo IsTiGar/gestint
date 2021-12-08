@@ -12,6 +12,8 @@ import 'package:gestint/widgets/underlinedTextWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+/// This widget shows a list of available jobs of this single procedure
+
 class SingleProcedureView extends StatefulWidget{
 
   final String procedureId;

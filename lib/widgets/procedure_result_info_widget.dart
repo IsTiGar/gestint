@@ -3,6 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gestint/models/procedure_result_model.dart';
 
+/// This widget shows a single procedure results
+/// Users can see if they got a job
+
 class ProcedureResultInfoWidget extends StatelessWidget {
 
   final ProcedureResult procedureResult;
