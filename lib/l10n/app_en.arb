@@ -1,6 +1,0 @@
-{
-  "welcome_message": "Bienvenido al portal del personal de la Consejeria de Educación y Formación Profesional de las Islas Baleares",
-  "@welcome_message": {
-    "description": "The initial message"
-  }
-}

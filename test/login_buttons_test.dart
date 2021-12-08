@@ -12,7 +12,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gestint/helpers/setupFirebaseAuthMocks.dart';
 import 'package:gestint/theme/custom_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:gestint/views/login_view.dart';
 
 void main() {
@@ -79,7 +78,7 @@ void main() {
     await tester.pump();
 
     // Expect to find the item on screen.
-    expect(find.byKey(Key('DigitalCertificateSnackBar')), findsOneWidget);
+    expect(find.byKey(Key('digitalCertificateDialog')), findsOneWidget);
 
   });
 }

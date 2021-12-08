@@ -270,6 +270,7 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
+          key: new Key('digitalCertificateDialog'),
           title: Text(AppLocalizations.of(context)!.digital_certificate_title),
           content: Column(
             mainAxisSize: MainAxisSize.min,
