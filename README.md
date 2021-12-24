@@ -1,6 +1,6 @@
 # GestInt
 
-## Versió en castellà
+## Versión en castellano
 ### ¿En qué consiste esta aplicación?
 GestInt es un acrónimo de "Gestión de interinos". Esta aplicación ha sido creada para simular las gestiones que un interino de educación de las Islas Baleares puede realizar en su día a día:
 
