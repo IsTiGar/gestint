@@ -131,224 +131,229 @@ class _PayrollWidgetState extends State<PayrollWidget> implements PayrollViewCon
               ),
               SizedBox(height: 10,),
               // Payroll info, this time the information is shown in a table with no borders
-              _isLoading ? CustomProgressIndicatorWidget() : _payrollNotFound ? SizedBox.shrink() : Table(
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                defaultColumnWidth: IntrinsicColumnWidth(),
-                children: [
-                  TableRow(
-                      children: [
-                        UnderlinedTextWidget(text: AppLocalizations.of(context)!.concept, cellPadding: _cellPadding),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: UnderlinedTextWidget(
-                              text: AppLocalizations.of(context)!.accruals,
-                              cellPadding: _cellPadding
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: UnderlinedTextWidget(
-                              text: AppLocalizations.of(context)!.with_holdings,
-                              cellPadding: _cellPadding
-                          ),
-                        ),
-                      ]
+              _isLoading ? CustomProgressIndicatorWidget() : _payrollNotFound ? SizedBox.shrink() : Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Table(
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    defaultColumnWidth: IntrinsicColumnWidth(),
+                    children: [
+                      TableRow(
+                          children: [
+                            UnderlinedTextWidget(text: AppLocalizations.of(context)!.concept, cellPadding: _cellPadding),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: UnderlinedTextWidget(
+                                  text: AppLocalizations.of(context)!.accruals,
+                                  cellPadding: _cellPadding
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: UnderlinedTextWidget(
+                                  text: AppLocalizations.of(context)!.with_holdings,
+                                  cellPadding: _cellPadding
+                              ),
+                            ),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                AppLocalizations.of(context)!.base_salary,
+                                textAlign:TextAlign.start,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.base.toString(),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                            Container(),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                AppLocalizations.of(context)!.destination_complement,
+                                textAlign:TextAlign.start,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.destinationComplement.toString(),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                            Container(),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                AppLocalizations.of(context)!.residence_complement,
+                                textAlign:TextAlign.start,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.residenceComplement.toString(),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                            Container(),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                AppLocalizations.of(context)!.general_complement,
+                                textAlign:TextAlign.start,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.generalComplement.toString(),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                            Container(),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                AppLocalizations.of(context)!.community_complement,
+                                textAlign:TextAlign.start,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.communityComplement.toString(),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                            Container(),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                'IRPF ${_payroll.irpf} %',
+                                textAlign:TextAlign.start,
+                              ),
+                            ),
+                            Container(),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.calculateIrpf().toStringAsFixed(2),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                AppLocalizations.of(context)!.contribution,
+                                textAlign:TextAlign.start,
+                              ),
+                            ),
+                            Container(),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.contribution.toString(),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: UnderlinedTextWidget(
+                                  text: AppLocalizations.of(context)!.total_accruals,
+                                  cellPadding: _cellPadding
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: UnderlinedTextWidget(
+                                  text: AppLocalizations.of(context)!.total_with_holdings,
+                                  cellPadding: _cellPadding
+                              ),
+                            ),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.calculateAccrual().toString(),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.calculateTaxes().toStringAsFixed(2),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            UnderlinedTextWidget(
+                                text: AppLocalizations.of(context)!.total_salary,
+                                cellPadding: _cellPadding
+                            ),
+                            Container(),
+                            Container()
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(_cellPadding),
+                              child: Text(
+                                _payroll.calculateSalary().toStringAsFixed(2),
+                                textAlign:TextAlign.end,
+                              ),
+                            ),
+                            Container(),
+                            Container()
+                          ]
+                      ),
+                    ],
                   ),
-                  TableRow(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            AppLocalizations.of(context)!.base_salary,
-                            textAlign:TextAlign.start,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.base.toString(),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                        Container(),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            AppLocalizations.of(context)!.destination_complement,
-                            textAlign:TextAlign.start,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.destinationComplement.toString(),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                        Container(),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            AppLocalizations.of(context)!.residence_complement,
-                            textAlign:TextAlign.start,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.residenceComplement.toString(),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                        Container(),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            AppLocalizations.of(context)!.general_complement,
-                            textAlign:TextAlign.start,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.generalComplement.toString(),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                        Container(),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            AppLocalizations.of(context)!.community_complement,
-                            textAlign:TextAlign.start,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.communityComplement.toString(),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                        Container(),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            'IRPF ${_payroll.irpf} %',
-                            textAlign:TextAlign.start,
-                          ),
-                        ),
-                        Container(),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.calculateIrpf().toStringAsFixed(2),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            AppLocalizations.of(context)!.contribution,
-                            textAlign:TextAlign.start,
-                          ),
-                        ),
-                        Container(),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.contribution.toString(),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: UnderlinedTextWidget(
-                              text: AppLocalizations.of(context)!.total_accruals,
-                              cellPadding: _cellPadding
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: UnderlinedTextWidget(
-                              text: AppLocalizations.of(context)!.total_with_holdings,
-                              cellPadding: _cellPadding
-                          ),
-                        ),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.calculateAccrual().toString(),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.calculateTaxes().toStringAsFixed(2),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        UnderlinedTextWidget(
-                            text: AppLocalizations.of(context)!.total_salary,
-                            cellPadding: _cellPadding
-                        ),
-                        Container(),
-                        Container()
-                      ]
-                  ),
-                  TableRow(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(_cellPadding),
-                          child: Text(
-                            _payroll.calculateSalary().toStringAsFixed(2),
-                            textAlign:TextAlign.end,
-                          ),
-                        ),
-                        Container(),
-                        Container()
-                      ]
-                  ),
-                ],
+                ),
               )
             ],
           ),

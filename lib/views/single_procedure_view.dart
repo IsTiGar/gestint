@@ -48,32 +48,34 @@ class _SingleProcedureViewState extends State<SingleProcedureView> implements Si
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.job_selection)),
       body: Padding(
         padding: EdgeInsets.all(10),
-        child: _isLoading ? CustomProgressIndicatorWidget() : _singleProcedureNotFound? SizedBox.shrink() : ReorderableListView.builder(
-          padding: const EdgeInsets.all(0),
-          onReorder: (oldIndex, newIndex) {
-            setState(() {
-              if (oldIndex < newIndex) {
-                newIndex -= 1;
-              }
-              final CurrentJob job = _availableJobList.removeAt(oldIndex);
-              _availableJobList.insert(newIndex, job);
-            });
-          },
-          header: Container(
-            width: double.infinity,
-            alignment: Alignment.center,
-            child: UnderlinedTextWidget(text: AppLocalizations.of(context)!.long_press_message, cellPadding: 5,),
+        child: _isLoading ? CustomProgressIndicatorWidget() : _singleProcedureNotFound? SizedBox.shrink() : Expanded(
+          child: ReorderableListView.builder(
+            padding: const EdgeInsets.all(0),
+            onReorder: (oldIndex, newIndex) {
+              setState(() {
+                if (oldIndex < newIndex) {
+                  newIndex -= 1;
+                }
+                final CurrentJob job = _availableJobList.removeAt(oldIndex);
+                _availableJobList.insert(newIndex, job);
+              });
+            },
+            header: Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: UnderlinedTextWidget(text: AppLocalizations.of(context)!.long_press_message, cellPadding: 5,),
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return AvailableJobInfoWidget(
+                key: ValueKey(_availableJobList[index].id),
+                job: _availableJobList[index],
+                typeString: _helper.getTypeString(_availableJobList[index].type),
+                functionString: _helper.getFunctionString(_availableJobList[index].function),
+              );
+            },
+            itemCount: _availableJobList.length,
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return AvailableJobInfoWidget(
-              key: ValueKey(_availableJobList[index].id),
-              job: _availableJobList[index],
-              typeString: _helper.getTypeString(_availableJobList[index].type),
-              functionString: _helper.getFunctionString(_availableJobList[index].function),
-            );
-          },
-          itemCount: _availableJobList.length,
-        ),
+        )
       ),
       bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,

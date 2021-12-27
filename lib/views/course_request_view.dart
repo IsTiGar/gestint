@@ -84,15 +84,17 @@ class _CourseRequestViewState extends State<CourseRequestView> implements Course
             _isLoading ? Expanded(child: CustomProgressIndicatorWidget())
                 : _coursesNotFound ? SizedBox.shrink()
                 : _courseList.length==0 ? Column(children: [SizedBox(height: 30,), Text(AppLocalizations.of(context)!.zero_results)])
-                :ListView.separated(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(8),
-              itemCount: _courseList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return CourseInfoWidget(course: _courseList[index],);
-              },
-              separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor),
-            ),
+                : Expanded(
+              child: ListView.separated(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(8),
+                itemCount: _courseList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return CourseInfoWidget(course: _courseList[index],);
+                },
+                separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).primaryColor),
+              ),
+            )
           ],
         ),
       ),

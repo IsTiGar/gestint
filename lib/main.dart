@@ -1,3 +1,9 @@
+/// © Israel Tierno García
+/// Reservados todos los derechos. Está prohibido la reproducción total o parcial de esta obra por cualquier medio o procedimiento,
+/// comprendidos la impresión, la reprografía, el microfilme, el tratamiento informático o cualquier otro sistema,
+/// así como la distribución de ejemplares mediante alquiler y préstamo, sin la autorización escrita del autor
+/// o de los límites que autorice la Ley de Propiedad Intelectual.
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

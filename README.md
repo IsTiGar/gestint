@@ -96,3 +96,12 @@ Obrir el projecte a Android Studio i executar en un emulador o dispositiu real. 
 
 ### Observacions
 L'aplicació ha estat testejada únicament en dispositius Android.
+
+---
+
+## LICENCIA
+© Israel Tierno García
+Reservados todos los derechos. Está prohibido la reproducción total o parcial de esta obra por cualquier medio o procedimiento,
+comprendidos la impresión, la reprografía, el microfilme, el tratamiento informático o cualquier otro sistema,
+así como la distribución de ejemplares mediante alquiler y préstamo, sin la autorización escrita del autor
+o de los límites que autorice la Ley de Propiedad Intelectual.

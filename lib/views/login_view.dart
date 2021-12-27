@@ -30,6 +30,8 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
   bool _checkboxValue = false;
   TextEditingController _userController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  final FocusNode _userFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
 
   @override
   void initState() {
@@ -87,6 +89,10 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     // this moves the cursor to the next field
                     textInputAction: TextInputAction.next,
                     controller: _userController,
+                    focusNode: _userFocus,
+                    onFieldSubmitted: (term){
+                      _fieldFocusChange(context, _userFocus, _passwordFocus);
+                    },
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.example,
                     ),
@@ -110,7 +116,19 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
                     key: new Key('password'),
                     // this hides the keyboard
                     textInputAction: TextInputAction.done,
+                    focusNode: _passwordFocus,
                     controller: _passwordController,
+                    onFieldSubmitted: (value){
+                      _passwordFocus.unfocus();
+                      /* Validate will return true if the form is valid, or false if
+                           the form is invalid. */
+                      if (_formKey.currentState!.validate()) {
+                        buildLoadingIndicator(context);
+                        var id = _userController.text;
+                        var password = _passwordController.text;
+                        _userPresenter.checkUserCredentials(id, password);
+                      }
+                    },
                     obscureText: true,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -221,6 +239,12 @@ class _LoginViewState extends State<LoginView> implements UserViewContract, Stor
         ),
       ),
     );
+  }
+
+  // This function change focus between nodes
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
   }
 
   @override
