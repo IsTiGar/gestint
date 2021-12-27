@@ -189,11 +189,10 @@ class _CourseInfoWidgetState extends State<CourseInfoWidget> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(message),
-            ],
+          content: Expanded(
+            child: SingleChildScrollView(
+              child: Text(message),
+            ),
           ),
           actions: <Widget>[
             TextButton(
